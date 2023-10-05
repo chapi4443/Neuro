@@ -29,11 +29,12 @@ const router = express.Router();
 const predictionController = require('../controllers/predictionController');
 const {
   authenticateUser,
-  authorizePermissions,
+ 
 } = require("../middleware/authentication");
 
 // Define the route for predicting stroke risk
 router.post('/predict_stroke_risk',authenticateUser, predictionController.predictStrokeRisk);
 router.get("/predictions",authenticateUser, predictionController.getAllPredictions);
+router.post("/medical", predictionController.getMedicalResponse);
 
 module.exports = router;

@@ -49,7 +49,24 @@ async function getAllPredictions(req, res) {
   }
 }
 
+async function getMedicalResponse(req, res) {
+  try {
+    const { question } = req.body; // Assuming the question is sent in the request body
+
+    // Forward the question to the Flask application
+    const flaskUrl = "http://127.0.0.1:4000"; // Change the port if necessary
+    const response = await axios.post(`${flaskUrl}/medical`, { question });
+
+    // Send the Flask application's response back to the client
+    res.json({ response: response.data.response });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 module.exports = {
   predictStrokeRisk,
-  getAllPredictions, // Add the new controller function
+  getAllPredictions,
+  getMedicalResponse, // Add the new controller function
 };
