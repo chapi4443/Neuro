@@ -7,7 +7,6 @@ const { attachCookiesToResponse, createTokenUser } = require('../utils');
 const register = async (req, res) => {
   const {
     email,
-    name,
     password,
     first_name,
     last_name,

@@ -9,9 +9,20 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, precision_recall_fscore_support
 from sklearn.linear_model import LogisticRegression
 import google.generativeai as palm
+import os
+from dotenv import load_dotenv
+
+
+
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the API key from the environment variable
+palm_api_key = os.getenv("PALM_API_KEY")
 
 # Configure with your API key
-palm.configure(api_key='AIzaSyD4iOipAbxMSKI3ESrqCpNx7L68sg9_SK0')
+palm.configure(api_key=palm_api_key)
 
 # Retrieve and select a generative AI model that supports 'generateText'
 models = [m for m in palm.list_models() if 'generateText' in m.supported_generation_methods]
@@ -37,6 +48,7 @@ def predict_stroke_risk(input_data):
     return {
         'Logistic Regression Probability': logistic_regression_prob
     }
+
 
 @app.route('/predict_stroke_risk', methods=['POST'])
 def predict_stroke():
