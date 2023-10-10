@@ -148,11 +148,8 @@
 #         print(f"{metric.capitalize()}: {score:.2f}")
 
 #     app.run(debug=True, port=4000)  # Change the port to 4000
-###############################second level#############################
+# ##############################second level#############################
 
-# app.py
-
-import os
 import pandas as pd
 import joblib
 from flask import Flask, request, jsonify
@@ -164,6 +161,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, precision_recall_fscore_support
 from sklearn.linear_model import LogisticRegression
 import google.generativeai as palm
+import os
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -197,6 +195,15 @@ def predict_stroke_risk(input_data):
     return {
         'Logistic Regression Probability': logistic_regression_prob
     }
+
+def generate_stroke_advice(stroke_probability):
+    prompt = f"My stroke risk probability is {stroke_probability:.2%}. What should I do?"
+    response = palm.generate_text(
+        model=model,
+        prompt=prompt,
+        max_output_tokens=800,
+    ).result
+    return response
 
 @app.route('/predict_stroke_risk', methods=['POST'])
 def predict_stroke():
@@ -238,50 +245,22 @@ def medical_question():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/interpret_result', methods=['POST'])
-def interpret_result():
+@app.route('/stroke_advice', methods=['POST'])
+def stroke_advice():
     try:
         input_data = request.get_json()
 
         if not input_data:
             return jsonify({"error": "No input data provided"}), 400
 
-        # Extract the logistic regression probability from the previous response
-        logistic_regression_prob = input_data.get('Logistic Regression Probability')
+        stroke_probability = input_data.get('Logistic Regression Probability')
 
-        # Generate a description and advice using GPT-3.5
-        medical_prompt = """
-        "As an expert in stroke disease prevention, you play a crucial role in advising and developing
-         personalized diet and exercise plans for patients based on their unique profiles. Your insights 
-         are backed by extensive data analysis and a powerful model that calculates the risk of stroke.
-        User Profile:
-        Weight: {weight} kg
-        Height: {height} meters
-        Risk of a Stroke: {exposure_percent}%
-        History of Stroke: {history_of_stroke}
-        Family History of Stroke: {family_history_of_stroke}
-        Physical Activity Level: {physical_activity_level}
-        Diet: {diet}
-        Systolic Blood Pressure: {systolic_blood_pressure} mmHg
-        Diastolic Blood Pressure: {diastolic_blood_pressure} mmHg
-        It's essential to emphasize that the risk of stroke provided is based on meticulous data analysis and should be taken seriously.
+        if stroke_probability is None:
+            return jsonify({"error": "Stroke probability not provided"}), 400
 
-        Taking into account the user's profile, it's commendable to acknowledge the positive aspects but also address areas that require improvement.
+        advice = generate_stroke_advice(stroke_probability)
 
-        Please provide a comprehensive set of recommendations, highlighting the favorable aspects of the user's profile while pinpointing areas that necessitate change.
-
-        Please offer comprehensive recommendations tailored to the user's profile. 
-
-        Include specific guidance on lifestyle changes, dietary adjustments, and exercise routines that will not only promote better overall health but also reduce the risk of stroke effectively."
-        """
-
-        response = palm.generate_text( 
-            model=model,
-            prompt=medical_prompt,
-            max_output_tokens=800,
-        ).result
-
-        return jsonify({"response": response})
+        return jsonify({"advice": advice})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -342,4 +321,6 @@ if __name__ == '__main__':
                 score = recall[1]
         print(f"{metric.capitalize()}: {score:.2f}")
 
-    app.run(debug=True, port=4000)  # Change the port to 4000
+    app.run(debug=True, port=4000)
+
+
