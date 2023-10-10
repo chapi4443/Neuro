@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "sprs-bmkn",
+  "private_key_id": "6d73cc6412f9773ba1f6e02f5333e6760c1be101",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQClo4FSJIVhBKdU\nI8J7yFY0k7an9SYdBql6Ybuta87oGaqPM5CxcDWRrCL1tU8Pj/6sDP5dm30K2yTO\nLPHgiDitQzn2ctkdCIDx1kMhi/nUkSHVo4cquOaSyZxgtkiOoLZqXY7PcZli5jZ/\n75I6hMyABpS/rT8DeP7tmVwGRSwDSrhjKuUurof0glnxfHOeDyEc2PlrDLA4SxJ1\nA78LIQQ/WXWk4ROOG72O9LXBSaRYxqpKBAK2RjdhiKQmdv07xNGO5j2rikufaM9s\n4x3F87OnJQMd5H/bj0PqY0appFwCBCnN0P8G7Twe0FeQHpBMHYTD+JaQJyE7mfrQ\n5PpbfBzLAgMBAAECggEAEH+44fXBU2ijQj5NoQbTj2knSJOiuEFxoD8b8qpKcdQc\nqSb5wrLqoxgCY3cr6ODu/TROIgTa77nkcKUJctQe0SNhIqtN9RZjwbMV/MF0oTfT\npvQjAp5oWTa73OZLU+muQeoPz5oBLVjBFP1IE4wm0pnVN0KKhE4JFqGwCO/a8njV\nvVrv4L7V3J9GhhDT3jhZDHHPpBO69WMbOk43igkaMJI3c4hFTXeUxkSlzdk0oGiW\nI5ZIGIkD/kVuMl6QuODJruC9wt2IUTH12nu4yUZzglbzgiz+uxcGdxXTOb4zDvV8\npGXa0R/bP/RXfvEQgD2O1Sj/7P8GKunhqRfeLIFQAQKBgQDfGD2sdp1mfZCPElAA\nUyCPQRIIlrrX7kMq5mbQKtLfeSGaOR51hg45fHWQbEaTpbxw5DIcocLTmkB3S6OQ\n9Wj5be1D54rN2l8FqK2FEN/U024I+zyyRWLtkwXfRnJvJMKNdTJvJ8b4zVu+9aZg\nXOWKCLCe0NpOAxY2lnTdW/wPMQKBgQC+Ec1UfwTzNh2XNhndXogCnJssNNCgt0iC\nAvLSUTilBbtOpX8iMtd3m4n3biYa/TA98KB/2h3g+55GRj85KM8x3g3QNmDvY2Fa\n2Np850241dB5JmaDOveSBfET9BSPfEsx61hRevdYqK/panKP4h5KT64K9o6VV0IE\nvTOXzpREuwKBgQCD7Q7ThNUxfYFVyct7Va0EacNjRtc4x9H6dYNJCHno4vXHAI4N\ni3ev8PSIsi7OMw0LaTZlDhdrEGWc5iLUnvszvRi4thyz/LWCYCw0azUh4uHH9+H9\nveBxgybO0RbsuL0/75UifFBCYxYlB5kalPS8OsVPNUxTI6ooH7L+D94vkQKBgFGH\nsVwdYDIzdF34hv++HPmB084SmatW83NRcHdm/7VJ0B7cPrycsnBL99J7HT1WfesT\n3MT6+vYW+L2MRHJwXvA1IBfAO7R0HL6rZo1Narlufg55ul9wW+H3SoIUoP0rg9XV\n7fyFkrQlJ9AoKRwvEm8t3qo1ONQ2qcr+nbLwmgkhAoGBAIamzawJ+mIVoTkxEUY1\nA86OhNotKptLs4LawVVBI78LeMayfb8GsSRQ/d8/p9YZku2DpQgz3i+KTSSgoxNH\nJl+WeD7kC2/5FkmnvIzRqN61nev2XMBIbctZdmN8i10tn2sJDUCl3ZJOXqMh3WCB\n1q18qEVLInuwbspMi4MUFld3\n-----END PRIVATE KEY-----\n",
+  "client_email": "neurogenai@sprs-bmkn.iam.gserviceaccount.com",
+  "client_id": "101768017435433838060",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/neurogenai%40sprs-bmkn.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
