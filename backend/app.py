@@ -177,6 +177,9 @@ Gender: {gender}
 
 
     
+# Initialize a dictionary to store previous chats
+previous_chats = {}
+
 @app.route('/medical', methods=['POST'])
 def medical_question():
     try:
@@ -190,25 +193,34 @@ def medical_question():
         if not model:
             return jsonify({"error": "No suitable AI model found"}), 500
 
-        medical_prompt = f"""
-         You are  NuroGen a health assistant for patients, especially on stroke.
-         You will be given a question below, and you are not allowed to answer a question that is not related to health and medicine
-         if the question is greeting you are alowed to answer 
-         if you are asked who you are or what you say that you are  NuroGen a health assistant
-         just tell the user that you cannot answer a question not related to health . 
-         If the question is related to health, give a response.
-         The question:{question}
-        """
-        response = palm.generate_text(
-            model=model,
-            prompt=medical_prompt,
-            max_output_tokens=800,
-        ).result
+        # Check if the question is a greeting or unrelated to health
+        if "greeting" in question.lower() or "who are you" in question.lower():
+            response = "NuroGen is a health assistant and can only answer health-related questions."
+        else:
+            # Check if there are previous chats related to this question
+            related_chat = previous_chats.get(question.lower())
+            if related_chat:
+                response = related_chat
+            else:
+                medical_prompt = f"""
+                You are NuroGen, a health assistant for patients, especially on stroke.
+                You will be given a question below, and you are not allowed to answer a question that is not related to health and medicine.
+                The question: {question}
+                """
+                response = palm.generate_text(
+                    model=model,
+                    prompt=medical_prompt,
+                    max_output_tokens=800,
+                ).result
+
+                # Store the response in the previous chats dictionary
+                previous_chats[question.lower()] = response
 
         return jsonify({"response": response})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     # Load the dataset and perform preprocessing
@@ -266,7 +278,7 @@ if __name__ == '__main__':
                 score = recall[1]
         print(f"{metric.capitalize()}: {score:.2f}")
 
-    app.run(debug=True, port=4000)  # Change the port to 4000
+    app.run(debug=True, port=4000)   # Change the port to 4000
 # ##############################second level#############################
 
 # import pandas as pd
