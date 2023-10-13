@@ -115,7 +115,7 @@ def get_stroke_recommendations():
     if request.method == 'POST':
         # Extract data from the request
         data = request.get_json()
-        
+
         exposure_percent = data.get('exposure_percent', 40)
         weight = data.get('weight', 150)
         height = data.get('height', 1.70)
@@ -126,26 +126,47 @@ def get_stroke_recommendations():
         systolic_blood_pressure = data.get('systolic_blood_pressure', 50)
         diastolic_blood_pressure = data.get('diastolic_blood_pressure', 60)
 
-        medical_prompt = f"""
-        As an expert in stroke disease prevention, you play a crucial role in advising and developing
-        personalized diet and exercise plans for patients based on their unique profiles. Your insights 
-        are backed by extensive data analysis and a powerful model that calculates the risk of stroke.
-        User Profile:
-        Weight: {weight} kg
-        Height: {height} meters
-        Risk of a Stroke: {exposure_percent}%
-        History of Stroke: {history_of_stroke}
-        Family History of Stroke: {family_history_of_stroke}
-        Physical Activity Level: {physical_activity_level}
-        Diet: {diet}
-        Systolic Blood Pressure: {systolic_blood_pressure} mmHg
-        Diastolic Blood Pressure: {diastolic_blood_pressure} mmHg
-        It's essential to emphasize that the risk of stroke provided is based on meticulous data analysis and should be taken seriously.
-        Taking into account the user's profile, it's commendable to acknowledge the positive aspects but also address areas that require improvement.
-        Please provide a comprehensive set of recommendations, highlighting the favorable aspects of the user's profile while pinpointing areas that necessitate change.
-        Please offer comprehensive recommendations tailored to the user's profile. 
-        Include specific guidance on lifestyle changes, dietary adjustments, and exercise routines that will not only promote better overall health but also reduce the risk of stroke effectively.
-        """
+        # Extract user data, handling missing or empty data['data']
+        user_data = data.get('data', [{}])[0]
+
+        # Extract specific user data fields for the prompt
+        age = user_data.get('age', 'N/A')
+        hypertension = user_data.get('hypertension', 'N/A')
+        heart_disease = user_data.get('heart_disease', 'N/A')
+        ever_married = user_data.get('ever_married', 'N/A')
+        work_type = user_data.get('work_type', 'N/A')
+        residence_type = user_data.get('Residence_type', 'N/A')
+        avg_glucose_level = user_data.get('avg_glucose_level', 'N/A')
+        bmi = user_data.get('bmi', 'N/A')
+        smoking_status = user_data.get('smoking_status', 'N/A')
+        gender = user_data.get('gender', 'N/A')
+
+        # Construct the prompt with user data
+        medical_prompt =  f"""
+As an expert in stroke disease prevention, you play a crucial role in advising and developing
+personalized diet and exercise plans for patients based on their unique profiles. Your insights 
+are backed by extensive data analysis and a powerful model that calculates the risk of stroke.
+
+User Profile:
+Weight: {weight} kg
+Height: {height} meters
+Age: {age} years
+Risk of a Stroke: {exposure_percent}%
+History of Stroke: {history_of_stroke}
+Family History of Stroke: {family_history_of_stroke}
+Physical Activity Level: {physical_activity_level}
+Diet: {diet}
+Systolic Blood Pressure: {systolic_blood_pressure} mmHg
+Diastolic Blood Pressure: {diastolic_blood_pressure} mmHg
+Hypertension: {hypertension}
+Heart Disease: {heart_disease}
+Ever Married: {ever_married}
+Work Type: {work_type}
+Residence Type: {residence_type}
+Average Glucose Level: {avg_glucose_level} mg/dL
+Gender: {gender}
+"""
+
         response = palm.generate_text(
             model=model,
             prompt=medical_prompt,
