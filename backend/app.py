@@ -34,7 +34,7 @@ else:
 app = Flask(__name__)
 
 # Load the pre-trained logistic regression model
-logistic_regression = joblib.load('model/logistic_regression_model.pkl')
+logistic_regression = joblib.load('logistic_regression_model.pkl')
 
 def predict_stroke_risk(input_data):
     if not isinstance(input_data, pd.DataFrame):
@@ -224,7 +224,7 @@ def medical_question():
 
 if __name__ == '__main__':
     # Load the dataset and perform preprocessing
-    data = pd.read_csv("data/healthcare-dataset-stroke-data.csv")
+    data = pd.read_csv("healthcare-dataset-stroke-data.csv")
 
     data['bmi'].fillna(data['bmi'].mean(), inplace=True)
     data['smoking_status'].fillna(data['smoking_status'].mode()[0], inplace=True)
