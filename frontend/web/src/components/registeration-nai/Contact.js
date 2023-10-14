@@ -3,7 +3,13 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-export default function Contact() {
+export default function Contact({ onDataChange }) {
+  const handleDataChange = (id, value) => {
+    onDataChange({ id, value });
+  console.log(id,value)
+
+  };
+ 
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -18,6 +24,7 @@ export default function Contact() {
             fullWidth
             autoComplete="email"
             variant="standard"
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -28,6 +35,7 @@ export default function Contact() {
             fullWidth
             autoComplete="tel"
             variant="standard"
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -38,6 +46,7 @@ export default function Contact() {
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -48,6 +57,7 @@ export default function Contact() {
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -58,6 +68,7 @@ export default function Contact() {
             fullWidth
             autoComplete="shipping country"
             variant="standard"
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
       </Grid>

@@ -1,4 +1,5 @@
-import * as React from 'react';
+// Review component
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
@@ -10,16 +11,17 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Review = ({ personalData, contactData, accountData }) => {
-  const { firstName, lastName, dateOfBirth, gender, age } = personalData;
-  const { email, phoneNumber, address, city, country } = contactData;
-  const { password } = accountData;
-
-  const [showPassword, setShowPassword] = React.useState(false);
-
+const Review = ({ formData }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  if (!formData) {
+    return <div>Loading...</div>;
+  }
+console.log(formData);
+
 
   return (
     <React.Fragment>
@@ -30,38 +32,38 @@ const Review = ({ personalData, contactData, accountData }) => {
         <Grid item xs={6}>
           <List>
             <ListItem>
-              <ListItemText primary="First Name" secondary={firstName} />
+              <ListItemText primary="First Name" secondary={formData.firstName} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Last Name" secondary={lastName} />
+              <ListItemText primary="Last Name" secondary={formData.lastName} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Date of Birth" secondary={dateOfBirth} />
+              <ListItemText primary="Date of Birth" secondary={formData.dateOfBirth} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Gender" secondary={gender} />
+              <ListItemText primary="Gender" secondary={formData.gender} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Age" secondary={age} />
+              <ListItemText primary="Age" secondary={formData.age} />
             </ListItem>
           </List>
         </Grid>
         <Grid item xs={6}>
           <List>
             <ListItem>
-              <ListItemText primary="Email" secondary={email} />
+              <ListItemText primary="Email" secondary={formData.email} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Phone Number" secondary={phoneNumber} />
+              <ListItemText primary="Phone Number" secondary={formData.phoneNumber} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Address" secondary={address} />
+              <ListItemText primary="Address" secondary={formData.address} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="City" secondary={city} />
+              <ListItemText primary="City" secondary={formData.city} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Country" secondary={country} />
+              <ListItemText primary="Country" secondary={formData.country} />
             </ListItem>
             <ListItem>
               <TextField
@@ -72,7 +74,7 @@ const Review = ({ personalData, contactData, accountData }) => {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="new-password"
                 variant="standard"
-                value={password}
+                value={formData.password}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">

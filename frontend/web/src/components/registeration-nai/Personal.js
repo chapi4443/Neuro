@@ -7,13 +7,17 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 
-export default function Personal() {
+export default function Personal({ onDataChange }) {
+  const handleDataChange = (id, value) => {
+    onDataChange({ id, value });
+  };
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Personal Information
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
             required
@@ -23,6 +27,7 @@ export default function Personal() {
             fullWidth
             autoComplete="given-name"
             variant="standard"
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -34,6 +39,7 @@ export default function Personal() {
             fullWidth
             autoComplete="family-name"
             variant="standard"
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -48,6 +54,7 @@ export default function Personal() {
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -57,21 +64,23 @@ export default function Personal() {
               aria-label="gender"
               name="gender"
               defaultValue="male"
+              onChange={(e) => handleDataChange(e.target.name, e.target.value)}
             >
               <FormControlLabel value="female" control={<Radio />} label="Female" />
               <FormControlLabel value="male" control={<Radio />} label="Male" />
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
             id="age"
             name="age"
             label="Age"
             fullWidth
-            type="number" 
+            type="number"
             variant="standard"
+            onChange={(e) => handleDataChange(e.target.id, e.target.value)}
           />
         </Grid>
       </Grid>
