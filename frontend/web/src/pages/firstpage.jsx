@@ -185,7 +185,7 @@ const FirstPage = () => {
                 border: "1px solid #16C2D5",
               },
             }}
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/registeration")}
           >
             Register
           </StyledButton>
