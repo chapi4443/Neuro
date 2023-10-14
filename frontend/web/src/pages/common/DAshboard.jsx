@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DAshboard = () => {
+function DAshboard() {
   return (
     <div>DAshboard</div>
   )

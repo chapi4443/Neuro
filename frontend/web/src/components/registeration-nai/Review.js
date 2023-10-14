@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Review = ({ formData }) => {
+export default function Review({ formData })  {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -93,4 +93,3 @@ console.log(formData);
   );
 };
 
-export default Review;

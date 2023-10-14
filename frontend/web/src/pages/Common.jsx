@@ -471,30 +471,41 @@ const Common = () => {
         {/*main content start */}
         <Box
           sx={{
-            position: "absolute",
-            left: 0, // Position it relative to the parent
-            top: 0, // Position it at the top
-            paddingLeft: isNotMobile ? (!notHide ? "0px" : "270px") : "", // Adjust padding for the second child
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh", // Adjust the height as needed
             width: "100%", // Make it stretch the full width
-            zIndex: 0, // Ensure the second child is behind the first child
+            backgroundColor: "#f0f0f0", // Set the background color if necessary
           }}
         >
-          {selectedTab === 0 ? (
-            <DAshboard />
-          ) : selectedTab === 1 ? (
-            <RA />
-          ) : selectedTab === 2 ? (
-            <CHAT />
-          ) : selectedTab === 3 ? (
-            <Notifications />
-          ) : selectedTab === 4 ? (
-            <REport />
-          ) : selectedTab === 5 ? (
-            <HElp />
-          ) : (
-            <SEttings />
-          )}
+          <Box
+            sx={{
+              width: "100%", // Ensure the content takes up the full width
+              maxWidth: "1000px", // You can adjust the maximum width as needed
+              backgroundColor: "#ffffff", // Set the background color for the content
+              padding: "20px", // Add padding to the content area
+              // Add any other styles you need for the main content
+            }}
+          >
+            {selectedTab === 0 ? (
+              <DAshboard />
+            ) : selectedTab === 1 ? (
+              <RA />
+            ) : selectedTab === 2 ? (
+              <CHAT />
+            ) : selectedTab === 3 ? (
+              <Notifications />
+            ) : selectedTab === 4 ? (
+              <REport />
+            ) : selectedTab === 5 ? (
+              <HElp />
+            ) : (
+              <SEttings />
+            )}
+          </Box>
         </Box>
+
         {/*main content end */}
       </Box>
     </div>
