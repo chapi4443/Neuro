@@ -1,6 +1,5 @@
 import { styled, Box, Typography, useMediaQuery } from "@mui/material";
 import React, { useState } from "react";
-
 import TabCard from "../components/smallcompos/TabCard";
 import {
   SEttings,
@@ -18,7 +17,9 @@ import {
   InsertEmoticon,
   Menu,
   MoreVert,
+  Image,
 } from "@mui/icons-material";
+import whiteLogo from "../assets/images/white-logo.png";
 import Bell from "../assets/images/bell.png";
 import Chat from "../assets/images/chat.png";
 import Dashboard from "../assets/images/dashboard.png";
@@ -31,8 +32,8 @@ import SearchCard from "../components/smallcompos/SearchCard";
 import ChatCard from "../components/smallcompos/ChatCard";
 
 const StyledTypo = styled(Typography)((theme) => {
-  const isXs = useMediaQuery("(min-width: 385px)");
-  const isXs_2 = useMediaQuery("(min-width: 800px)");
+  // const isXs = useMediaQuery("(min-width: 385px)");
+  // const isXs_2 = useMediaQuery("(min-width: 800px)");
 
   // const isXs_2 = useMediaQuery("(min-width: 800px)");
 
@@ -97,6 +98,7 @@ const Common = () => {
           onClick={toggleVisibility}
           sx={{
             cursor: "pointer",
+            color: "rgba(4,118,217)"
           }}
         >
           <Menu />
@@ -136,7 +138,13 @@ const Common = () => {
                       paddingTop: isNotMobile ? "" : "15px",
                     }}
                   >
-                    <InsertEmoticon />
+                    <img
+                      src={whiteLogo}
+                      alt="description_of_your_image"
+                      style={ {width: '80px', 
+                      height: 'auto', }}
+                    />
+                
                     <Box>
                       <StyledTypo>NeuroGenAI</StyledTypo>
                       <StyledTypo
@@ -153,9 +161,10 @@ const Common = () => {
                   <Box
                     sx={{
                       position: "absolute",
-                      top: "15px", // Adjust this value to your desired distance from the top
-                      left: "200px",
+                      top: "5px", // Adjust this value to your desired distance from the top
+                      right: "8px",
                       cursor: "pointer",
+                      color: "rgba(255, 255, 255)"
                     }}
                     onClick={toggleVisibility}
                   >
@@ -477,6 +486,15 @@ const Common = () => {
             height: "100vh", // Adjust the height as needed
             width: "100%", // Make it stretch the full width
             backgroundColor: "#f0f0f0", // Set the background color if necessary
+            overflowY: "scroll", // Enable vertical scrolling
+            // Add any other styles you need for the main content
+
+            // Hide the scrollbar
+            "::-webkit-scrollbar": {
+              display: "none",
+            },
+            msOverflowStyle: "none", // IE and Edge
+            scrollbarWidth: "none", // Firefox
           }}
         >
           <Box

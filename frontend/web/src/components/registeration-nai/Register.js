@@ -11,6 +11,7 @@ import Personal from './Personal';
 import Contact from './Contact';
 import Review from './Review';
 import Account from './Account';
+import axios from 'axios';
 
 const steps = ['Personal Info', 'Contact Info', 'Set Password', 'Review your info'];
 
@@ -34,21 +35,21 @@ export default function Register() {
     }));
   };
 
+
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/v1/auth/register', {
-        method: 'POST',
+      console.log(formData); // Handle the response as required
+      const response = await axios.post('http://localhost:5000/api/v1/auth/register', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
       });
-      const data = await response.json();
-      console.log(data); // Handle the response as required
+      console.log(response);
     } catch (error) {
       console.error('Error submitting data:', error);
     }
   };
+  
 
   function getStepContent(step) {
     switch (step) {

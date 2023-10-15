@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Stepper, Step, StepLabel, StepContent, TextField, Button, Typography, Box, Grid } from '@mui/material';
+import axios from 'axios';
 
 const steps = [
   { label: 'Personal Information', fields: ['age', 'gender', 'everMarried', 'height', 'weight'] },
@@ -52,8 +53,17 @@ const InputForm = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/get_stroke_recommendations', data);
+      console.log(data); // Handle the response data as required
+    } catch (error) {
+      console.error('Error submitting data:', error);
+    }
+  };
+
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100vh" width="100%" >
+    <Box display="flex" justifyContent="center" alignItems="center" height="100vh" width="100%">
       <Box width="100%" maxWidth="1000px">
         <Grid container justifyContent="center" my={4}>
           <Grid item xs={12} md={8} lg={6}>
@@ -76,7 +86,7 @@ const InputForm = () => {
                       <Button disabled={activeStep === 0} onClick={handleBack}>
                         Back
                       </Button>
-                      <Button variant="contained" onClick={handleNext} sx={{ marginLeft: 2 }}>
+                      <Button variant="contained" onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext} sx={{ marginLeft: 2 }}>
                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                       </Button>
                     </Box>
@@ -86,7 +96,7 @@ const InputForm = () => {
             </Stepper>
             {activeStep === steps.length && (
               <Typography sx={{ marginTop: 2 }} align="center">
-                All steps completed - you&apos;re finished with the form!
+                {data}
               </Typography>
             )}
           </Grid>

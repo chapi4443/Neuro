@@ -1,17 +1,17 @@
 // Review component
-import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import React, { useState } from "react";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-export default function Review({ formData })  {
+export default function Review({ formData }) {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -20,8 +20,7 @@ export default function Review({ formData })  {
   if (!formData) {
     return <div>Loading...</div>;
   }
-console.log(formData);
-
+  console.log(formData);
 
   return (
     <React.Fragment>
@@ -32,13 +31,22 @@ console.log(formData);
         <Grid item xs={6}>
           <List>
             <ListItem>
-              <ListItemText primary="First Name" secondary={formData.firstName} />
+              <ListItemText
+                primary="First Name"
+                secondary={formData.first_name}
+              />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Last Name" secondary={formData.lastName} />
+              <ListItemText
+                primary="Last Name"
+                secondary={formData.last_name}
+              />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Date of Birth" secondary={formData.dateOfBirth} />
+              <ListItemText
+                primary="Date of Birth"
+                secondary={formData.date_of_birth}
+              />
             </ListItem>
             <ListItem>
               <ListItemText primary="Gender" secondary={formData.gender} />
@@ -54,7 +62,10 @@ console.log(formData);
               <ListItemText primary="Email" secondary={formData.email} />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Phone Number" secondary={formData.phoneNumber} />
+              <ListItemText
+                primary="Phone Number"
+                secondary={formData.phone_number}
+              />
             </ListItem>
             <ListItem>
               <ListItemText primary="Address" secondary={formData.address} />
@@ -66,30 +77,21 @@ console.log(formData);
               <ListItemText primary="Country" secondary={formData.country} />
             </ListItem>
             <ListItem>
-              <TextField
-                required
-                id="password"
-                label="Password"
-                fullWidth
-                type={showPassword ? 'text' : 'password'}
-                autoComplete="new-password"
-                variant="standard"
-                value={formData.password}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton onClick={handleClickShowPassword} edge="end">
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </ListItem>
+      <ListItemText
+        primary="Password"
+        secondary={
+          <React.Fragment>
+            {formData.password}
+            <IconButton onClick={handleClickShowPassword} edge="end">
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </React.Fragment>
+        }
+      />
+    </ListItem>
           </List>
         </Grid>
       </Grid>
     </React.Fragment>
   );
-};
-
+}
