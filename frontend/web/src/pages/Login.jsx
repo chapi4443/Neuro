@@ -1,4 +1,5 @@
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect, useContext, } from "react";
+import {useNavigate} from 'react-router-dom'
 // import AuthContext from "./context/AuthProvider";
 
 import axios from "../app/api/axios";
@@ -22,8 +23,10 @@ const Login = () => {
     setErrMsg("");
   }, [user, pwd]);
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    navigate('/common')
     // console.log("email:",user, "password:",pwd);
     // // try {
     //     const response = await axios.post(LOGIN_URL,
@@ -102,7 +105,7 @@ const Login = () => {
             <br />
             <span className="line">
               {/*put router link here*/}
-              <a href="#">Sign Up</a>
+              <a href="/registeration">Sign Up</a>
             </span>
           </p>
         </section>
