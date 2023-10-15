@@ -500,7 +500,6 @@ const Common = () => {
           <Box
             sx={{
               width: "100%", // Ensure the content takes up the full width
-              maxWidth: "1000px", // You can adjust the maximum width as needed
               backgroundColor: "#ffffff", // Set the background color for the content
               padding: "20px", // Add padding to the content area
               // Add any other styles you need for the main content
