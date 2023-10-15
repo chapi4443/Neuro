@@ -15,6 +15,7 @@ class _DashBoardState extends State<DashBoard> {
   @override
   Widget build(context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         key: _scaffoldKey,
         drawer: const MyDrawer(),
         appBar: CustomAppBar(
@@ -49,7 +50,7 @@ class _DashBoardState extends State<DashBoard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .04,
+                  height: MediaQuery.of(context).size.height * .16,
                 ),
                 const PercentDiplay(),
                 SizedBox(height: MediaQuery.of(context).size.height * .05),

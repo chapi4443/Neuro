@@ -61,7 +61,7 @@ async function getMedicalResponse(req, res) {
     res.json({ response: response.data.response });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error " });
   }
 }
 

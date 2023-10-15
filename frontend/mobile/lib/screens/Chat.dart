@@ -3,6 +3,8 @@ import 'package:final_sprs/core/app_export.dart';
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:final_sprs/widgets/ChatMessage.dart';
 import 'package:final_sprs/screens/Drawer.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Chat extends StatefulWidget {
   const Chat({Key? key}) : super(key: key);
@@ -28,7 +30,11 @@ class _ChatState extends State<Chat> {
 
   @override
   Widget build(BuildContext context) {
+    mediaQueryData = MediaQuery.of(context);
     return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(
           height: 80,
           leadingWidth: 60.h,
@@ -54,12 +60,45 @@ class _ChatState extends State<Chat> {
                 image: AssetImage(ImageConstant.imgGroup57),
                 fit: BoxFit.cover)),
         child: Column(
+          mainAxisAlignment: messages.isEmpty
+              ? MainAxisAlignment.spaceBetween
+              : MainAxisAlignment.start,
           children: [
-            Expanded(child: MessagesScreen(messages: messages)),
+            if (messages.isEmpty)
+              Expanded(
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                          width: 300.h,
+                          height: 230.h,
+                          margin: EdgeInsets.only(top: 0, bottom: 0),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 33.h, vertical: 8.v),
+                          decoration: AppDecoration.fillCyan,
+                          child: Column(children: [
+                            SizedBox(height: 20.v),
+                            CustomImageView(
+                                imagePath: ImageConstant.imgImage4,
+                                height: 100.adaptSize,
+                                width: 80.adaptSize),
+                            SizedBox(height: 5.v),
+                            Text("NeuroGen",
+                                style: CustomTextStyles
+                                    .titleLargeOpenSansBluegray800
+                                    .copyWith()),
+                            SizedBox(height: 10.v),
+                            Text("start your new chat here.",
+                                style: theme.textTheme.labelLarge!.copyWith(
+                                    color: Colors.black45, fontSize: 14)),
+                            SizedBox(height: 10.v),
+                          ]))))
+            else
+              Expanded(child: MessagesScreen(messages: messages)),
             SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -118,21 +157,50 @@ class _ChatState extends State<Chat> {
       print('message is empty');
     } else {
       setState(() {
-        addMessage(Message(text: DialogText(text: [text])), true);
+        addMessage(text, true);
       });
 
-      DetectIntentResponse response = await dialogFlowtter.detectIntent(
-          queryInput: QueryInput(text: TextInput(text: text)));
+      Future<void> postData() async {
+        final Uri uri = Uri.parse('http://localhost:5000/api/v1/flask/medical');
+        final Map<String, String> headers = {
+          'Content-Type': 'application/json',
+        };
 
-      if (response.message == null) return;
+        final Map<String, dynamic> body = {
+          "question": {"$text"} // Replace with your actual question
+        };
 
-      setState(() {
-        addMessage(response.message!);
-      });
+        try {
+          final response =
+              await http.post(uri, headers: headers, body: json.encode(body));
+
+          if (response.statusCode == 200) {
+            final jsonResponse = json.decode(response.body);
+            String responseText = jsonResponse["response"];
+            print(jsonResponse);
+            setState(() {
+              addMessage(responseText);
+            });
+          } else {
+            throw Exception('Failed to load data');
+          }
+        } catch (e) {
+          print('Error: $e');
+        }
+      }
+
+      // DetectIntentResponse response = await dialogFlowtter.detectIntent(
+      //     queryInput: QueryInput(text: TextInput(text: text)));
+
+      // if (response.message == null) return;
+
+      // setState(() {
+      //   addMessage(response.message!);
+      // });
     }
   }
 
-  addMessage(Message message, [bool isUserMessage = false]) {
+  addMessage(String message, [bool isUserMessage = false]) {
     messages.add({'message': message, 'isUserMessage': isUserMessage});
   }
 }

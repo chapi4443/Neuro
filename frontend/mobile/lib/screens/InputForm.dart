@@ -12,6 +12,7 @@ class InputForm extends StatefulWidget {
 class _InputFormState extends State<InputForm> {
   int currentStep = 1; // Keeps track of the current step
   FormData formData = FormData(); // Data model to hold form data
+  bool isStarted = false;
 
   void updateFormData(Map<String, dynamic> newData) {
     setState(() {
@@ -112,129 +113,185 @@ class _InputFormState extends State<InputForm> {
                     fit: BoxFit.cover)),
             child: SingleChildScrollView(
                 padding: EdgeInsets.only(top: 161.v),
-                child: currentStep != 6
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                            SizedBox(
-                              height: 100.h,
-                            ),
-                            Container(
-                                width: 332.h,
-                                margin: EdgeInsets.symmetric(horizontal: 48.h),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 33.h, vertical: 8.v),
-                                decoration: AppDecoration.fillCyan,
-                                child: Column(children: [
-                                  CustomImageView(
-                                      imagePath: ImageConstant.imgImage4,
-                                      height: 35.adaptSize,
-                                      width: 35.adaptSize),
-                                  SizedBox(height: 5.v),
-                                  Text("NeuroGen",
-                                      style: CustomTextStyles
-                                          .titleLargeOpenSansBluegray800),
-                                  SizedBox(height: 10.v),
-                                  Text("Risk Assessment Prediction",
-                                      style: theme.textTheme.labelLarge),
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Container(
-                                          width: 240.h,
-                                          margin: EdgeInsets.only(
-                                              top: 12.v, right: 25.h),
-                                          child: Text(
-                                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: theme.textTheme.bodySmall!
-                                                  .copyWith(height: 1.40)))),
-                                  StepWidget(
-                                    currentStep: currentStep,
-                                    formData: formData,
-                                    updateFormData: updateFormData,
-                                    goToPreviousStep: goToPreviousStep,
-                                    goToNextStep: goToNextStep,
-                                  ),
-                                  SizedBox(height: 6.v)
-                                ])),
-                            SizedBox(height: 167.v),
-                          ])
-                    : Container(
-                        width: 332.h,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 48.h, vertical: 70.h),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 33.h, vertical: 8.v),
-                        decoration: AppDecoration.fillCyan,
-                        child: Column(children: [
-                          CustomImageView(
-                              imagePath: ImageConstant.imgImage4,
-                              height: 35.adaptSize,
-                              width: 35.adaptSize),
-                          SizedBox(height: 5.v),
-                          Text("NeuroGen",
-                              style: CustomTextStyles
-                                  .titleLargeOpenSansBluegray800),
-                          SizedBox(height: 10.v),
-                          Text("Risk Assessment Prediction",
-                              style: theme.textTheme.labelLarge),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(right: 20.0, left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Result",
-                                  style: theme.textTheme.labelLarge!
-                                      .copyWith(fontSize: 20),
-                                ),
-                                Text(
-                                  "40 %",
-                                  style: theme.textTheme.labelLarge!.copyWith(
-                                      color: Colors.blue.shade400,
-                                      fontSize: 20),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                              width: 240.h,
-                              margin: EdgeInsets.only(top: 12.v, right: 5.h),
-                              child: Text(
-                                "John Doe, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+                child: !isStarted
+                    ? Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                            width: 310.h,
+                            height: 340.h,
+                            margin: EdgeInsets.only(top: 100, bottom: 0),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 33.h, vertical: 8.v),
+                            decoration: AppDecoration.fillCyan,
+                            child: Column(children: [
+                              SizedBox(height: 20.v),
+                              CustomImageView(
+                                  imagePath: ImageConstant.imgImage4,
+                                  height: 100.adaptSize,
+                                  width: 80.adaptSize),
+                              SizedBox(height: 5.v),
+                              Text("NeuroGen",
+                                  style: CustomTextStyles
+                                      .titleLargeOpenSansBluegray800
+                                      .copyWith()),
+                              SizedBox(height: 10.v),
+                              Text(
+                                "John Doe, consectetur adipiscing elit,  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
                                 maxLines: 20,
                                 overflow: TextOverflow.ellipsis,
                                 style: theme.textTheme.bodySmall!
                                     .copyWith(height: 1.40, fontSize: 12),
                                 textAlign: TextAlign.justify,
-                              )),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          CustomElevatedButton(
-                            text: "Retake",
-                            width: 120.h,
-                            buttonStyle: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
-                                    theme.colorScheme.primary)),
-                            buttonTextStyle: theme.textTheme.labelLarge!
-                                .copyWith(fontSize: 16, color: Colors.white),
-                            onTap: () {
-                              setState(() {
-                                currentStep = 1;
-                                formData = FormData();
-                              });
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          )
-                        ])))));
+                              ),
+                              SizedBox(height: 30.v),
+                              CustomElevatedButton(
+                                text: "Start",
+                                width: 120.h,
+                                buttonStyle: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        theme.colorScheme.primary)),
+                                buttonTextStyle: theme.textTheme.labelLarge!
+                                    .copyWith(
+                                        fontSize: 16, color: Colors.white),
+                                onTap: () {
+                                  setState(() {
+                                    isStarted = true;
+                                  });
+                                },
+                              ),
+                              SizedBox(height: 10.v),
+                            ])))
+                    : currentStep != 6
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                                SizedBox(
+                                  height: 100.h,
+                                ),
+                                Container(
+                                    width: 332.h,
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 48.h),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 33.h, vertical: 8.v),
+                                    decoration: AppDecoration.fillCyan,
+                                    child: Column(children: [
+                                      CustomImageView(
+                                          imagePath: ImageConstant.imgImage4,
+                                          height: 35.adaptSize,
+                                          width: 35.adaptSize),
+                                      SizedBox(height: 5.v),
+                                      Text("NeuroGen",
+                                          style: CustomTextStyles
+                                              .titleLargeOpenSansBluegray800),
+                                      SizedBox(height: 10.v),
+                                      Text("Risk Assessment Prediction",
+                                          style: theme.textTheme.labelLarge),
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Container(
+                                              width: 240.h,
+                                              margin: EdgeInsets.only(
+                                                  top: 12.v, right: 25.h),
+                                              child: Text(
+                                                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ",
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: theme
+                                                      .textTheme.bodySmall!
+                                                      .copyWith(
+                                                          height: 1.40)))),
+                                      StepWidget(
+                                        currentStep: currentStep,
+                                        formData: formData,
+                                        updateFormData: updateFormData,
+                                        goToPreviousStep: goToPreviousStep,
+                                        goToNextStep: goToNextStep,
+                                      ),
+                                      SizedBox(height: 6.v)
+                                    ])),
+                                SizedBox(height: 167.v),
+                              ])
+                        : Container(
+                            width: 332.h,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 48.h, vertical: 70.h),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 33.h, vertical: 8.v),
+                            decoration: AppDecoration.fillCyan,
+                            child: Column(children: [
+                              CustomImageView(
+                                  imagePath: ImageConstant.imgImage4,
+                                  height: 35.adaptSize,
+                                  width: 35.adaptSize),
+                              SizedBox(height: 5.v),
+                              Text("NeuroGen",
+                                  style: CustomTextStyles
+                                      .titleLargeOpenSansBluegray800),
+                              SizedBox(height: 10.v),
+                              Text("Risk Assessment Prediction",
+                                  style: theme.textTheme.labelLarge),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 20.0, left: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Result",
+                                      style: theme.textTheme.labelLarge!
+                                          .copyWith(fontSize: 20),
+                                    ),
+                                    Text(
+                                      "40 %",
+                                      style: theme.textTheme.labelLarge!
+                                          .copyWith(
+                                              color: Colors.blue.shade400,
+                                              fontSize: 20),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                  width: 240.h,
+                                  margin:
+                                      EdgeInsets.only(top: 12.v, right: 5.h),
+                                  child: Text(
+                                    "John Doe, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+                                    maxLines: 20,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: theme.textTheme.bodySmall!
+                                        .copyWith(height: 1.40, fontSize: 12),
+                                    textAlign: TextAlign.justify,
+                                  )),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              CustomElevatedButton(
+                                text: "Retake",
+                                width: 120.h,
+                                buttonStyle: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        theme.colorScheme.primary)),
+                                buttonTextStyle: theme.textTheme.labelLarge!
+                                    .copyWith(
+                                        fontSize: 16, color: Colors.white),
+                                onTap: () {
+                                  setState(() {
+                                    currentStep = 1;
+                                    formData = FormData();
+                                  });
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              )
+                            ])))));
   }
 
   /// Navigates to the chatTwoScreen when the action is triggered.

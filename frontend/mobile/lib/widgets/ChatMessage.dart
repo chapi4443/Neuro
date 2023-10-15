@@ -68,8 +68,9 @@ class _MessagesScreenState extends State<MessagesScreen> {
                             bottom: 10, right: 5, left: 50, top: 5),
                         decoration: const BoxDecoration(),
                         child: Text(
-                          widget.messages[index]['message'].text.text[0],
-                          style: const TextStyle(color: Colors.black, fontSize: 16),
+                          widget.messages[index]['message'],
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 16),
                         )),
                   ],
                 ),
@@ -77,7 +78,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
             ),
           );
         },
-        separatorBuilder: (_, i) => const Padding(padding: EdgeInsets.only(top: .01)),
+        separatorBuilder: (_, i) =>
+            const Padding(padding: EdgeInsets.only(top: .01)),
         itemCount: widget.messages.length);
   }
 }
