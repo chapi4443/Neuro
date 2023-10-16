@@ -65,8 +65,26 @@ async function getMedicalResponse(req, res) {
   }
 }
 
+// Function to call the '/get_stroke_recommendations' route in your Flask application
+async function getStrokeRecommendationsFromFlask(data) {
+  try {
+    const flaskUrl = "http://127.0.0.1:4000"; // Change the URL and port if necessary
+
+    // Make a POST request to the Flask route
+    const response = await axios.post(`${flaskUrl}/get_stroke_recommendations`, data);
+
+    // Return the response data
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to call Flask route.");
+  }
+}
+
+
 module.exports = {
   predictStrokeRisk,
   getAllPredictions,
-  getMedicalResponse, // Add the new controller function
+  getMedicalResponse,
+  getStrokeRecommendationsFromFlask,
 };

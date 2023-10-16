@@ -14,6 +14,9 @@ const register = async (req, res) => {
     phone_number,
     address,
     city,
+    age, // Add age to the request body
+    gender, // Add gender to the request body
+    country, // Add country to the request body
   } = req.body;
 
   try {
@@ -25,7 +28,6 @@ const register = async (req, res) => {
 
     // Create a new user with the provided fields
     const newUser = await User.create({
-    
       email,
       password,
       first_name,
@@ -34,6 +36,9 @@ const register = async (req, res) => {
       phone_number,
       address,
       city,
+      age, // Include age
+      gender, // Include gender
+      country, // Include country
     });
 
     // Set the default role to "user"
