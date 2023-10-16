@@ -1,3 +1,4 @@
+// VictoryChartComponent.js
 import React from 'react';
 import { VictoryChart, VictoryLine, VictoryContainer } from 'victory';
 
@@ -13,6 +14,8 @@ const VictoryChartComponent = ({ sampleData }) => {
             data: { stroke: "#095ee8" }
           }}
           data={sampleData}
+          x="Date"
+          y="Percent"
         />
       </VictoryChart>
     </div>

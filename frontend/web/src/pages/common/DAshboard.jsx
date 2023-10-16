@@ -1,13 +1,14 @@
+// Dashboard.js
 import React from 'react';
 import VictoryPieComponent from '../../components/dashboard/Pie';
 import VictoryChartComponent from '../../components/dashboard/Chart';
 
 const Dashboard = () => {
   const sampleData = [
-    { x: 1, y: 13000 },
-    { x: 2, y: 16500 },
-    { x: 3, y: 14250 },
-    { x: 4, y: 19000 }
+    { Date: '11-10-2022', Percent: 20 },
+    { Date: '12-10-2022', Percent: 30 },
+    { Date: '13-10-2022', Percent: 50 },
+    { Date:'14-10-2022', Percent: 70 }
   ];
 
   return (

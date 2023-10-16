@@ -38,7 +38,7 @@ const MainContentWrapper = styled(Box)({
   alignItems: 'center',
   height: '100vh',
   width: '100%',
-  backgroundColor: '#008cff',
+  // backgroundColor: '#008cff',
   overflowY: 'scroll',
   // Hide the scrollbar
   '::-webkit-scrollbar': {
@@ -49,6 +49,7 @@ const MainContentWrapper = styled(Box)({
 });
 
 const MainContent = styled(Box)({
+  display:'flex',
   width: '100%',
   backgroundColor: '#ffffff',
   padding: '20px',
