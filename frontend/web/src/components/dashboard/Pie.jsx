@@ -40,7 +40,7 @@ const VictoryPieComponent = () => {
         }}
       >
         <div style={{ fontSize: '24px' }}>{percent}%</div>
-        <div style={{ fontSize: '12px' }}>Complete</div>
+        <div style={{ fontSize: '12px' }}>Risk</div>
       </div>
       <svg height={300} width={300}>
         <VictoryPie

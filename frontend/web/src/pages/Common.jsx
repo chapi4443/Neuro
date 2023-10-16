@@ -38,7 +38,6 @@ const MainContentWrapper = styled(Box)({
   alignItems: 'center',
   height: '100vh',
   width: '100%',
-  // backgroundColor: '#008cff',
   overflowY: 'scroll',
   // Hide the scrollbar
   '::-webkit-scrollbar': {
