@@ -71,7 +71,7 @@ class _ChatState extends State<Chat> {
                       child: Container(
                           width: 300.h,
                           height: 230.h,
-                          margin: EdgeInsets.only(top: 0, bottom: 0),
+                          margin: const EdgeInsets.only(top: 0, bottom: 0),
                           padding: EdgeInsets.symmetric(
                               horizontal: 33.h, vertical: 8.v),
                           decoration: AppDecoration.fillCyan,
@@ -161,19 +161,17 @@ class _ChatState extends State<Chat> {
       });
 
       Future<void> postData() async {
-        final Uri uri = Uri.parse('http://localhost:5000/api/v1/flask/medical');
+        final Uri uri =
+            Uri.parse('http://192.168.78.221:5000/api/v1/flask/medical');
         final Map<String, String> headers = {
           'Content-Type': 'application/json',
         };
 
-        final Map<String, dynamic> body = {
-          "question": {"$text"} // Replace with your actual question
-        };
+        final Map<String, dynamic> body = {"question": text};
 
         try {
-          final response =
-              await http.post(uri, headers: headers, body: json.encode(body));
-
+          final response =await http.post(uri, headers: headers, body: json.encode(body));
+          print("the response is: {$response}");
           if (response.statusCode == 200) {
             final jsonResponse = json.decode(response.body);
             String responseText = jsonResponse["response"];
@@ -185,9 +183,11 @@ class _ChatState extends State<Chat> {
             throw Exception('Failed to load data');
           }
         } catch (e) {
-          print('Error: $e');
+          print('the Error: $e');
         }
       }
+
+      await postData();
 
       // DetectIntentResponse response = await dialogFlowtter.detectIntent(
       //     queryInput: QueryInput(text: TextInput(text: text)));

@@ -56,6 +56,24 @@ class _InputFormState extends State<InputForm> {
       if (newData.containsKey('bmi')) {
         formData.consentToDataCollection = newData['bmi'];
       }
+      if (newData.containsKey('weight')) {
+        formData.consentToDataCollection = newData['weight'];
+      }
+      if (newData.containsKey('height')) {
+        formData.consentToDataCollection = newData['height'];
+      }
+      if (newData.containsKey('physicalActivity')) {
+        formData.consentToDataCollection = newData['physicalActivity'];
+      }
+      if (newData.containsKey('diet')) {
+        formData.consentToDataCollection = newData['diet'];
+      }
+      if (newData.containsKey('diastolicBP')) {
+        formData.consentToDataCollection = newData['diastolicBP'];
+      }
+       if (newData.containsKey('systolicBP ')) {
+        formData.consentToDataCollection = newData['systolicBP'];
+      }
     });
   }
 
@@ -68,7 +86,7 @@ class _InputFormState extends State<InputForm> {
   }
 
   void goToNextStep() {
-    if (currentStep < 6) {
+    if (currentStep < 9) {
       setState(() {
         currentStep++;
       });
@@ -119,7 +137,7 @@ class _InputFormState extends State<InputForm> {
                         child: Container(
                             width: 310.h,
                             height: 340.h,
-                            margin: EdgeInsets.only(top: 100, bottom: 0),
+                            margin: const EdgeInsets.only(top: 100, bottom: 0),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 33.h, vertical: 8.v),
                             decoration: AppDecoration.fillCyan,
@@ -161,7 +179,7 @@ class _InputFormState extends State<InputForm> {
                               ),
                               SizedBox(height: 10.v),
                             ])))
-                    : currentStep != 6
+                    : currentStep != 9
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -209,6 +227,7 @@ class _InputFormState extends State<InputForm> {
                                         goToPreviousStep: goToPreviousStep,
                                         goToNextStep: goToNextStep,
                                       ),
+                                      
                                       SizedBox(height: 6.v)
                                     ])),
                                 SizedBox(height: 167.v),

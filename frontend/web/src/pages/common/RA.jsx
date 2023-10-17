@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stepper, Step, StepLabel, StepContent, TextField, Button, Typography, Box, Grid } from '@mui/material';
+import { Stepper, Step, StepLabel, StepContent, TextField, Button, Typography, Box, Grid, Radio, FormControlLabel } from '@mui/material';
 import axios from 'axios';
 
 const steps = [
@@ -12,29 +12,24 @@ const steps = [
     label: 'Health and Lifestyle',
     fields: ['physicalActivityLevel', 'diet', 'smokingStatus', 'workType', 'residenceType'],
   },
-  { label: 'Health Metrics', fields: ['systolicBloodPressure', 'diastolicBloodPressure', 'avgGlucoseLevel', 'bm1'] },
+  { label: 'Health Metrics', fields: ['systolicBloodPressure', 'diastolicBloodPressure', 'avgGlucoseLevel', 'bmi'] },
 ];
 
 const initialData = {
-  age: 99,
-  gender: 'Male',
-  everMarried: 'Yes',
-  height: 1.70,
-  weight: 158,
-  exposurePercent: 48,
-  historyOfStroke: 'Yes',
-  familyHistoryOfStroke: 'Yes',
-  hypertension: 1,
-  heartDisease: 1,
-  physicalActivityLevel: 'Sedentary',
-  diet: 'Balanced',
-  smokingStatus: 'Smoked',
-  workType: 'Private',
-  residenceType: 'Urban',
-  systolicBloodPressure: -60,
-  diastolicBloodPressure: 60,
-  avgGlucoseLevel: -28,
-  bm1: 25,
+  // your initial data here...
+};
+
+const options = {
+  gender: ['Male', 'Female'],
+  hypertension: ['0', '1'],
+  heartDisease: ['0', '1'],
+  everMarried: ['Yes', 'No'],
+  familyHistoryOfStroke: ['Yes', 'No'],
+  historyOfStroke: ['Yes', 'No'],
+  physicalActivityLevel: ['sedentary'],
+  workType: ['Private', 'Self-employed', 'Govt_job'],
+  residenceType: ['Urban', 'Rural'],
+  smokingStatus: ['formerly smoked', 'never smoked', 'smokes', 'Unknown'],
 };
 
 const InputForm = () => {
@@ -46,6 +41,7 @@ const InputForm = () => {
   };
 
   const handleNext = () => {
+    console.log(data); // Add this line
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -62,6 +58,23 @@ const InputForm = () => {
     }
   };
 
+  const renderRadioButtons = (field, options) => {
+    return (
+      <Box sx={{ display: 'flex' }}>
+        {options.map((option) => (
+          <FormControlLabel
+            key={option}
+            value={option}
+            control={<Radio />}
+            label={option}
+            checked={data[field] === option}
+            onChange={(e) => handleInputChange(field, e.target.value)}
+          />
+        ))}
+      </Box>
+    );
+  };
+
   return (
     <Box display="flex" justifyContent="center" alignItems="center" height="100vh" width="100%">
       <Box width="100%" maxWidth="1000px">
@@ -73,14 +86,23 @@ const InputForm = () => {
                   <StepLabel>{label}</StepLabel>
                   <StepContent>
                     {fields.map((field) => (
-                      <TextField
-                        key={field}
-                        label={field}
-                        value={data[field]}
-                        onChange={(e) => handleInputChange(field, e.target.value)}
-                        fullWidth
-                        sx={{ marginBottom: 2 }}
-                      />
+                      <Box key={field} sx={{ mt: 2, mb: 2 }}>
+                        <Typography variant="subtitle2" gutterBottom color="primary">
+                          {field}
+                        </Typography>
+                        {field in options ? (
+                          renderRadioButtons(field, options[field])
+                        ) : (
+                          <TextField
+                            required
+                            id={field}
+                            name={field}
+                            fullWidth
+                            variant="standard"
+                            onChange={(e) => handleInputChange(e.target.id, e.target.value)}
+                          />
+                        )}
+                      </Box>
                     ))}
                     <Box sx={{ marginTop: 2 }}>
                       <Button disabled={activeStep === 0} onClick={handleBack}>
@@ -96,7 +118,7 @@ const InputForm = () => {
             </Stepper>
             {activeStep === steps.length && (
               <Typography sx={{ marginTop: 2 }} align="center">
-                {data}
+                {JSON.stringify(data)}
               </Typography>
             )}
           </Grid>

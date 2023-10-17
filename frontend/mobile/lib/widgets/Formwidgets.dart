@@ -6,7 +6,8 @@ class StepWidget extends StatelessWidget {
   final Function(Map<String, dynamic>) updateFormData;
   final VoidCallback goToPreviousStep;
   final VoidCallback goToNextStep;
-  const StepWidget({super.key, 
+  const StepWidget({
+    super.key,
     required this.currentStep,
     required this.formData,
     required this.updateFormData,
@@ -51,6 +52,27 @@ class StepWidget extends StatelessWidget {
           goToPreviousStep: goToPreviousStep,
           goToNextStep: goToNextStep,
         );
+      case 6:
+        return Step6(
+          formData: formData,
+          updateFormData: updateFormData,
+          goToPreviousStep: goToPreviousStep,
+          goToNextStep: goToNextStep,
+        );
+      case 7:
+        return Step7(
+          formData: formData,
+          updateFormData: updateFormData,
+          goToPreviousStep: goToPreviousStep,
+          goToNextStep: goToNextStep,
+        );
+      case 8:
+        return Step8(
+          formData: formData,
+          updateFormData: updateFormData,
+          goToPreviousStep: goToPreviousStep,
+          goToNextStep: goToNextStep,
+        );
 
       default:
         return Container();
@@ -66,7 +88,8 @@ class Step1 extends StatelessWidget {
   final Function(Map<String, dynamic>) updateFormData;
   final Function goToNextStep;
 
-  Step1({super.key, 
+  Step1({
+    super.key,
     required this.formData,
     required this.updateFormData,
     required this.goToNextStep,
@@ -145,7 +168,8 @@ class Step2 extends StatelessWidget {
   final VoidCallback goToPreviousStep;
   final VoidCallback goToNextStep;
 
-  Step2({super.key, 
+  Step2({
+    super.key,
     required this.formData,
     required this.updateFormData,
     required this.goToPreviousStep,
@@ -234,7 +258,8 @@ class Step3 extends StatelessWidget {
     "Never_worked"
   ];
 
-  Step3({super.key, 
+  Step3({
+    super.key,
     required this.formData,
     required this.updateFormData,
     required this.goToPreviousStep,
@@ -313,11 +338,16 @@ class Step4 extends StatelessWidget {
   final Function(Map<String, dynamic>) updateFormData;
   final VoidCallback goToPreviousStep;
   final VoidCallback goToNextStep;
-  List<String> dropdownItemList = ["Item One", "Item Two", "Item Three"];
+  List<String> dropdownItemList = ["Urban", "Rural"];
 
-  List<String> dropdownItemList1 = ["Item One", "Item Two", "Item Three"];
+  List<String> dropdownItemList1 = [
+    "formerly smoked",
+    "never smoked ",
+    "smokes"
+  ];
 
-  Step4({super.key, 
+  Step4({
+    super.key,
     required this.formData,
     required this.updateFormData,
     required this.goToPreviousStep,
@@ -401,7 +431,8 @@ class Step5 extends StatelessWidget {
 
   TextEditingController bmivalueoneController = TextEditingController();
 
-  Step5({super.key, 
+  Step5({
+    super.key,
     required this.formData,
     required this.updateFormData,
     required this.goToPreviousStep,
@@ -465,6 +496,295 @@ class Step5 extends StatelessWidget {
                   child: CustomImageView(
                       svgPath: ImageConstant.imgIconPrimarycontainer)),
               onTap: () {
+                goToNextStep();
+              }),
+          SizedBox(height: 11.v),
+          CustomOutlinedButton(
+              width: 151.h,
+              text: "Go Back",
+              leftIcon: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(
+                  MdiIcons.arrowLeftThin,
+                  color: Colors.black,
+                ),
+              ),
+              onTap: () {
+                goToPreviousStep();
+              }),
+        ],
+      ),
+    );
+  }
+}
+
+class Step6 extends StatelessWidget {
+  final FormData formData;
+  final Function(Map<String, dynamic>) updateFormData;
+  final VoidCallback goToPreviousStep;
+  final VoidCallback goToNextStep;
+  TextEditingController glucoselevelvalController = TextEditingController();
+
+  TextEditingController bmivalueoneController = TextEditingController();
+
+  Step6({
+    super.key,
+    required this.formData,
+    required this.updateFormData,
+    required this.goToPreviousStep,
+    required this.goToNextStep,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 6.h, top: 9.v),
+                  child: Text("Height", style: theme.textTheme.bodyMedium))),
+          SizedBox(
+            width: 250.h,
+            child: TextFormField(
+              onChanged: (value) {
+                updateFormData({"height": value});
+              },
+              controller: glucoselevelvalController,
+              cursorColor: theme.colorScheme.primary,
+              decoration: InputDecoration(
+                  hintText: "150",
+                  hintMaxLines: 1,
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 1, color: theme.colorScheme.primary))),
+            ),
+          ),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 6.h, top: 9.v),
+                  child: Text("Weight", style: theme.textTheme.bodyMedium))),
+          SizedBox(
+            width: 250.h,
+            child: TextFormField(
+              onChanged: (value) {
+                updateFormData({"weight": value});
+              },
+              controller: bmivalueoneController,
+              cursorColor: theme.colorScheme.primary,
+              decoration: InputDecoration(
+                  hintText: "78 ",
+                  hintMaxLines: 1,
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 1, color: theme.colorScheme.primary))),
+            ),
+          ),
+          SizedBox(height: 11.v),
+          CustomOutlinedButton(
+              width: 151.h,
+              text: "Go next",
+              rightIcon: Container(
+                  margin: EdgeInsets.only(left: 8.h),
+                  child: CustomImageView(
+                      svgPath: ImageConstant.imgIconPrimarycontainer)),
+              onTap: () {
+                goToNextStep();
+              }),
+          SizedBox(height: 11.v),
+          CustomOutlinedButton(
+              width: 151.h,
+              text: "Go Back",
+              leftIcon: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(
+                  MdiIcons.arrowLeftThin,
+                  color: Colors.black,
+                ),
+              ),
+              onTap: () {
+                goToPreviousStep();
+              }),
+        ],
+      ),
+    );
+  }
+}
+
+class Step7 extends StatelessWidget {
+  final FormData formData;
+  final Function(Map<String, dynamic>) updateFormData;
+  final VoidCallback goToPreviousStep;
+  final VoidCallback goToNextStep;
+  TextEditingController glucoselevelvalController = TextEditingController();
+
+  TextEditingController bmivalueoneController = TextEditingController();
+
+  Step7({
+    super.key,
+    required this.formData,
+    required this.updateFormData,
+    required this.goToPreviousStep,
+    required this.goToNextStep,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 6.h, top: 9.v),
+                  child: Text("Physical Activity",
+                      style: theme.textTheme.bodyMedium))),
+          SizedBox(
+            width: 250.h,
+            child: TextFormField(
+              onChanged: (value) {
+                updateFormData({"physicalActivity": value});
+              },
+              controller: glucoselevelvalController,
+              cursorColor: theme.colorScheme.primary,
+              decoration: InputDecoration(
+                  hintText: "Regular exercise",
+                  hintMaxLines: 1,
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 1, color: theme.colorScheme.primary))),
+            ),
+          ),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 6.h, top: 9.v),
+                  child: Text("Diet", style: theme.textTheme.bodyMedium))),
+          SizedBox(
+            width: 250.h,
+            child: TextFormField(
+              onChanged: (value) {
+                updateFormData({"diet": value});
+              },
+              controller: bmivalueoneController,
+              cursorColor: theme.colorScheme.primary,
+              decoration: InputDecoration(
+                  hintText: "Vegiterian",
+                  hintMaxLines: 1,
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 1, color: theme.colorScheme.primary))),
+            ),
+          ),
+          SizedBox(height: 11.v),
+          CustomOutlinedButton(
+              width: 151.h,
+              text: "Go next",
+              rightIcon: Container(
+                  margin: EdgeInsets.only(left: 8.h),
+                  child: CustomImageView(
+                      svgPath: ImageConstant.imgIconPrimarycontainer)),
+              onTap: () {
+                goToNextStep();
+              }),
+          SizedBox(height: 11.v),
+          CustomOutlinedButton(
+              width: 151.h,
+              text: "Go Back",
+              leftIcon: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(
+                  MdiIcons.arrowLeftThin,
+                  color: Colors.black,
+                ),
+              ),
+              onTap: () {
+                goToPreviousStep();
+              }),
+        ],
+      ),
+    );
+  }
+}
+
+class Step8 extends StatelessWidget {
+  final FormData formData;
+  final Function(Map<String, dynamic>) updateFormData;
+  final VoidCallback goToPreviousStep;
+  final VoidCallback goToNextStep;
+  TextEditingController glucoselevelvalController = TextEditingController();
+
+  TextEditingController bmivalueoneController = TextEditingController();
+
+  Step8({
+    super.key,
+    required this.formData,
+    required this.updateFormData,
+    required this.goToPreviousStep,
+    required this.goToNextStep,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 6.h, top: 9.v),
+                  child: Text("Systolic Blood Pressure",
+                      style: theme.textTheme.bodyMedium))),
+          SizedBox(
+            width: 250.h,
+            child: TextFormField(
+              onChanged: (value) {
+                updateFormData({"systolicBP ": value});
+              },
+              controller: glucoselevelvalController,
+              cursorColor: theme.colorScheme.primary,
+              decoration: InputDecoration(
+                  hintText: "150",
+                  hintMaxLines: 1,
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 1, color: theme.colorScheme.primary))),
+            ),
+          ),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 6.h, top: 9.v),
+                  child: Text("Diastolic Blood Pressure",
+                      style: theme.textTheme.bodyMedium))),
+          SizedBox(
+            width: 250.h,
+            child: TextFormField(
+              onChanged: (value) {
+                updateFormData({"diastolicBP": value});
+              },
+              controller: bmivalueoneController,
+              cursorColor: theme.colorScheme.primary,
+              decoration: InputDecoration(
+                  hintText: "78 ",
+                  hintMaxLines: 1,
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          width: 1, color: theme.colorScheme.primary))),
+            ),
+          ),
+          SizedBox(height: 11.v),
+          CustomOutlinedButton(
+              width: 151.h,
+              text: "Go next",
+              rightIcon: Container(
+                  margin: EdgeInsets.only(left: 8.h),
+                  child: CustomImageView(
+                      svgPath: ImageConstant.imgIconPrimarycontainer)),
+              onTap: () {
+                print(formData);
                 goToNextStep();
               }),
           SizedBox(height: 11.v),

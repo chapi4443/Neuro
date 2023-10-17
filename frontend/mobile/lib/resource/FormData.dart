@@ -14,4 +14,6 @@ class FormData {
   String smokingStatus = "";
   String glucoseLevel = "";
   String bmi = "";
+  String physicalActivity = "";
+  String diet = "";
 }
