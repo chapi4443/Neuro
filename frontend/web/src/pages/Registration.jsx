@@ -6,7 +6,9 @@ import { Box, Link } from '@mui/material';
 function Registration() {
   return (
     <div>
-        <NeuronCompo/>
+        <div className="logo">
+          <img src="./blue-logo.png" alt=".logo" style={{ width: "300px" }} />
+        </div>
         <Register></Register>
         <Box sx={{ textAlign: 'center', margin: '0 auto',padding:'20px', background:"rgba(4,118,217,0.4)" }}>
       Already have an account? {' '}
