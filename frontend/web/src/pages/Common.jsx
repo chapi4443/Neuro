@@ -31,6 +31,31 @@ import Settings from "../assets/images/settings.png";
 import SearchCard from "../components/smallcompos/SearchCard";
 import ChatCard from "../components/smallcompos/ChatCard";
 
+
+const MainContentWrapper = styled(Box)({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+  width: '100%',
+  overflowY: 'scroll',
+  // Hide the scrollbar
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+  msOverflowStyle: 'none', // IE and Edge
+  scrollbarWidth: 'none', // Firefox
+});
+
+const MainContent = styled(Box)({
+  display:'flex',
+  width: '100%',
+  backgroundColor: '#ffffff',
+  padding: '20px',
+  margin: '0 auto', // Align the main content in the center
+  // Add any other styles you need for the main content
+});
+
 const StyledTypo = styled(Typography)((theme) => {
   // const isXs = useMediaQuery("(min-width: 385px)");
   // const isXs_2 = useMediaQuery("(min-width: 800px)");
@@ -478,51 +503,25 @@ const Common = () => {
           )}
         </Box>
         {/*main content start */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh", // Adjust the height as needed
-            width: "100%", // Make it stretch the full width
-            backgroundColor: "#f0f0f0", // Set the background color if necessary
-            overflowY: "scroll", // Enable vertical scrolling
-            // Add any other styles you need for the main content
-
-            // Hide the scrollbar
-            "::-webkit-scrollbar": {
-              display: "none",
-            },
-            msOverflowStyle: "none", // IE and Edge
-            scrollbarWidth: "none", // Firefox
-          }}
-        >
-          <Box
-            sx={{
-              width: "100%", // Ensure the content takes up the full width
-              maxWidth: "1000px", // You can adjust the maximum width as needed
-              backgroundColor: "#ffffff", // Set the background color for the content
-              padding: "20px", // Add padding to the content area
-              // Add any other styles you need for the main content
-            }}
-          >
-            {selectedTab === 0 ? (
-              <DAshboard />
-            ) : selectedTab === 1 ? (
-              <RA />
-            ) : selectedTab === 2 ? (
-              <CHAT />
-            ) : selectedTab === 3 ? (
-              <Notifications />
-            ) : selectedTab === 4 ? (
-              <REport />
-            ) : selectedTab === 5 ? (
-              <HElp />
-            ) : (
-              <SEttings />
-            )}
-          </Box>
-        </Box>
+        <MainContentWrapper>
+        <MainContent>
+          {selectedTab === 0 ? (
+            <DAshboard />
+          ) : selectedTab === 1 ? (
+            <RA />
+          ) : selectedTab === 2 ? (
+            <CHAT />
+          ) : selectedTab === 3 ? (
+            <Notifications />
+          ) : selectedTab === 4 ? (
+            <REport />
+          ) : selectedTab === 5 ? (
+            <HElp />
+          ) : (
+            <SEttings />
+          )}
+        </MainContent>
+      </MainContentWrapper>
 
         {/*main content end */}
       </Box>

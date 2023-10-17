@@ -1,152 +1,75 @@
 import React from "react";
-import { Box, Typography, styled, useMediaQuery } from "@mui/material";
-
-import Neuron from "../assets/images/neuron.png";
-import Doctor from "../assets/images/doctors.png";
-import SingleBox from "../components/SingleBox";
-import { useNavigate } from "react-router-dom";
+import { Box, Typography, styled, useMediaQuery, Grid, Button, Card, CardContent } from "@mui/material";
 import NeuronCompo from "../components/NeuronCompo NeuronCompo";
-import TextCompo from "../components/TextCompo";
+import { useNavigate } from "react-router-dom";
 
-const StyledTypo = styled(Typography)(({ theme }) => {
-  const isXs = useMediaQuery("(min-width: 385px)");
-  const isXs_2 = useMediaQuery("(min-width: 800px)");
-
-  return {
-    color: "#16C2D5",
-    textAlign: "center",
-    fontFamily: "Poppins",
-    fontSize: isXs ? "48px" : "24px",
-    fontStyle: "normal",
-    fontWeight: "600",
-    lineHeight: "normal",
-    "&:hover": {
-      cursor: "pointer",
-      color: "#16C2D5",
-      background: "#fff",
-      border: "1px solid #16C2D5",
-    },
-    "&:active": {
-      color: "#fff",
-      background: "#16C2D5",
-      border: "none",
-    },
-  };
+const StyledTitle = styled(Typography)({
+  color: "#16C2D5",
+  fontSize: "2.5rem",
+  fontWeight: "bold",
+  textAlign: "center",
+  padding: "1rem",
 });
 
-const StyledTypoTwo = styled(Typography)((theme) => {
-  const isXs = useMediaQuery("(min-width: 385px)");
-  const isXs_2 = useMediaQuery("(min-width: 800px)");
-
-  // const isXs_2 = useMediaQuery("(min-width: 800px)");
-
-  return {
-    color: "#000",
-    textAlign: "center",
-    fontFamily: "Poppins",
-    fontSize: "14px",
-    fontStyle: "normal",
-    fontWeight: "400",
-    lineHeight: "normal",
-  };
+const StyledSubtitle = styled(Typography)({
+  color: "#30575c",
+  textAlign: "center",
 });
-const StyledButton = styled("button")((theme) => {
-  const isXs = useMediaQuery("(min-width: 385px)");
-  const isXs_2 = useMediaQuery("(min-width: 800px)");
-
-  // const isXs_2 = useMediaQuery("(min-width: 800px)");
-
-  return {
-    padding: "8px 16px",
-    border: "none",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    fontFamily: "Poppins",
-    fontSize: "16px",
-    fontStyle: "normal",
-    fontWeight: "400",
-    lineHeight: "normal",
-  };
-});
-const styles = {
-  container: {
-    position: "relative",
-    width: "200px",
-    height: "200px",
-  },
-  image: {
-    width: "80%",
-    height: "90%",
-    objectFit: "cover",
-    overflowX: "hidden",
-  },
-  circle: {
-    position: "absolute",
-    width: "250px",
-    height: "250px",
-    borderRadius: "50%",
-    border: "3px solid #D3DDFF",
-    top: "12%",
-    left: "25%",
-    transform: "translate(-50%, -50%)", // Center the circle
-    overflowX: "hidden",
-    overflow: "hidden",
-  },
-  text: {
-    position: "absolute",
-    overflowX: "hidden",
-
-    // height: "250px",
-    // borderRadius: "50%",
-    // border: "3px solid #D3DDFF",
-    top: "35%",
-    left: "45%",
-    transform: "translate(-50%, -50%)", // Center the circle
-  },
-};
 
 const FirstPage = () => {
   const navigate = useNavigate();
-  const isNotMobile = useMediaQuery("(min-width: 428px)");
-  //   const isXs_2 = useMediaQuery("(min-width: 800px)");
-  const imageWidth = isNotMobile ? "60%" : "100%";
-  const circleTop = isNotMobile ? "12%" : "15%";
-  const circleLeft = isNotMobile ? "25%" : "70%";
-  const circleWidth = isNotMobile ? "250px" : "400px";
-  const circleHeight = isNotMobile ? "250px" : "400px";
-  const textWidth = isNotMobile ? "343px" : "300px";
-  const displayCircle = isNotMobile ? "block" : "none";
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   return (
-    <>
-      {/* bg start */}
-      <NeuronCompo display={"flex"} />
-      <TextCompo
-            title={"Neurogen AI"}
-            subtitle={
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturinecessitatibus repellat sint!"
-            }
-            marginTop={"80px"}
-          />
-      {/* bg end */}
-      <Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "10px",
-            paddingLeft: isNotMobile ? "" : "10px",
-            marginTop: isNotMobile ? "80px" : "140px",
-            overflowX: isNotMobile ? "" : "auto",
-          }}
-        >
-          <SingleBox />
-          <SingleBox />
-          <SingleBox />
-          <SingleBox />
+    <Grid container direction="column" alignItems="center" spacing={2}>
+      <Grid item>
+        <NeuronCompo display="flex" />
+        <Box>
+          <StyledTitle variant="h1">Neurogen AI</StyledTitle>
+          <StyledSubtitle variant="body1">
+            Empowering Stroke Management through Advanced AI Technology
+          </StyledSubtitle>
         </Box>
+      </Grid>
+      <Grid item container justifyContent={isMobile ? "flex-start" : "center"} spacing={2} sx={{}}>
+        <Grid item>
+          <Card sx={{ minWidth: isMobile ? 200 : 275, height: 170, minHeight: 150, maxWidth: 250, backgroundColor: "#16C2D5", color: "#ffffff", "&:hover": { backgroundColor: "#ffffff", color: "#16C2D5"}}}>
+            <CardContent>
+              <Typography variant="h5" component="div">
+              Advanced Diagnostics:
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+              Utilize cutting-edge AI algorithms for accurate stroke diagnosis, enabling timely treatment decisions.
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item>
+          <Card sx={{ minWidth: isMobile ? 200 : 275,height:170, minHeight: 150,maxWidth:250 , backgroundColor: "#16C2D5", color: "#ffffff", "&:hover": { backgroundColor: "#ffffff", color: "#16C2D5"}}}>
+            <CardContent>
+              <Typography variant="h5" component="div">
+              Personalized Care Plans
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+              Tailored treatment recommendations based on individual patient profiles, optimizing recovery outcomes.
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item>
+          <Card sx={{ minWidth: isMobile ? 200 : 275,height:170, minHeight: 150 ,maxWidth:250, backgroundColor: "#16C2D5", color: "#ffffff", "&:hover": { backgroundColor: "#ffffff", color: "#16C2D5"}}}>
+            <CardContent>
+              <Typography variant="h5" component="div">
+              Real-Time Monitoring
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+              Continuous health parameter tracking with instant alerts, ensuring timely intervention and risk prevention.
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+      <Grid item>
         <Box
           sx={{
             marginTop: "18px",
@@ -156,7 +79,7 @@ const FirstPage = () => {
             gap: "10px",
           }}
         >
-          <StyledButton
+          <Button
             sx={{
               color: "#fff",
               borderRadius: "10px",
@@ -171,8 +94,8 @@ const FirstPage = () => {
             onClick={() => navigate("/login")}
           >
             Log in
-          </StyledButton>
-          <StyledButton
+          </Button>
+          <Button
             sx={{
               color: "#000",
               borderRadius: "10px",
@@ -188,10 +111,10 @@ const FirstPage = () => {
             onClick={() => navigate("/registeration")}
           >
             Register
-          </StyledButton>
+          </Button>
         </Box>
-      </Box>
-    </>
+      </Grid>
+    </Grid>
   );
 };
 
