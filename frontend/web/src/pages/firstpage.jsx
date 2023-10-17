@@ -1,5 +1,14 @@
 import React from "react";
-import { Box, Typography, styled, useMediaQuery, Grid, Button, Card, CardContent } from "@mui/material";
+import {
+  Box,
+  Typography,
+  styled,
+  useMediaQuery,
+  Grid,
+  Button,
+  Card,
+  CardContent,
+} from "@mui/material";
 import NeuronCompo from "../components/NeuronCompo NeuronCompo";
 import { useNavigate } from "react-router-dom";
 
@@ -22,8 +31,10 @@ const FirstPage = () => {
 
   return (
     <Grid container direction="column" alignItems="center" spacing={2}>
-      <Grid item>
-        <NeuronCompo display="flex" />
+      <Grid>
+        <div className="logo">
+          <img src="./blue-logo.png" alt=".logo" style={{ width: "300px" }} />
+        </div>
         <Box>
           <StyledTitle variant="h1">Neurogen AI</StyledTitle>
           <StyledSubtitle variant="body1">
@@ -31,45 +42,7 @@ const FirstPage = () => {
           </StyledSubtitle>
         </Box>
       </Grid>
-      <Grid item container justifyContent={isMobile ? "flex-start" : "center"} spacing={2} sx={{}}>
-        <Grid item>
-          <Card sx={{ minWidth: isMobile ? 200 : 275, height: 170, minHeight: 150, maxWidth: 250, backgroundColor: "#16C2D5", color: "#ffffff", "&:hover": { backgroundColor: "#ffffff", color: "#16C2D5"}}}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-              Advanced Diagnostics:
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              Utilize cutting-edge AI algorithms for accurate stroke diagnosis, enabling timely treatment decisions.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item>
-          <Card sx={{ minWidth: isMobile ? 200 : 275,height:170, minHeight: 150,maxWidth:250 , backgroundColor: "#16C2D5", color: "#ffffff", "&:hover": { backgroundColor: "#ffffff", color: "#16C2D5"}}}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-              Personalized Care Plans
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              Tailored treatment recommendations based on individual patient profiles, optimizing recovery outcomes.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item>
-          <Card sx={{ minWidth: isMobile ? 200 : 275,height:170, minHeight: 150 ,maxWidth:250, backgroundColor: "#16C2D5", color: "#ffffff", "&:hover": { backgroundColor: "#ffffff", color: "#16C2D5"}}}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-              Real-Time Monitoring
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              Continuous health parameter tracking with instant alerts, ensuring timely intervention and risk prevention.
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-      <Grid item>
+      <div item>
         <Box
           sx={{
             marginTop: "18px",
@@ -113,7 +86,36 @@ const FirstPage = () => {
             Register
           </Button>
         </Box>
-      </Grid>
+      </div>
+      <div class="card-group">
+        <article class="card">
+          <Typography variant="h5" component="div">
+            Advanced Diagnostics:
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Utilize cutting-edge AI algorithms for accurate stroke diagnosis,
+            enabling timely treatment decisions.
+          </Typography>
+        </article>
+        <article class="card">
+          <Typography variant="h5" component="div">
+            Personalized Care Plans
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Tailored treatment recommendations based on individual patient
+            profiles, optimizing recovery outcomes.
+          </Typography>
+        </article>
+        <article class="card">
+          <Typography variant="h5" component="div">
+            Real-Time Monitoring
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Continuous health parameter tracking with instant alerts, ensuring
+            timely intervention and risk prevention.
+          </Typography>
+        </article>
+      </div>
     </Grid>
   );
 };

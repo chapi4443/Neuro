@@ -1,0 +1,41 @@
+.card-group {
+    width: 100%;
+    max-width: 1260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 16px;
+    padding: 50px;
+    overflow-x: auto;
+}
+
+.card {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    background-image: linear-gradient(85deg,#d1f3ff,#007bff);
+    padding: 32px;
+    box-shadow: -16px 0 32px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 250ms;
+}
+
+.card:not(:first-child){
+    margin-left: -130px;
+
+}
+
+.card:hover {
+    transform: translate(-8px,-16px) rotate(3deg);
+}
+
+.card:hover ~ .card {
+    transform: translateX(130px);
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
