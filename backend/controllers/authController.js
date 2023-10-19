@@ -81,7 +81,7 @@ const login = async (req, res) => {
   const isPasswordCorrect = await user.comparePassword(password);
 
   if (!isPasswordCorrect) {
-    throw new CustomError.UnauthenticatedError("Invalid Credentials");
+    throw new CustomError.UnauthenticatedError("Invalid Credentials-password");
   }
 
   // Use the secret key and token expiration from environment variables
