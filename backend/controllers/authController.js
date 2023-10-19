@@ -1,7 +1,9 @@
-const User = require('../models/User');
-const { StatusCodes } = require('http-status-codes');
-const CustomError = require('../errors');
-const { attachCookiesToResponse, createTokenUser } = require('../utils');
+const User = require("../models/User");
+const { StatusCodes } = require("http-status-codes");
+const CustomError = require("../errors");
+const { attachCookiesToResponse, createTokenUser } = require("../utils");
+const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 
 const register = async (req, res) => {
@@ -68,28 +70,73 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new CustomError.BadRequestError('Please provide email and password');
+    throw new CustomError.BadRequestError("Please provide email and password");
   }
+
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new CustomError.UnauthenticatedError('Invalid Credentials');
+    throw new CustomError.UnauthenticatedError("Invalid Credentials");
   }
-  const isPasswordCorrect = await user.comparePassword(password);
-  if (!isPasswordCorrect) {
-    throw new CustomError.UnauthenticatedError('Invalid Credentials');
-  }
-  const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, user: tokenUser });
 
-  res.status(StatusCodes.OK).json({ user: tokenUser });
+  const isPasswordCorrect = await user.comparePassword(password);
+
+  if (!isPasswordCorrect) {
+    throw new CustomError.UnauthenticatedError("Invalid Credentials-password");
+  }
+
+  // Use the secret key and token expiration from environment variables
+  const secretKey = process.env.JWT_SECRET;
+  const tokenExpiration = process.env.JWT_LIFETIME;
+
+  if (!secretKey) {
+    throw new CustomError.InternalServerError(
+      "JWT secret key is not configured."
+    );
+  }
+
+  if (!tokenExpiration) {
+    throw new CustomError.InternalServerError(
+      "Token expiration is not configured."
+    );
+  }
+
+  // Define the payload for the JWT
+  const payload = {
+    userId: user._id,
+    email: user.email,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    role: user.role,
+  
+  };
+
+  // Generate a JSON Web Token (JWT) with the configured expiration time
+  const token = jwt.sign(payload, secretKey, { expiresIn: tokenExpiration });
+
+  res.status(StatusCodes.OK).json({
+    user: {
+      _id: user._id,
+      email: user.email,
+      token: token,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      role: user.role,
+  
+    },
+  });
 };
+
+
+
+
+
 const logout = async (req, res) => {
-  res.cookie('token', 'logout', {
+  res.cookie("token", "logout", {
     httpOnly: true,
     expires: new Date(Date.now() + 1000),
   });
-  res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
+  res.status(StatusCodes.OK).json({ msg: "user logged out!" });
 };
 
 module.exports = {

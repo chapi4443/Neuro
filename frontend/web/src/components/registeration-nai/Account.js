@@ -1,16 +1,16 @@
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 export default function Account({ onDataChange }) {
   const [showPassword, setShowPassword] = React.useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+  const [password, setpassword] = React.useState(false);
 
   const handleDataChange = (id, value) => {
     onDataChange({ id, value });
@@ -20,8 +20,8 @@ export default function Account({ onDataChange }) {
     setShowPassword(!showPassword);
   };
 
-  const handleClickShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
+  const handleClickpassword = () => {
+    setpassword(!password);
   };
 
   return (
@@ -39,7 +39,7 @@ export default function Account({ onDataChange }) {
               required
               id="password"
               fullWidth
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               autoComplete="new-password"
               variant="standard"
               InputProps={{
@@ -64,14 +64,14 @@ export default function Account({ onDataChange }) {
               required
               id="confirmPassword"
               fullWidth
-              type={showConfirmPassword ? 'text' : 'password'}
+              type={password ? "text" : "password"}
               autoComplete="new-password"
               variant="standard"
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={handleClickShowConfirmPassword} edge="end">
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    <IconButton onClick={handleClickpassword} edge="end">
+                      {password ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
                 ),

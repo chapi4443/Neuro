@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+// import { Stepper, Step, StepLabel, StepContent, TextField, Button, Typography, Box, Grid } from '@mui/material';
+// import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { fetchRisk } from "../../features/riskSlice";
 import { Stepper, Step, StepLabel, StepContent, TextField, Button, Typography, Box, Grid, Radio, FormControlLabel } from '@mui/material';
 import axios from 'axios';
 
@@ -33,6 +38,8 @@ const options = {
 };
 
 const InputForm = () => {
+   const dispatch = useDispatch();
+   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [data, setData] = useState(initialData);
 
@@ -49,14 +56,20 @@ const InputForm = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post('http://localhost:4000/get_stroke_recommendations', data);
-      console.log(data); // Handle the response data as required
-    } catch (error) {
-      console.error('Error submitting data:', error);
-    }
-  };
+  // const handleSubmit = async () => {
+  //   try {
+  //     const response = await axios.post('http://localhost:4000/get_stroke_recommendations', data);
+  //     console.log(data); // Handle the response data as required
+  //   } catch (error) {
+  //     console.error('Error submitting data:', error);
+  //   }
+  // };
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      dispatch(fetchRisk(data));
+      navigate("/login");
+    };
 
   const renderRadioButtons = (field, options) => {
     return (
