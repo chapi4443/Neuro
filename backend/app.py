@@ -144,8 +144,7 @@ def get_stroke_recommendations():
         # Construct the prompt with user data
         medical_prompt =  f"""
 As an expert in stroke disease prevention, you play a crucial role in advising and developing
-personalized diet and exercise plans for patients based on their unique profiles. Your insights 
-are backed by extensive data analysis and a powerful model that calculates the risk of stroke.
+personalized diet and exercise plans for patients based on their unique profiles. 
 
 User Profile:
 Weight: {weight} kg

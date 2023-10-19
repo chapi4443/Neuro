@@ -21,6 +21,7 @@ function App() {
           <Route index element={<FirstPage />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="common" element={<Common  />} />
           <Route path="unauthorized" element={<Unauthorized />} />
         </Route>
         <Route

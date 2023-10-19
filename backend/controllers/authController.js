@@ -3,8 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
 const { attachCookiesToResponse, createTokenUser } = require("../utils");
 const jwt = require("jsonwebtoken");
-require('dotenv').config();
-
+require("dotenv").config();
 
 const register = async (req, res) => {
   const {
@@ -108,7 +107,6 @@ const login = async (req, res) => {
     firstName: user.first_name,
     lastName: user.last_name,
     role: user.role,
-  
   };
 
   // Generate a JSON Web Token (JWT) with the configured expiration time
@@ -122,14 +120,9 @@ const login = async (req, res) => {
       firstName: user.first_name,
       lastName: user.last_name,
       role: user.role,
-  
     },
   });
 };
-
-
-
-
 
 const logout = async (req, res) => {
   res.cookie("token", "logout", {
