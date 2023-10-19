@@ -71,7 +71,7 @@ class _InputFormState extends State<InputForm> {
       if (newData.containsKey('diastolicBP')) {
         formData.consentToDataCollection = newData['diastolicBP'];
       }
-       if (newData.containsKey('systolicBP ')) {
+      if (newData.containsKey('systolicBP ')) {
         formData.consentToDataCollection = newData['systolicBP'];
       }
     });
@@ -86,7 +86,7 @@ class _InputFormState extends State<InputForm> {
   }
 
   void goToNextStep() {
-    if (currentStep < 9) {
+    if (currentStep < 10) {
       setState(() {
         currentStep++;
       });
@@ -227,7 +227,6 @@ class _InputFormState extends State<InputForm> {
                                         goToPreviousStep: goToPreviousStep,
                                         goToNextStep: goToNextStep,
                                       ),
-                                      
                                       SizedBox(height: 6.v)
                                     ])),
                                 SizedBox(height: 167.v),
@@ -280,13 +279,38 @@ class _InputFormState extends State<InputForm> {
                                   width: 240.h,
                                   margin:
                                       EdgeInsets.only(top: 12.v, right: 5.h),
-                                  child: Text(
-                                    "John Doe, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
-                                    maxLines: 20,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: theme.textTheme.bodySmall!
-                                        .copyWith(height: 1.40, fontSize: 12),
-                                    textAlign: TextAlign.justify,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "John Doe, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
+                                        maxLines: 20,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: theme.textTheme.bodySmall!
+                                            .copyWith(
+                                                height: 1.40, fontSize: 12),
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        "Advice",
+                                        style: theme.textTheme.labelLarge!
+                                            .copyWith(fontSize: 20),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        "Diet: Adopt a heart-healthy diet that's low in saturated fats, sodium, and added sugars. Emphasize fruits, vegetables, whole grains, lean protein, and healthy fats.",
+                                        // overflow: TextOverflow.ellipsis,
+                                        style: theme.textTheme.bodySmall!
+                                            .copyWith(
+                                                height: 1.40, fontSize: 12),
+                                        textAlign: TextAlign.justify,
+                                      )
+                                    ],
                                   )),
                               const SizedBox(
                                 height: 30,

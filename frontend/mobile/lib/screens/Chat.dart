@@ -162,7 +162,7 @@ class _ChatState extends State<Chat> {
 
       Future<void> postData() async {
         final Uri uri =
-            Uri.parse('http://192.168.78.221:5000/api/v1/flask/medical');
+            Uri.parse('http://192.168.8.129:5000/api/v1/flask/medical');
         final Map<String, String> headers = {
           'Content-Type': 'application/json',
         };

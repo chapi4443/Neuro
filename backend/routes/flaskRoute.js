@@ -9,7 +9,7 @@ const {
 } = require("../middleware/authentication");
 
 // Define the route for predicting stroke risk
-router.post('/predict_stroke_risk',authenticateUser, predictionController.predictStrokeRisk);
+router.post('/predict_stroke_risk', predictionController.predictStrokeRisk);
 router.get("/predictions",authenticateUser, predictionController.getAllPredictions);
 router.post("/medical", predictionController.getMedicalResponse);
 router.post("/getStrokeRecommendations", async (req, res) => {
