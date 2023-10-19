@@ -63,7 +63,7 @@ const VictoryPieComponent = () => {
           fontSize: '14px',
         }}
       >
-        <a href="/assessment-retake-link">Retake the Assessment</a>
+        <a href="/ra">Retake the Assessment</a>
       </div>
     </div>
   );

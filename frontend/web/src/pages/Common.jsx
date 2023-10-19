@@ -142,7 +142,7 @@ const Common = () => {
             <Box
               sx={{
                 borderRight: "2px solid #FFF",
-                background: "#16C2D5",
+                background: "#1689d5",
                 width: "260px",
                 height: "700px",
               }}
@@ -174,7 +174,7 @@ const Common = () => {
                       <StyledTypo>NeuroGenAI</StyledTypo>
                       <StyledTypo
                         sx={{
-                          color: "#625A5A",
+                          color: "#cccccc",
                           fontSize: "10px",
                           fontWeight: "400",
                         }}
@@ -221,7 +221,7 @@ const Common = () => {
                 >
                   <StyledTypo
                     sx={{
-                      color: "#625A5A",
+                      color: "#ffffff",
                       fontSize: "13px",
                       fontWeight: "400",
                     }}
@@ -278,7 +278,7 @@ const Common = () => {
                 >
                   <StyledTypo
                     sx={{
-                      color: "#625A5A",
+                      color: "#ffffff",
                       fontSize: "13px",
                       fontWeight: "400",
                     }}
@@ -362,7 +362,7 @@ const Common = () => {
                 >
                   <StyledTypo
                     sx={{
-                      color: "#625A5A",
+                      color: "#ffffff",
                       fontSize: "13px",
                       fontWeight: "400",
                     }}

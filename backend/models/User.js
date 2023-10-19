@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const validator = require("validator");
 
+// Define the user schema
 const UserSchema = new mongoose.Schema({
   first_name: {
     type: String,
@@ -20,13 +21,13 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide date of birth"],
   },
   age: {
-    type: Number, // You can use Number to store the age.
+    type: Number,
     required: [true, "Please provide age"],
-    min: 18, // Adjust the minimum age as needed.
+    min: 18,
   },
   gender: {
     type: String,
-    enum: ["male", "female", "other"], // You can adjust the enum values as needed.
+    enum: ["male", "female", "other"],
     required: [true, "Please provide gender"],
   },
   phone_number: {
@@ -74,15 +75,21 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.pre("save", async function () {
-  if (!this.isModified("password")) return;
+// Hash the password before saving
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  next();
 });
 
+// Add the 'comparePassword' method to compare passwords
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   const isMatch = await bcrypt.compare(candidatePassword, this.password);
   return isMatch;
 };
 
-module.exports = mongoose.model("User", UserSchema);
+// Create and export the User model
+const User = mongoose.model("User", UserSchema);
+
+module.exports = User;

@@ -145,8 +145,7 @@ def get_stroke_recommendations():
         # Construct the prompt with user data
         medical_prompt =  f"""
 As an expert in stroke disease prevention, you play a crucial role in advising and developing
-personalized diet and exercise plans for patients based on their unique profiles. Your insights 
-are backed by extensive data analysis and a powerful model that calculates the risk of stroke.
+personalized diet and exercise plans for patients based on their unique profiles. 
 
 User Profile:
 Weight: {weight} kg
@@ -204,10 +203,14 @@ def medical_question():
                 response = related_chat
             else:
                 medical_prompt = f"""
-                You are NuroGen, a health assistant for patients, especially on stroke.
-                You will be given a question below, and you are not allowed to answer a question that is not related to health and medicine.
-                The question: {question}
-                """
+         You are  NuroGen a health assistant for patients, especially on stroke.
+         You will be given a question below, and you are not allowed to answer a question that is not related to health and medicine
+         if the question is greeting you are alowed to answer 
+         if you are asked who you are or what you say that you are  NuroGen a health assistant
+         just tell the user that you cannot answer a question not related to health . 
+         If the question is related to health, give a response.
+         The question:{question}
+        """
                 response = palm.generate_text(
                     model=model,
                     prompt=medical_prompt,
@@ -221,6 +224,8 @@ def medical_question():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
 
 
 if __name__ == '__main__':

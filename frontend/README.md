@@ -1,0 +1,1 @@
+The folder contain the mobile application and web application frontend development code and configuration.
