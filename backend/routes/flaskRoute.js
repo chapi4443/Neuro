@@ -7,6 +7,7 @@ const { authenticateUser } = require("../middleware/authentication");
 router.post(
   "/predict_stroke_risk",
   authenticateUser,
+
   predictionController.predictStrokeRisk
 );
 router.get(
@@ -22,10 +23,6 @@ router.get(
   predictionController.getPredictionsByUserId
 );
 
-
-
-
-
 router.post("/getStrokeRecommendations", async (req, res) => {
   try {
     const data = req.body;
@@ -33,7 +30,7 @@ router.post("/getStrokeRecommendations", async (req, res) => {
       await predictionController.getStrokeRecommendationsFromFlask(data);
     res.json(response);
   } catch (error) {
-    console.error(error); 
+    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
