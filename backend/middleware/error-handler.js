@@ -1,5 +1,18 @@
 const { StatusCodes } = require('http-status-codes');
+const { logEvents } = require("./logger");
+
 const errorHandlerMiddleware = (err, req, res, next) => {
+  logEvents(
+    `${err.name}: ${err.message}\t${req.method}\t${req.url}\t${req.headers.origin}`,
+    "errLog.log"
+  );
+  console.log(err.stack);
+
+  const status = res.statusCode ? res.statusCode : 500; // server error
+
+  res.status(status);
+
+  res.json({ message: err.message });
   console.log(err);
   let customError = {
     // set default
@@ -8,7 +21,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   };
   if (err.name === 'ValidationError') {
     customError.msg = Object.values(err.errors)
-      .map((item) => item.message)
+      .map((item) => item.message) 
       .join(',');
     customError.statusCode = 400;
   }
