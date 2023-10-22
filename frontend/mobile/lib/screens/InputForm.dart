@@ -1,5 +1,6 @@
 import 'package:final_sprs/core/app_export.dart';
 import 'package:final_sprs/screens/Drawer.dart';
+import 'package:final_sprs/resource/DisplayForm.dart';
 
 // ignore_for_file: must_be_immutable
 class InputForm extends StatefulWidget {
@@ -22,7 +23,10 @@ class _InputFormState extends State<InputForm> {
       if (newData.containsKey('Age')) {
         formData.Age = newData['Age'];
       }
-      if (newData.containsKey('physicalActivityLevel')) {
+      if (newData.containsKey('physicalActivity')) {
+        formData.physicalActivity = newData['physicalActivity'];
+      }
+      if (newData.containsKey('hypertension')) {
         formData.hypertension = newData['hypertension'];
       }
       if (newData.containsKey('heartDisease')) {
@@ -35,44 +39,40 @@ class _InputFormState extends State<InputForm> {
       if (newData.containsKey('diastolicBP')) {
         formData.diastolicBP = newData['diastolicBP'];
       }
-      if (newData.containsKey('consentToDataCollection')) {
-        formData.consentToDataCollection = newData['consentToDataCollection'];
-      }
+
       if (newData.containsKey('everMarried')) {
-        formData.consentToDataCollection = newData['everMarried'];
+        formData.everMarried = newData['everMarried'];
       }
       if (newData.containsKey('workType')) {
-        formData.consentToDataCollection = newData['workType'];
+        formData.workType = newData['workType'];
       }
       if (newData.containsKey('residence')) {
-        formData.consentToDataCollection = newData['residence'];
+        formData.residence = newData['residence'];
       }
       if (newData.containsKey('smokingStatus')) {
-        formData.consentToDataCollection = newData['smokingStatus'];
+        formData.smokingStatus = newData['smokingStatus'];
       }
       if (newData.containsKey('glucoseLevel')) {
-        formData.consentToDataCollection = newData['glucoseLevel'];
+        formData.glucoseLevel = newData['glucoseLevel'];
       }
       if (newData.containsKey('bmi')) {
-        formData.consentToDataCollection = newData['bmi'];
+        formData.bmi = newData['bmi'];
       }
       if (newData.containsKey('weight')) {
-        formData.consentToDataCollection = newData['weight'];
+        formData.weight = newData['weight'];
       }
       if (newData.containsKey('height')) {
-        formData.consentToDataCollection = newData['height'];
+        formData.height = newData['height'];
       }
-      if (newData.containsKey('physicalActivity')) {
-        formData.consentToDataCollection = newData['physicalActivity'];
-      }
+
       if (newData.containsKey('diet')) {
-        formData.consentToDataCollection = newData['diet'];
+        formData.diet = newData['diet'];
       }
       if (newData.containsKey('diastolicBP')) {
-        formData.consentToDataCollection = newData['diastolicBP'];
+        formData.diastolicBP = newData['diastolicBP'];
       }
-      if (newData.containsKey('systolicBP ')) {
-        formData.consentToDataCollection = newData['systolicBP'];
+      if (newData.containsKey('systolicBP')) {
+        formData.systolicBP = newData['systolicBP'];
       }
     });
   }
@@ -326,6 +326,8 @@ class _InputFormState extends State<InputForm> {
                                         fontSize: 16, color: Colors.white),
                                 onTap: () {
                                   setState(() {
+                                    print("the result is : {$formData}");
+                                    FormDataPrinter.displayFormData(formData);
                                     currentStep = 1;
                                     formData = FormData();
                                   });

@@ -95,7 +95,6 @@ const login = async (req, res) => {
   }
 };
 
-
 const logout = async (req, res) => {
   res.cookie("token", "logout", {
     httpOnly: true,
@@ -109,10 +108,6 @@ module.exports = {
   login,
   logout,
 };
-
-
-
-
 
 // const register = async (req, res) => {
 //   const {

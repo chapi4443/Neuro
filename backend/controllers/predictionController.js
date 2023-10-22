@@ -74,7 +74,7 @@ async function getPredictionsByUserId(req, res) {
     res.json({ predictions: userPredictions });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error " });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:final_sprs/core/app_export.dart';
+import 'package:final_sprs/resource/FormData.dart';
 
 class StepWidget extends StatelessWidget {
   final int currentStep;
@@ -152,7 +153,11 @@ class Step1 extends StatelessWidget {
                   child: CustomImageView(
                       svgPath: ImageConstant.imgIconPrimarycontainer)),
               onTap: () {
-                updateFormData({"Age": _agevalueoneController.toString()});
+                updateFormData({"Age": _agevalueoneController.text});
+
+                print("age:" + formData.Age);
+                print("Gender:" + formData.gender);
+
                 goToNextStep();
               }),
         ],
@@ -497,8 +502,8 @@ class Step5 extends StatelessWidget {
                       svgPath: ImageConstant.imgIconPrimarycontainer)),
               onTap: () {
                 updateFormData(
-                    {"glucoseLevel": glucoselevelvalController.toString()});
-                updateFormData({"bmi": bmivalueoneController.toString()});
+                    {"glucoseLevel": glucoselevelvalController.text});
+                updateFormData({"bmi": bmivalueoneController.text});
                 goToNextStep();
               }),
           SizedBox(height: 11.v),
@@ -584,8 +589,8 @@ class Step6 extends StatelessWidget {
                   child: CustomImageView(
                       svgPath: ImageConstant.imgIconPrimarycontainer)),
               onTap: () {
-                updateFormData({"height": heightvalueController.toString()});
-                updateFormData({"weight": weightvaluController.toString()});
+                updateFormData({"height": heightvalueController.text});
+                updateFormData({"weight": weightvaluController.text});
                 goToNextStep();
               }),
           SizedBox(height: 11.v),
@@ -655,9 +660,6 @@ class Step7 extends StatelessWidget {
           SizedBox(
             width: 250.h,
             child: TextFormField(
-              onChanged: (value) {
-                updateFormData({"diet": value});
-              },
               controller: dietvalueController,
               cursorColor: theme.colorScheme.primary,
               decoration: InputDecoration(
@@ -675,10 +677,9 @@ class Step7 extends StatelessWidget {
                   child: CustomImageView(
                       svgPath: ImageConstant.imgIconPrimarycontainer)),
               onTap: () {
-                updateFormData({
-                  "physicalActivity": physicalActivityController.toString()
-                });
-                updateFormData({"diet": dietvalueController.toString()});
+                updateFormData(
+                    {"physicalActivity": physicalActivityController.text});
+                updateFormData({"diet": dietvalueController.text});
                 goToNextStep();
               }),
           SizedBox(height: 11.v),
@@ -770,8 +771,8 @@ class Step8 extends StatelessWidget {
               onTap: () {
                 goToNextStep();
                 updateFormData(
-                    {"diastolicBP": diastolicvalueoneController.toString()});
-                updateFormData({"systolicBP ": sybpvalueController.toString()});
+                    {"diastolicBP": diastolicvalueoneController.text});
+                updateFormData({"systolicBP": sybpvalueController.text});
               }),
           SizedBox(height: 11.v),
           CustomOutlinedButton(
