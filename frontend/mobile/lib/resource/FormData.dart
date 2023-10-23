@@ -1,40 +1,27 @@
 class FormData {
-  String gender = "";
-  String Age = "";
-  String hypertension = "";
-  String heartDisease = "";
-  String weight = "";
-  String height = "";
-  String systolicBP = "";
-  String diastolicBP = "";
-  String consentToDataCollection = "";
+  int age = 0;
+  int hypertension = 0;
+  int heartDisease = 0;
   String everMarried = "";
   String workType = "";
-  String residence = "";
+  String residenceType = "";
+  double avgGlucoseLevel = 0.0;
+  double bmi = 0.0;
   String smokingStatus = "";
-  String glucoseLevel = "";
-  String bmi = "";
-  String physicalActivity = "";
-  String diet = "";
+  String gender = "";
 
- static void displayFormDataOnConsole(FormData formData) {
-    print('Gender: ${formData.gender}');
-    print('Age: ${formData.Age}');
-    print('Hypertension: ${formData.hypertension}');
-    print('Heart Disease: ${formData.heartDisease}');
-    print('Weight: ${formData.weight}');
-    print('Height: ${formData.height}');
-    print('Systolic Blood Pressure: ${formData.systolicBP}');
-    print('Diastolic Blood Pressure: ${formData.diastolicBP}');
-    print('Consent to Data Collection: ${formData.consentToDataCollection}');
-    print('Ever Married: ${formData.everMarried}');
-    print('Work Type: ${formData.workType}');
-    print('Residence: ${formData.residence}');
-    print('Smoking Status: ${formData.smokingStatus}');
-    print('Glucose Level: ${formData.glucoseLevel}');
-    print('BMI: ${formData.bmi}');
-    print('Physical Activity: ${formData.physicalActivity}');
-    print('Diet: ${formData.diet}');
+  Map<String, dynamic> toMap() {
+    return {
+      'age': age,
+      'hypertension': hypertension,
+      'heart_disease': heartDisease,
+      'ever_married': everMarried,
+      'work_type': workType,
+      'Residence_type': residenceType,
+      'avg_glucose_level': avgGlucoseLevel,
+      'bmi': bmi,
+      'smoking_status': smokingStatus,
+      'gender': gender,
+    };
   }
-
 }

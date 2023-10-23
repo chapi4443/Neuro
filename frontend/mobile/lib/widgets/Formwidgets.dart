@@ -153,10 +153,8 @@ class Step1 extends StatelessWidget {
                   child: CustomImageView(
                       svgPath: ImageConstant.imgIconPrimarycontainer)),
               onTap: () {
-                updateFormData({"Age": _agevalueoneController.text});
-
-                print("age:" + formData.Age);
-                print("Gender:" + formData.gender);
+                print("hereeeeeeeee");
+                updateFormData({"Age": int.parse(_agevalueoneController.text)});
 
                 goToNextStep();
               }),
@@ -501,9 +499,11 @@ class Step5 extends StatelessWidget {
                   child: CustomImageView(
                       svgPath: ImageConstant.imgIconPrimarycontainer)),
               onTap: () {
+                updateFormData({
+                  "glucoseLevel": double.parse(glucoselevelvalController.text)
+                });
                 updateFormData(
-                    {"glucoseLevel": glucoselevelvalController.text});
-                updateFormData({"bmi": bmivalueoneController.text});
+                    {"bmi": double.parse(bmivalueoneController.text)});
                 goToNextStep();
               }),
           SizedBox(height: 11.v),
