@@ -60,6 +60,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                               color: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.justify,
                         )
                       ],
                     ),

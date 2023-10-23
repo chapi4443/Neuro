@@ -31,4 +31,9 @@ const List<Map<String, dynamic>> exampleArray = [
     'value': 20.0,
     'month': 'Jun',
   },
+  {
+    'color': AppColors.contentColorRed,
+    'value': 50.0,
+    'month': 'Junly',
+  },
 ];

@@ -4,10 +4,11 @@ import 'package:final_sprs/widgets/bar_data_converter.dart';
 import 'package:final_sprs/resource/bar_data.dart';
 
 class MyBarChart extends StatefulWidget {
-  MyBarChart({super.key});
+  final dataList;
+  MyBarChart({super.key,required this.dataList});
 
   final shadowColor = const Color(0xFFCCCCCC);
-  final List<BarData> dataList = convertDataList(exampleArray);
+  // final List<BarData> dataList = convertDataList(exampleArray);
 
   @override
   State<MyBarChart> createState() => _MyBarChartState();
