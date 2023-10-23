@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // Replace 'your_api_endpoint' with the actual URL of your login API
     final storage = FlutterSecureStorage();
     try {
-      final apiUrl = Uri.parse('http://10.4.103.212:5000/api/v1/auth/login');
+      final apiUrl = Uri.parse('http://10.4.116.193:5000/api/v1/auth/login');
       final Map<String, String> headers = {
         'Content-Type': 'application/json',
       };
@@ -53,13 +53,18 @@ class _LoginScreenState extends State<LoginScreen> {
         final responseData = json.decode(response.body);
 
         print('Login successful');
+        print(responseData);
+
         final setCookieHeader = response.headers['set-cookie'];
+        final userId = responseData['user']["userId"];
         final sessionCookie = setCookieHeader!.split('; ')[0];
 
         await storage.write(key: 'sessionCookies', value: sessionCookie);
-       
+        await storage.write(key: 'userId', value: userId);
+
         final sessionCookies = await storage.read(key: 'sessionCookies');
         print("your cookies :$sessionCookies");
+        print("userId: $userId");
 
         await Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return const Dashboard();

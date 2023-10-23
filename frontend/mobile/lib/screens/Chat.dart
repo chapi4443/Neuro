@@ -5,6 +5,7 @@ import 'package:final_sprs/widgets/ChatMessage.dart';
 import 'package:final_sprs/screens/Drawer.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Chat extends StatefulWidget {
   const Chat({Key? key}) : super(key: key);
@@ -161,17 +162,27 @@ class _ChatState extends State<Chat> {
       });
 
       Future<void> postData() async {
+        final storage = FlutterSecureStorage();
+        final sessionCookie = await storage.read(key: 'sessionCookies');
+
+        final userId = await storage.read(key: 'userId');
+
         final Uri uri =
-            Uri.parse('http://192.168.8.129:5000/api/v1/flask/medical');
+            Uri.parse('http://10.4.116.193:5000/api/v1/medical/medical-chat/');
         final Map<String, String> headers = {
           'Content-Type': 'application/json',
+          'Cookie': sessionCookie!,
         };
 
-        final Map<String, dynamic> body = {"question": text};
+        final Map<String, dynamic> body = {
+          "question": text,
+        };
 
         try {
-          final response =await http.post(uri, headers: headers, body: json.encode(body));
-          print("the response is: {$response}");
+          final response =
+              await http.post(uri, headers: headers, body: json.encode(body));
+          final responseBody = response.body;
+          print("the response is: {$responseBody}");
           if (response.statusCode == 200) {
             final jsonResponse = json.decode(response.body);
             String responseText = jsonResponse["response"];
