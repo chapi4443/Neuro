@@ -168,7 +168,7 @@ class _ChatState extends State<Chat> {
         final userId = await storage.read(key: 'userId');
 
         final Uri uri =
-            Uri.parse('http://192.168.1.221:5000/api/v1/medical/medical-chat/');
+            Uri.parse('http://10.4.155.241:5000/api/v1/medical/medical-chat/');
         final Map<String, String> headers = {
           'Content-Type': 'application/json',
           'Cookie': sessionCookie!,
@@ -197,15 +197,6 @@ class _ChatState extends State<Chat> {
       }
 
       await postData();
-
-      // DetectIntentResponse response = await dialogFlowtter.detectIntent(
-      //     queryInput: QueryInput(text: TextInput(text: text)));
-
-      // if (response.message == null) return;
-
-      // setState(() {
-      //   addMessage(response.message!);
-      // });
     }
   }
 

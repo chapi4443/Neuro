@@ -3,6 +3,7 @@ import "package:final_sprs/widgets/percentIndicator.dart";
 import 'package:final_sprs/core/app_export.dart';
 import 'package:final_sprs/screens/Drawer.dart';
 import 'package:final_sprs/widgets/FetchBarChartData.dart';
+import "package:final_sprs/resource/percentIndicatorValue.dart";
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -13,12 +14,13 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final barchartData = GetBarchartData();
-  var fetchedData;
+  final percentIndicatorValue = PercentIndicatorValue();
 
-  void initState() async {
+  var data;
+  double percent = 0;
+  void initState() {
     super.initState();
-    fetchedData = await barchartData.fetchData();
+    double percent = percentIndicatorValue.getMyValue();
   }
 
   @override
@@ -61,7 +63,7 @@ class _DashBoardState extends State<DashBoard> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .16,
                 ),
-                const PercentDiplay(),
+                  PercentDiplay(),
                 SizedBox(height: MediaQuery.of(context).size.height * .05),
                 Container(
                     padding: const EdgeInsets.only(left: 16.0, right: 16.0),
@@ -93,7 +95,8 @@ class _DashBoardState extends State<DashBoard> {
                             ),
                             const Divider(thickness: 1.0, color: Colors.grey),
                             // qwertyuio
-                            MyBarChart(dataList: fetchedData),
+
+                            MyBarChart(),
                           ],
                         ),
                       )),

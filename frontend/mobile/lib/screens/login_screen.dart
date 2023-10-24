@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // Replace 'your_api_endpoint' with the actual URL of your login API
     final storage = FlutterSecureStorage();
     try {
-      final apiUrl = Uri.parse('http://192.168.1.221:5000/api/v1/auth/login');
+      final apiUrl = Uri.parse('http://10.4.155.241:5000/api/v1/auth/login');
       final Map<String, String> headers = {
         'Content-Type': 'application/json',
       };
@@ -143,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             buttonStyle: CustomButtonStyles.outlineBlue,
                             buttonTextStyle: CustomTextStyles.titleLargePoppins,
                             onTap: () async {
-                              print("email is : {$emailController} ");
                               await _login(context);
                             },
                           ),

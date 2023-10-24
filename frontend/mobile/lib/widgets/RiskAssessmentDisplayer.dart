@@ -146,7 +146,7 @@ class _RiskAssesmentDisplayerState extends State<RiskAssesmentDisplayer> {
     try {
       Future<void> postData(FormData formData) async {
         final apiUrl = Uri.parse(
-            'http://192.168.1.221:5000/api/v1/predict/predict_stroke_risk');
+            'http://10.4.155.241:5000/api/v1/predict/predict_stroke_risk');
         final requestData = {
           'data': [formData.toMap()]
         };
