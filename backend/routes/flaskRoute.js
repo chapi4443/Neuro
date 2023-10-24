@@ -6,19 +6,19 @@ const { authenticateUser } = require("../middleware/authentication");
 // Define the route for predicting stroke risk
 router.post(
   "/predict_stroke_risk",
-  // authenticateUser,
+  authenticateUser,
   predictionController.predictStrokeRisk
 );
 router.get(
   "/predictions",
-  // authenticateUser,
+  authenticateUser,
   predictionController.getAllPredictions
 );
 
 // Add the route for getting predictions by user ID
 router.get(
   "/predictions/:userId", // Define the route with a dynamic parameter
-  // authenticateUser,
+  authenticateUser,
   predictionController.getPredictionsByUserId
 );
 
