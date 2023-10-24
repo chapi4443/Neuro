@@ -33,10 +33,10 @@ const UserSchema = new mongoose.Schema({
   phone_number: {
     type: String,
     required: [true, "Please provide phone number"],
-    validate: {
-      validator: validator.isMobilePhone,
-      message: "Please provide a valid phone number",
-    },
+    // validate: {
+    //   validator: validator.isMobilePhone,
+    //   message: "Please provide a valid phone number",
+    // },
   },
   address: {
     type: String,

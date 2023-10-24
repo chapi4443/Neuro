@@ -1,1 +1,19 @@
 20231018	08:34:53	49ffec17-1432-4202-affc-05b46ea91dc7	Error: Invalid Credentials	POST	/api/v1/auth/login	undefined
+20231023	16:07:45	31d3e04a-a83c-4a97-a529-568256ccf319	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:11:49	6e1671da-3788-4c4e-b357-791d4f72ac19	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:12:08	cb867252-5be7-47d1-a466-ceb483d754d3	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:12:21	5c823ca3-8843-441a-b12b-4b4672a1f294	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:12:34	fde8f3b5-c519-4fb3-abb5-d57cceca04c3	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:12:44	596a4038-db16-4843-9b59-9d65a4c84f1e	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:12:51	bae72723-7ef4-41af-82c6-040d0380154e	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:13:06	6ad5470d-ece3-43f7-8c47-5cca0072672e	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:13:38	b8425204-6f7e-4ee4-ad46-75cb712f7411	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:14:28	846f1662-cd36-4245-a49a-6a66d39af5f4	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:14:58	dafe9a1b-6c1a-4016-818c-e1443aea4301	TypeError: Cannot destructure property 'email' of 'data' as it is undefined.	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:15:37	a9f45d51-0c77-4a54-a34e-3fd0f6f1d955	Error: Invalid Credentials-password	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:16:06	676af038-6855-47a9-844a-fc3dd81b6cb8	Error: Invalid Credentials	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:16:39	6c596cb2-e7f3-478f-8de1-cf8d2082c0c0	Error: Invalid Credentials-password	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:18:21	606593dd-a92b-4931-9a48-8561efd86194	Error: Invalid Credentials-password	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:27:08	d0ec7374-9f43-4850-8126-b541e873b0ad	Error: Please provide email and password	POST	/api/v1/auth/login	http://localhost:3000
+20231023	16:28:56	e2e649c3-5bc4-471b-844f-5371a6fd081d	Error: Invalid Credentials-password	POST	/api/v1/auth/login	http://localhost:3000
+20231024	14:39:51	69e6feff-d0b6-4f50-b4b4-adb9363da44a	Error: Invalid Credentials	POST	/api/v1/auth/login	http://localhost:3000
