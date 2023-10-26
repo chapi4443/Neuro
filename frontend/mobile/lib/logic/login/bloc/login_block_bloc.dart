@@ -9,7 +9,7 @@ part 'login_block_state.dart';
 
 class LoginBlockBloc extends Bloc<LoginEvent, LoginState> {
   LoginBlockBloc() : super(LoginInitialState()) {
-    print("I'm here 4");
+   
     on<LoginButtonPressed>(LoginButtonClicked);
   }
 
@@ -19,9 +19,6 @@ class LoginBlockBloc extends Bloc<LoginEvent, LoginState> {
 
     emit(LoginLoadingState());
     try {
-      // Call your repository to perform login here
-      // Replace with your actual login logic
-      print("I'm here 2");
       await repository.login(event.email, event.password);
       emit(LoginSuccessState());
     } catch (error) {

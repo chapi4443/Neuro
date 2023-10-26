@@ -1,3 +1,4 @@
+import 'package:final_sprs/logic/DashBoard/bloc/dash_board_bloc_bloc.dart';
 import 'package:final_sprs/logic/login/bloc/login_block_bloc.dart';
 import 'package:final_sprs/main.dart';
 import 'package:final_sprs/presentaion/screens/register_screen.dart';
@@ -144,8 +145,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             listener: (context, state) {
                               // TODO: implement listener
                               if (state is LoginSuccessState) {
+                                final dashBoardBloc =
+                                    BlocProvider.of<DashBoardBloc>(context);
+                                dashBoardBloc.add(userLoggedIn());
+
                                 Navigator.of(context)
-                                    .pushReplacementNamed("/DashBoard");
+                                    .pushReplacementNamed("/Dashboard");
                               }
                             },
                             builder: (context, state) {

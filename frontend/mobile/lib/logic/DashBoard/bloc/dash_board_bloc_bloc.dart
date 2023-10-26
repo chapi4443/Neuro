@@ -14,16 +14,18 @@ class DashBoardBloc extends Bloc<DashBoardBlocEvent, DashBoardBlocState> {
   }
 
   FutureOr<void> fetchUserData(
-      userLoggedIn event, Emitter<DashBoardBlocState> emit) async* {
+      userLoggedIn event, Emitter<DashBoardBlocState> emit) async {
     final DashBoardRepository repository = DashBoardRepository();
     emit(DashBoardDataLoadingState());
 
     try {
-      await repository.fetchData();
-      emit(DashBoardDataLoadedState());
+       List<Map<String, dynamic>>? data = await repository.fetchData();
+      Future.delayed(
+        const Duration(seconds: 1),
+      );
+      emit(DashBoardDataLoadedState(data!));
     } catch (e) {
       emit(DashBoardDataErrorState("erros $e"));
-      
     }
   }
 }

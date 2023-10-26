@@ -7,7 +7,8 @@ import 'package:final_sprs/presentaion/widgets/bar_data_converter.dart';
 import 'package:final_sprs/presentaion/widgets/FetchBarChartData.dart';
 
 class MyBarChart extends StatefulWidget {
-  MyBarChart({Key? key}) : super(key: key);
+  final List<Map<String, dynamic>>? dataList1;
+  MyBarChart({Key? key,required this.dataList1}) : super(key: key);
 
   @override
   State<MyBarChart> createState() => _MyBarChartState();
@@ -16,12 +17,12 @@ class MyBarChart extends StatefulWidget {
 class _MyBarChartState extends State<MyBarChart> {
   final barchartData = GetBarchartData();
   final DashBoardData data = DashBoardData();
-  List<Map<String, dynamic>>? dataList1;
+ 
 
   @override
   void initState() {
     super.initState();
-    dataList1 = data.getDashBoardData();
+    // dataList1 = data.getDashBoardData();
   }
 
   Future<List<Map<String, dynamic>>?> fetchData1() async {
@@ -67,9 +68,9 @@ class _MyBarChartState extends State<MyBarChart> {
 
   @override
   Widget build(BuildContext context) {
-    if (dataList1 != null) {
+    if (widget.dataList1 != null) {
       List<BarData> dataList;
-      dataList = convertDataList(dataList1!);
+      dataList = convertDataList(widget.dataList1!);
       return Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
         child: AspectRatio(

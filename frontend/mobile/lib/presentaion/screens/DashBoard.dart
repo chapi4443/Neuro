@@ -9,7 +9,9 @@ import 'package:final_sprs/presentaion/widgets/FetchBarChartData.dart';
 import "package:final_sprs/resource/percentIndicatorValue.dart";
 
 class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
+  const DashBoard({
+    super.key,
+  });
 
   @override
   State<DashBoard> createState() => _DashBoardState();
@@ -17,14 +19,6 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final percentIndicatorValue = PercentIndicatorValue();
-
-  var data;
-  double percent = 0;
-  void initState() {
-    super.initState();
-    double percent = percentIndicatorValue.getMyValue();
-  }
 
   @override
   Widget build(context) {
@@ -32,11 +26,16 @@ class _DashBoardState extends State<DashBoard> {
       bloc: BlocProvider.of(context),
       builder: (context, state) {
         if (state is DashBoardDataLoadingState) {
-          return CircularProgressIndicator();
+          return Scaffold(
+              body:
+                  Container(child: Center(child: CircularProgressIndicator())));
         } else if (state is DashBoardDataErrorState) {
           print(state.error);
-          return ErrorWidget.withDetails(message: state.error,);
-        } else {
+          return ErrorWidget.withDetails(
+            message: state.error,
+          );
+        } else if (state is DashBoardDataLoadedState) {
+          List<Map<String, dynamic>>? data = state.data;
           return Scaffold(
               extendBodyBehindAppBar: true,
               key: _scaffoldKey,
@@ -76,7 +75,7 @@ class _DashBoardState extends State<DashBoard> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .16,
                       ),
-                      PercentDiplay(),
+                      PercentDiplay(data: data),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * .05),
                       Container(
@@ -113,7 +112,7 @@ class _DashBoardState extends State<DashBoard> {
                                       thickness: 1.0, color: Colors.grey),
                                   // qwertyuio
 
-                                  MyBarChart(),
+                                  MyBarChart(dataList1: data),
                                 ],
                               ),
                             )),
@@ -122,6 +121,8 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                 )),
               ));
+        } else {
+          return Container();
         }
       },
     );

@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class LoginRepository {
   Future<void> login(String email, String password) async {
     print("I'm here");
-    final apiUrl = Uri.parse('http://10.5.207.162:5000/api/v1/auth/login');
+    final apiUrl = Uri.parse('http://10.4.102.52:5000/api/v1/auth/login');
     final Map<String, String> headers = {
       'Content-Type': 'application/json',
     };

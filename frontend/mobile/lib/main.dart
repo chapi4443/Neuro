@@ -30,14 +30,19 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       routes: {
         '/': (context) => WelcomeScreen(),
-        '/login': (context) => BlocProvider.value(
-              value: loginBloc,
+        '/login': (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(
+                  value: loginBloc,
+                ),
+                BlocProvider.value(value: dashBoardBloc)
+              ],
               child: LoginScreen(),
             ),
         '/register': (context) =>
             BlocProvider.value(value: loginBloc, child: RegisterScreen()),
-        '/DashBoard': (context) =>
-            BlocProvider.value(value: dashBoardBloc, child: DashBoard())
+        '/Dashboard': (context) =>
+            BlocProvider.value(value: dashBoardBloc, child: Dashboard())
       },
       debugShowCheckedModeBanner: false,
     );

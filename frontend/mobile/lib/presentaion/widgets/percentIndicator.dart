@@ -1,3 +1,4 @@
+import 'package:final_sprs/data/dataProviders/dashBoardData.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import "package:final_sprs/resource/percentIndicatorValue.dart";
@@ -21,8 +22,9 @@ Widget buildCircularPercentIndicator(double percent) {
 }
 
 class PercentDiplay extends StatefulWidget {
+ final List<Map<String, dynamic>>? data;
   PercentDiplay({
-    super.key,
+    super.key,required this.data
   });
 
   @override
@@ -32,17 +34,20 @@ class PercentDiplay extends StatefulWidget {
 class _PercentDiplayState extends State<PercentDiplay> {
   final barchartData = GetBarchartData();
   List<Map<String, dynamic>>? dataList1;
+  // DashBoardData data = DashBoardData();
   double percent = 0;
 
   @override
   void initState() {
     super.initState();
-    fetchData1().then((data) {
-      setState(() {
-        print("I got : $data");
-        dataList1 = data;
-      });
-    });
+    // fetchData1().then((data) {
+    //   setState(() {
+    //     print("I got : $data");
+    //     dataList1 = data;
+    //   });
+    // });
+    
+    // print("arrived data: $dataList1");
   }
 
   Future<List<Map<String, dynamic>>?> fetchData1() async {
@@ -54,8 +59,9 @@ class _PercentDiplayState extends State<PercentDiplay> {
 
   @override
   Widget build(BuildContext context) {
-    percent = dataList1![dataList1!.length - 1]["value"] / 100;
-    print("percetn is: $percent");
+    percent = widget.data![widget.data!.length - 1]["value"] / 100;
+    
+
     return buildCircularPercentIndicator(percent);
   }
 }
