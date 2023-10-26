@@ -1,4 +1,8 @@
-import 'package:final_sprs/core/app_export.dart';
+import 'package:final_sprs/logic/DashBoard/bloc/dash_board_bloc_bloc.dart';
+import 'package:final_sprs/logic/login/bloc/login_block_bloc.dart';
+import 'package:final_sprs/presentaion/core/app_export.dart';
+import 'package:final_sprs/presentaion/screens/register_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,16 +16,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final LoginBlockBloc loginBloc = LoginBlockBloc();
+  final DashBoardBloc dashBoardBloc = DashBoardBloc();
   final bool _islogged = false;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Stroke Risk Analysis',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: _islogged ? const Dashboard() : const WelcomeScreen(),
+      // home: _islogged ? const Dashboard() : const WelcomeScreen(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => WelcomeScreen(),
+        '/login': (context) => BlocProvider.value(
+              value: loginBloc,
+              child: LoginScreen(),
+            ),
+        '/register': (context) =>
+            BlocProvider.value(value: loginBloc, child: RegisterScreen()),
+        '/DashBoard': (context) =>
+            BlocProvider.value(value: dashBoardBloc, child: DashBoard())
+      },
       debugShowCheckedModeBanner: false,
     );
   }
