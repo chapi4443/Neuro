@@ -4,11 +4,10 @@ import React, { useState } from "react";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import axios from "axios";
+import parse from "html-react-parser";
 const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [question, setQuestion] = useState("");
-  const [message, setMessage] = useState("");
-
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -38,6 +37,7 @@ const Chat = () => {
 
     recognition.start();
   };
+
   const submitHandler = async (e) => {
     e.preventDefault();
     const newUserMessages = [...userMessages];
@@ -45,17 +45,23 @@ const Chat = () => {
     setUserMessages(newUserMessages);
     const token = Cookies.get("token");
     const decodedToken = jwt_decode(token);
+    console.log(decodedToken);
     const userId = decodedToken.userId;
     try {
       const response = await axios.post(
         "http://localhost:5000/api/v1/medical/medical-chat",
         {
           question: question,
-          userId
+          userId,
         }
       );
       const responseData = response.data.response;
-      newUserMessages.push({ message: responseData, isQuestion: false }); // Store the response as an object with a flag
+      const formattedResponse = responseData.replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong><br>"
+      );
+      // setResponse(formattedResponse);
+      newUserMessages.push({ message: formattedResponse, isQuestion: false });
       setUserMessages(newUserMessages);
     } catch (error) {
       console.error("Request Error:", error);
@@ -116,7 +122,9 @@ const Chat = () => {
                   width: "100%",
                 }}
               >
-                <Typography sx={{ width: "95%" }}>{message.message}</Typography>
+                <Typography sx={{ width: "95%" }}>
+                  {parse(message.message)}
+                </Typography>
                 {!message.isQuestion && (
                   <IconButton
                     sx={{

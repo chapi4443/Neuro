@@ -1,11 +1,31 @@
-import { ArrowUpward, MoreVert } from "@mui/icons-material";
+import { ArrowUpward, LiveHelp, MoreVert } from "@mui/icons-material";
 import { Box, Button, Card, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import PieCharts from "./PieChart";
 import BarMixChart from "./BarMixChart";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
+import { getStrokeRecommendations } from "../../Utils/Store/PredictionStore";
+import { useDispatch, useSelector } from "react-redux";
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = Cookies.get("token");
+  const decodedToken = jwt_decode(token);
+  const userId = decodedToken.userId;
+
+  useEffect(() => {
+    dispatch(getStrokeRecommendations({ data: userId }));
+  }, [dispatch, userId]);
+
+  const StrokePrediction = useSelector(
+    (state) => state.PredictionStore.outputGetStrokeRecommendations
+  );
+  const prediction = StrokePrediction?.predictions?.length;
+
   return (
-    <Stack sx={{width:"84%"}}>
+    <Stack sx={{ width: "84%" }}>
       <Stack
         sx={{ background: "#192655", height: "10dvh" }}
         alignItems={"center"}
@@ -37,7 +57,7 @@ const Dashboard = () => {
                     Total Risk Assessment
                   </Typography>
                   <Typography fontSize={"24px"} fontWeight={"bold"}>
-                    2,420
+                    {prediction}
                   </Typography>
                 </Box>
                 <Box
@@ -64,7 +84,7 @@ const Dashboard = () => {
                   </Box>
                 </Box>
               </Card>
-              <Card
+              {/* <Card
                 sx={{
                   display: "flex",
                   alignItems: "flex-start",
@@ -103,7 +123,7 @@ const Dashboard = () => {
                     <ArrowUpward sx={{ fontSize: "15px" }} /> 20%
                   </Box>
                 </Box>
-              </Card>
+              </Card> */}
             </Stack>
             <Card sx={{ width: 360, p: 2 }}>
               <Stack
@@ -118,6 +138,22 @@ const Dashboard = () => {
               </Stack>
               <PieCharts />
             </Card>
+            <Button
+              variant="contained"
+              sx={{
+                position: "absolute",
+                right: "50px",
+                border: "1px solid #FFFFFF",
+                background: "#16C2D5",
+                cursor: "pointer",
+                "&:hover": { border: "1px solid #16C2D5" },
+                padding: 1,
+              }}
+              onClick={() => navigate("/faq")}
+            >
+              <LiveHelp />
+              <Typography>FQA's</Typography>
+            </Button>
           </Stack>
           <Stack sx={{ width: "60%", height: "50dvh" }}>
             <Stack

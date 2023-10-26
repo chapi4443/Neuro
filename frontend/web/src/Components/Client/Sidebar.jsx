@@ -1,6 +1,7 @@
 import {
   Button,
   Collapse,
+  IconButton,
   ImageListItem,
   List,
   ListItemButton,
@@ -17,22 +18,28 @@ import {
   ExpandLess,
   ExpandMore,
   Help,
-  LiveHelp,
-  Logout,
+  Phone,
   Settings,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useMatch, useNavigate } from "react-router-dom";
+
 const Sidebar = () => {
   const [open, setOpen] = React.useState(true);
   const [open2, setOpen2] = React.useState(true);
   const navigate = useNavigate();
-
+  const isDashboardActive = useMatch("/dashboard");
+  const isRiskAssessmentActive = useMatch("/risk-assessment");
+  const isChatBotActive = useMatch("/chat-bot");
+  const isHelpGuideActive = useMatch("/help-guide");
+  const isSettingsActive = useMatch("/setting");
   const handleClick = () => {
     setOpen(!open);
   };
   const handleClick2 = () => {
     setOpen2(!open2);
+  };
+  const activeListItemButtonStyle = {
+    backgroundColor: "#16C2D5",
   };
   return (
     <Stack
@@ -89,7 +96,11 @@ const Sidebar = () => {
           <Collapse in={open2} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItemButton
-                sx={{ pl: 4, "&:hover": { background: "#16C2D5" } }}
+                sx={{
+                  pl: 4,
+                  "&:hover": { background: "#16C2D5" },
+                  ...(isDashboardActive && activeListItemButtonStyle),
+                }}
                 onClick={() => navigate("/dashboard")}
               >
                 <ListItemIcon>
@@ -98,7 +109,11 @@ const Sidebar = () => {
                 <ListItemText primary="Dashboard" sx={{ color: "#FFFFFF" }} />
               </ListItemButton>
               <ListItemButton
-                sx={{ pl: 4, "&:hover": { background: "#16C2D5" } }}
+                sx={{
+                  pl: 4,
+                  "&:hover": { background: "#16C2D5" },
+                  ...(isRiskAssessmentActive && activeListItemButtonStyle),
+                }}
                 onClick={() => navigate("/risk-assessment")}
               >
                 <ListItemIcon>
@@ -110,7 +125,11 @@ const Sidebar = () => {
                 />
               </ListItemButton>
               <ListItemButton
-                sx={{ pl: 4, "&:hover": { background: "#16C2D5" } }}
+                sx={{
+                  pl: 4,
+                  "&:hover": { background: "#16C2D5" },
+                  ...(isChatBotActive && activeListItemButtonStyle),
+                }}
                 onClick={() => navigate("/chat-bot")}
               >
                 <ListItemIcon>
@@ -134,16 +153,11 @@ const Sidebar = () => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItemButton
-                sx={{ pl: 4, "&:hover": { background: "#16C2D5" } }}
-                onClick={() => navigate("/help-guide")}
-              >
-                <ListItemIcon>
-                  <LiveHelp sx={{ color: "#FFFFFF" }} />
-                </ListItemIcon>
-                <ListItemText primary="FAQ's" sx={{ color: "#FFFFFF" }} />
-              </ListItemButton>
-              <ListItemButton
-                sx={{ pl: 4, "&:hover": { background: "#16C2D5" } }}
+                sx={{
+                  pl: 4,
+                  "&:hover": { background: "#16C2D5" },
+                  ...(isHelpGuideActive && activeListItemButtonStyle),
+                }}
                 onClick={() => navigate("/help-guide")}
               >
                 <ListItemIcon>
@@ -155,7 +169,11 @@ const Sidebar = () => {
                 />
               </ListItemButton>
               <ListItemButton
-                sx={{ pl: 4, "&:hover": { background: "#16C2D5" } }}
+                sx={{
+                  pl: 4,
+                  "&:hover": { background: "#16C2D5" },
+                  ...(isSettingsActive && activeListItemButtonStyle),
+                }}
                 onClick={() => navigate("/setting")}
               >
                 <ListItemIcon>
@@ -165,21 +183,25 @@ const Sidebar = () => {
               </ListItemButton>
             </List>
           </Collapse>
-          <ListItemButton
-            sx={{ pl: 4, "&:hover": { background: "#16C2D5" } }}
-            onClick={() => {
-              localStorage.clear();
-              Cookies.remove("token");
-              window.location.href = "/login";
-            }}
-          >
-            <ListItemIcon>
-              <Logout sx={{ color: "#FFFFFF" }} />
-            </ListItemIcon>
-            <ListItemText primary="Logout" sx={{ color: "#FFFFFF" }} />
-          </ListItemButton>
         </List>
       </Stack>
+
+      <IconButton
+        sx={{
+          position: "fixed",
+          bottom: "30px",
+          right: "30px",
+          zIndex: 5,
+          background: "#16C2D5",
+          color: "white",
+          "&:hover": { color: "#192655" },
+        }}
+        onClick={() => {
+          window.location.href = "tel:911";
+        }}
+      >
+        <Phone />
+      </IconButton>
     </Stack>
   );
 };

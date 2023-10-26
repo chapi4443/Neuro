@@ -1,43 +1,70 @@
-import React, { PureComponent } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { PieChart, Pie, Cell, Label } from "recharts";
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
+import { getStrokeRecommendations } from "../../Utils/Store/PredictionStore";
 
-const data = [
-  { name: "Group A", value: 0.5 },
-  { name: "Group B", value: 1 - 0.5},
-];
-const COLORS = [
-  data[0].value >= 0.9 ? "red" :data[0].value >= 0.5 ? "yellow" :data[0].value >= 0.2 ? "blue" : "green",
-  "#FFFFFF",
-];
+const PieCharts = () => {
+  const dispatch = useDispatch();
+  const token = Cookies.get("token");
+  const decodedToken = jwt_decode(token);
+  const userId = decodedToken.userId;
 
-export default class PieCharts extends PureComponent {
-  render() {
-    return (
-      <PieChart width={400} height={150} onMouseEnter={this.onPieEnter}>
-        <Pie
-          data={data}
-          cx={170}
-          cy={70}
-          innerRadius={40}
-          outerRadius={60}
-          startAngle={45}
-          endAngle={405}
-          fill="#FFFFFF"
-          paddingAngle={0}
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-          <Label
-            value={`${data[0].value * 100}%`}
-            position="center"
-            fill="black"
-            fontSize={22}
-            fontWeight={"bold"}
-          />
-        </Pie>
-      </PieChart>
-    );
-  }
-}
+  useEffect(() => {
+    dispatch(getStrokeRecommendations({ data: userId }));
+  }, [dispatch, userId]);
+
+  const StrokePrediction = useSelector(
+    (state) => state.PredictionStore.outputGetStrokeRecommendations
+  );
+
+  const prediction = (
+    StrokePrediction?.predictions?.[StrokePrediction?.predictions?.length - 1]
+      ?.prediction * 100
+  ).toFixed(1);
+  console.log(prediction);
+  const data = [
+    { name: "Group A", value: parseFloat(prediction) },
+    { name: "Group B", value: parseFloat(100 - prediction) },
+  ];
+  const COLORS = [
+    prediction >= 90
+      ? "red"
+      : prediction >= 50
+      ? "yellow"
+      : prediction >= 20
+      ? "blue"
+      : "green",
+    "#FFFFFF",
+  ];
+  return (
+    <PieChart width={400} height={150}>
+      <Pie
+        data={data}
+        cx={170}
+        cy={70}
+        innerRadius={40}
+        outerRadius={60}
+        startAngle={45}
+        endAngle={405}
+        fill="#FFFFFF"
+        paddingAngle={0}
+        dataKey="value"
+      >
+        {data.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        ))}
+        <Label
+          value={`${prediction} %`}
+          position="center"
+          fill="black"
+          fontSize={22}
+          fontWeight="bold"
+        />
+      </Pie>
+    </PieChart>
+  );
+};
+
+export default PieCharts;

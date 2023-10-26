@@ -32,13 +32,12 @@ export const Login = async (data) => {
         },
       }
     );
-    console.log(response);
     if (response.status === 401) {
       toast.error(response.data.message);
     }
     if (response.status === 201) {
       const role = response.data.user.role;
-      Cookies.set("token", response.data.user.token);
+      Cookies.set("token" , response.data.token)
       if (role === "user") {
         window.location.href = "/dashboard";
       } else {

@@ -18,3 +18,15 @@
 20231023	16:28:56	e2e649c3-5bc4-471b-844f-5371a6fd081d	Error: Invalid Credentials-password	POST	/api/v1/auth/login	http://localhost:3000
 20231024	14:39:51	69e6feff-d0b6-4f50-b4b4-adb9363da44a	Error: Invalid Credentials	POST	/api/v1/auth/login	http://localhost:3000
 20231024	08:54:26	9a9074d9-a4ee-45f2-90eb-7d440ded737f	Error: Please provide all values	PATCH	/api/v1/users/updateuser	undefined
+20231024	23:32:37	d7199af3-fa7c-4d22-8818-8e72b2766037	TypeError: Cannot destructure property 'email' of 'formData' as it is undefined.	POST	/api/v1/auth/register	undefined
+20231024	23:33:35	ab8c5f57-a41b-451a-9630-7ce1aea3bcc9	TypeError: Cannot destructure property 'email' of 'formData' as it is undefined.	POST	/api/v1/auth/register	undefined
+20231024	23:33:53	cff7ec05-ac88-43b7-aa88-bd0fc3d3a16b	TypeError: Cannot destructure property 'email' of 'formData' as it is undefined.	POST	/api/v1/auth/register	undefined
+20231024	23:37:03	6e954be1-67cc-4b42-a222-49432ca5540f	TypeError: Cannot destructure property 'email' of 'formData' as it is undefined.	POST	/api/v1/auth/register	undefined
+20231024	23:38:08	ac56203a-4135-4bdc-ba28-7e8ef86d7e00	TypeError: Cannot destructure property 'email' of 'formData' as it is undefined.	POST	/api/v1/auth/register	undefined
+20231024	23:40:33	2fa43aff-1427-43a6-844a-e55e1fdd2253	ReferenceError: formData is not defined	POST	/api/v1/auth/register	undefined
+20231024	23:43:47	df13c33b-7fc5-4ac2-a6d0-227f30e4d6c4	Error: Cannot find module 'nodemailer'
+Require stack:
+- C:\Users\gg\Desktop\project\Neuro\backend\controllers\authController.js
+- C:\Users\gg\Desktop\project\Neuro\backend\routes\authRoutes.js
+- C:\Users\gg\Desktop\project\Neuro\backend\app.js	POST	/api/v1/auth/forgot-password	undefined
+20231026	05:22:24	0fe16a40-4051-4894-a2c1-9f61004a98c8	TypeError: user.createJWT is not a function	POST	/api/v1/auth/login	undefined

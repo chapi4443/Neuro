@@ -12,8 +12,8 @@ function cleanUserId(userId) {
 
 async function predictStrokeRisk(req, res) {
   try {
-    const { userId } = req.user; // Assuming you have the user's ID available in req.user
-
+    console.log("userId");
+    const { userId } = req.body; // Assuming you have the user's ID available in req.user
     // Forward the request to the Flask application
     const flaskUrl = "http://127.0.0.1:4000"; // Change the port if necessary
     const response = await axios.post(

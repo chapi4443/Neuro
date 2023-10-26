@@ -2,23 +2,7 @@ import axios from "axios";
 
 
 export const Strokepredictor = async (data) => {
-//     {
-//   "data": [
-//     {
-//       "age": 90,
-//       "hypertension": 1,
-//       "heart_disease": 1,
-//       "ever_married": "Yes",
-//       "work_type": "Private",
-//       "Residence_type": "Urban",
-//       "avg_glucose_level": 20,
-//       "bmi": 25,
-//       "smoking_status": "smoked",
-//       "gender": "Male"
-//     }
-//   ]
-// }
-
+  console.log(data);
   const useData = await axios.post("http://localhost:5000/api/v1/predict/predict_stroke_risk", data, {
     headers: {
       "Content-Type": "application/json",
@@ -64,9 +48,8 @@ export const StrokeRecommendations = async (data) => {
 };
 
 export const StrokeAssementdata = async (data) => {
-
+  console.log(data);
   const response = await axios.get(`http://localhost:5000/api/v1/predict/predictions/${data}`);
-
   if (response.status === 200) {
     return response.data;
   } else {

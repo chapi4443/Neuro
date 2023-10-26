@@ -121,7 +121,7 @@ const OutputCard = ({
             </StyledTypo>
           </Box>
         )}
-        {fitness && fitness_title && (
+        {/* {fitness && fitness_title && (
           <Box>
             <StyledTypo>{fitness_title}</StyledTypo>
             <StyledTypo
@@ -142,7 +142,7 @@ const OutputCard = ({
               {fitness}
             </StyledTypo>
           </Box>
-        )}
+        )} */}
       </Box>
     </Box>
   );

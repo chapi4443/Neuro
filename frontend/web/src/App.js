@@ -7,6 +7,7 @@ import RiskUser from "./Pages/RiskUser";
 import ChatUser from "./Pages/ChatUser";
 import HelpUser from "./Pages/HelpUser";
 import SettingUser from "./Pages/SettingUser";
+import FAQUser from "./Pages/FAQUser";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/risk-assessment" element={<RiskUser />} />
       <Route path="/chat-bot" element={<ChatUser />} />
       <Route path="/help-guide" element={<HelpUser />} />
+      <Route path="/faq" element={<FAQUser />} />
       <Route path="/setting" element={<SettingUser />} />
     </Routes>
   );
