@@ -4,7 +4,10 @@ import FAQ from "../Components/Client/FAQs/FAQ"
 
 const FAQUser = () => {
   return (
+      <Layout>
       <FAQ />
+
+      </Layout>
   );
 };
 

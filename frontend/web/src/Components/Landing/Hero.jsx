@@ -1,6 +1,7 @@
 import { Box, Stack ,} from "@mui/material";
 import React from "react";
 import "./style.css";
+import hero from "./heroImage.png";
 
 const Hero = () => {
   return (
@@ -21,7 +22,7 @@ const Hero = () => {
           </div>
         </div>
         <div className="image">
-          <img src="./heroImage.png" alt="heroImage.png" />
+          <img src={hero} alt="heroImage.png" />
         </div>
       </div>
       <svg

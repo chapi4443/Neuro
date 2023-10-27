@@ -1,6 +1,7 @@
 .main-container {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 80px);
+
     width: 100%;
     flex-direction: column;
     align-items: center;
@@ -22,6 +23,7 @@
     margin: auto;
     text-align: left;
     padding: 50px 20px;
+    margin-left: 5%;
   }
   
   h2 {
@@ -31,18 +33,13 @@
   }
   
   span {
-    color: #707070;
+    color: #16C2D5;
     font-size: 1.2rem;
     display: block;
     margin-bottom: 30px;
   }
   
-  p {
-    color: #4a4a4a;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 30px;
-  }
+
   
   ul {
     list-style-type: none;
@@ -50,7 +47,7 @@
   }
   
   li {
-    color: #4a4a4a;
+    color: #000000;
     font-size: 1rem;
     margin-bottom: 10px;
   }
@@ -70,4 +67,42 @@
      display: flex;
      justify-content: center;
      align-items: center;
+}
+
+
+/* Navbar css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  height: 80px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-height: 60px;
+  max-width: 100%;
+}
+
+.nav-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  background-color: #192655;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
 }
