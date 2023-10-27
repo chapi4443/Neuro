@@ -16,7 +16,7 @@ export const styles = {
     fontSize: "2rem",
     fontWeight: "bold",
     marginBottom: "4px",
-    color: "#396E8D",
+    color: "#16C2D5",
   },
   searchInput: {
     marginBottom: "4px",
