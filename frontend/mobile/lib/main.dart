@@ -3,6 +3,7 @@ import 'package:final_sprs/logic/login/bloc/login_block_bloc.dart';
 import 'package:final_sprs/presentaion/core/app_export.dart';
 import 'package:final_sprs/presentaion/screens/register_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:final_sprs/presentaion/screens/profile_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,6 +44,9 @@ class _MyAppState extends State<MyApp> {
             BlocProvider.value(value: loginBloc, child: RegisterScreen()),
         '/Dashboard': (context) =>
             BlocProvider.value(value: dashBoardBloc, child: Dashboard())
+            ,
+            '/profile':(context)=>
+            BlocProvider.value(value: dashBoardBloc, child: ProfilePage())
       },
       debugShowCheckedModeBanner: false,
     );

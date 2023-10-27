@@ -128,7 +128,11 @@ class _MyDrawerState extends State<MyDrawer> {
                           ])
                         : const SizedBox.shrink()),
                 SizedBox(height: 23.v),
-                Text("Profile", style: theme.textTheme.titleLarge),
+                ElevatedButton(
+                    onPressed: () async {
+                      Navigator.of(context).pushNamed("/profile");
+                    },
+                    child: Text("Profile", style: theme.textTheme.titleLarge)),
                 SizedBox(height: 26.v),
                 Text("Setting", style: theme.textTheme.titleLarge),
               ],

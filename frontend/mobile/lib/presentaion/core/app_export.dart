@@ -32,3 +32,19 @@ export 'package:final_sprs/presentaion/widgets/custom/custom_outlined_button.dar
 export 'package:final_sprs/presentaion/widgets/custom/custom_text_form_field.dart';
 export "package:final_sprs/resource/FormData.dart";
 export 'package:final_sprs/presentaion/widgets/Formwidgets.dart';
+
+
+
+export 'package:animated_theme_switcher/animated_theme_switcher.dart';
+
+export 'package:flutter/material.dart';
+export 'package:final_sprs/data/models/userProfileModel.dart';
+export 'package:final_sprs/presentaion/widgets/profilePage/app_Bar.dart';
+export 'package:final_sprs/presentaion/widgets/profilePage/button_widget.dart';
+export 'package:final_sprs/presentaion/widgets/profilePage/numbers_widget.dart';
+export 'package:final_sprs/resource/UserProfile.dart';
+export 'package:final_sprs/presentaion/screens/editprofile.dart';
+export 'package:final_sprs/presentaion/widgets/profilePage/profile_widget.dart';
+export 'package:final_sprs/presentaion/widgets/profilePage/text_filed_widget.dart';
+
+
