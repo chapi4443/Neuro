@@ -186,7 +186,7 @@ const Sidebar = () => {
         </List>
       </Stack>
 
-      <IconButton
+      {/* <IconButton
         sx={{
           position: "fixed",
           bottom: "30px",
@@ -201,7 +201,7 @@ const Sidebar = () => {
         }}
       >
         <Phone />
-      </IconButton>
+      </IconButton> */}
     </Stack>
   );
 };

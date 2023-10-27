@@ -31,9 +31,9 @@ const PieCharts = () => {
     { name: "Group B", value: parseFloat(100 - prediction) },
   ];
   const COLORS = [
-    prediction >= 90
+    prediction >= 75
       ? "red"
-      : prediction >= 50
+      : prediction >= 40
       ? "yellow"
       : prediction >= 20
       ? "blue"

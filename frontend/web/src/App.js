@@ -9,8 +9,13 @@ import HelpUser from "./Pages/HelpUser";
 import SettingUser from "./Pages/SettingUser";
 import FAQUser from "./Pages/FAQUser";
 import HistoryOfChat from "./Pages/HistoryOfChat";
-
+import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 function App() {
+  const token = Cookies.get("token") || "guest";
+  const decodedToken = token === "guest" ? "guest" : jwt_decode(token);
+  const role = decodedToken.role || "guest";
+  console.log(role);
   return (
     <Routes>
       <Route path="/" element={<Landing />} />

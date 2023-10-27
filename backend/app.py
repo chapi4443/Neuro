@@ -115,17 +115,17 @@ def get_stroke_recommendations():
     if request.method == 'POST':
         # Extract data from the request
         data = request.get_json()
-        alcohol_consumption = data.get('alcohol_consumption', 'N/A')
+        # alcohol_consumption = data.get('alcohol_consumption', 'N/A')
         stress_levels = data.get('stress_levels', 'N/A')
-        sleep_patterns = data.get('sleep_patterns', 'N/A')
+        # sleep_patterns = data.get('sleep_patterns', 'N/A')
 
         # exposure_percent = data.get('exposure_percent', 40)
         weight = data.get('weight', 150)
         height = data.get('height', 1.70)
-        history_of_stroke = data.get('history_of_stroke', "yes")
+        # history_of_stroke = data.get('history_of_stroke', "yes")
         family_history_of_stroke = data.get('family_history_of_stroke', "yes")
-        physical_activity_level = data.get('physical_activity_level', "sedentary")
-        diet = data.get('diet', "balanced")
+        # physical_activity_level = data.get('physical_activity_level', "sedentary")
+        # diet = data.get('diet', "balanced")
         systolic_blood_pressure = data.get('systolic_blood_pressure', 50)
         diastolic_blood_pressure = data.get('diastolic_blood_pressure', 60)
 
@@ -153,10 +153,8 @@ User Profile:
 Weight: {weight} kg
 Height: {height} meters
 Age: {age} years
-History of Stroke: {history_of_stroke}
 Family History of Stroke: {family_history_of_stroke}
-Physical Activity Level: {physical_activity_level}
-Diet: {diet}
+
 Systolic Blood Pressure: {systolic_blood_pressure} mmHg
 Diastolic Blood Pressure: {diastolic_blood_pressure} mmHg
 Hypertension: {hypertension}
@@ -166,9 +164,8 @@ Work Type: {work_type}
 Residence Type: {residence_type}
 Average Glucose Level: {avg_glucose_level} mg/dL
 Gender: {gender}
-Alcohol Consumption: {alcohol_consumption}
 Stress Levels: {stress_levels}
-Sleep Patterns: {sleep_patterns}
+
 """
 
         response = palm.generate_text(
@@ -207,7 +204,7 @@ def medical_question():
                 response = related_chat
             else:
                 medical_prompt = f"""
-         You are  NeuroGen a health assistant for patients, especially on stroke.
+         You are  NuroGen a health assistant for patients, especially on stroke.
          You will be given a question below, and you are not allowed to answer a question that is not related to health and medicine
          if the question is greeting you are alowed to answer 
          if you are asked who you are or what you say that you are  NuroGen a health assistant

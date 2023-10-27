@@ -30,18 +30,30 @@ const BarMixChart = () => {
   );
 
   const predictions = StrokePrediction?.predictions;
-  
+
   // Take the last 6 data points
   const last6Predictions = predictions
     ? predictions.slice(Math.max(predictions.length - 6, 0))
     : [];
+  const data = last6Predictions.map((prediction, index) => {
+    const createdAt = new Date(prediction?.createdAt);
 
-  const data = last6Predictions.map((prediction, index) => ({
-    // name: `Page ${String.fromCharCode(65 + index)}`,
-    Risk: Math.round(prediction.prediction * 100), // Adjust this if needed
-    Not_Risk: 100 - Math.round(prediction.prediction * 100),
-  }));
+    const dayOptions = { weekday: "short" };
+    const monthOptions = { month: "short" };
 
+    const formattedDay = createdAt.toLocaleDateString(undefined, dayOptions);
+    const formattedMonth = createdAt.toLocaleDateString(
+      undefined,
+      monthOptions
+    );
+    const formattedDate = createdAt.getDate();
+
+    return {
+      name: `${formattedDay}, ${formattedMonth} ${formattedDate}`,
+      Risk: Math.round(prediction.prediction * 100),
+      Not_Risk: 100 - Math.round(prediction.prediction * 100),
+    };
+  });
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
