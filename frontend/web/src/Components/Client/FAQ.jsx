@@ -492,39 +492,284 @@ const healthy = [
 const FAQ = () => {
   return (
     <Stack sx={{ width: "84%" }} gap={3}>
-      
-      <Box
-        sx={{
-          width: "100%",
-          background: "#192655",
-          height: "10vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+      <Stack
+        sx={{ background: "#192655", height: "10dvh" }}
+        alignItems={"center"}
+        justifyContent={"center"}
       >
-        <Typography color="#FFFFFF" variant="h4" fontWeight="bold">
+        <Typography color={"#FFFFFF"} fontSize={"24px"} fontWeight={"bold"}>
           FAQ
         </Typography>
-      </Box>
-
-      <Box sx={{ width: "80%" }}>
-        {stroke.map((item, index) => (
-          <Accordion key={index}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="h6" sx={{ fontFamily: "Poppins" }}>
-                {item.question}
+      </Stack>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          // width: "80%",
+          margin: "0px 8%",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="general-accordion-content"
+              id="general-accordion-header"
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Poppins",
+                  fontSize: "20px",
+                  fontWeight: "600",
+                }}
+              >
+                General Questions and Answers on Stroke
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography sx={{ fontFamily: "Poppins" }}>
-                {item.answer}
-              </Typography>
+              <div>
+                {stroke.map((item, index) => (
+                  <Accordion key={index}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls={`panel${index + 1}-content`}
+                      id={`panel${index + 1}-header`}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "Poppins",
+                          fontSize: "18px",
+                        }}
+                      >
+                        {item.question}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography sx={{ fontFamily: "Poppins" }}>
+                        {item.answer}
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </div>
             </AccordionDetails>
           </Accordion>
-        ))}
-      </Box>
-
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "10px",
+          }}
+        >
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="general-accordion-content"
+              id="general-accordion-header"
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Poppins",
+                  fontSize: "20px",
+                  fontWeight: "600",
+                }}
+              >
+                Questions and Answers on Pre-Stroke
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div>
+                {preStroke.map((item, index) => (
+                  <Accordion key={index}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls={`panel${index + 1}-content`}
+                      id={`panel${index + 1}-header`}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "Poppins",
+                          fontSize: "18px",
+                        }}
+                      >
+                        {item.question}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography sx={{ fontFamily: "Poppins" }}>
+                        {item.answer}
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "10px",
+          }}
+        >
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="general-accordion-content"
+              id="general-accordion-header"
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Poppins",
+                  fontSize: "20px",
+                  fontWeight: "600",
+                }}
+              >
+                Questions and Answers on Post-Stroke
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div>
+                {postStroke.map((item, index) => (
+                  <Accordion key={index}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls={`panel${index + 1}-content`}
+                      id={`panel${index + 1}-header`}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "Poppins",
+                          fontSize: "18px",
+                        }}
+                      >
+                        {item.question}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography sx={{ fontFamily: "Poppins" }}>
+                        {item.answer}
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "10px",
+          }}
+        >
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="general-accordion-content"
+              id="general-accordion-header"
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Poppins",
+                  fontSize: "20px",
+                  fontWeight: "600",
+                }}
+              >
+                Learn more about Brain and Heart
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div>
+                {heartNBrain.map((item, index) => (
+                  <Accordion key={index}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls={`panel${index + 1}-content`}
+                      id={`panel${index + 1}-header`}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "Poppins",
+                          fontSize: "18px",
+                        }}
+                      >
+                        {item.question}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography sx={{ fontFamily: "Poppins" }}>
+                        {item.answer}
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "10px",
+          }}
+        >
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="general-accordion-content"
+              id="general-accordion-header"
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Poppins",
+                  fontSize: "20px",
+                  fontWeight: "600",
+                }}
+              >
+                Learn more about your Health and Healthy Life style
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <div>
+                {healthy.map((item, index) => (
+                  <Accordion key={index}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls={`panel${index + 1}-content`}
+                      id={`panel${index + 1}-header`}
+                    >
+                      <Typography
+                        sx={{
+                          fontFamily: "Poppins",
+                          fontSize: "18px",
+                        }}
+                      >
+                        {item.question}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography sx={{ fontFamily: "Poppins" }}>
+                        {item.answer}
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </div>
+            </AccordionDetails>
+          </Accordion>
+        </Box>
+      </div>
     </Stack>
   );
 };

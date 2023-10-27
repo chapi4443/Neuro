@@ -1,6 +1,6 @@
 .main-container {
   display: flex;
-  height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
   width: 100%;
   flex-direction: column;
   align-items: center;
@@ -14,18 +14,18 @@
   justify-content: space-around;
   align-items: center;
   padding: 2rem;
-  animation: fadeInOut 3s ease-in-out infinite; /* Adjusted timing for the animation */
+  animation: fadeInOut 5s ease-in-out infinite; /* Adjusted timing for the animation */
 }
 
 @keyframes fadeInOut {
   0% {
     opacity: 0;
   }
-  50% {
+  /* 50% {
     opacity: 1;
-  }
+  } */
   100% {
-    opacity: 0;
+    opacity: 1;
   }
 }
 
@@ -37,32 +37,32 @@
   margin-left: 5%;
 }
 
-h2 {
+.h2 {
   color: #192655;
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
 
-span {
+.span {
   color: #16c2d5;
   font-size: 1.2rem;
   display: block;
   margin-bottom: 30px;
 }
 
-ul {
+.ul {
   list-style-type: none;
   padding: 0;
 }
 
-li {
+.li {
   color: #000000;
   font-size: 1rem;
   margin-bottom: 10px;
 }
 
 /* Optional: Add some styling to the list items, such as bullet points or icons */
-li::before {
+.li::before {
   content: "•";
   color: #192655;
   display: inline-block;
@@ -109,7 +109,16 @@ li::before {
   color: white;
   background-color: #192655;
 }
-
+.navbar-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  background-color: #16c2d5;
+}
 .button-container {
   display: flex;
   align-items: center;

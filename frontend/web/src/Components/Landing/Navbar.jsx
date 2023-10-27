@@ -9,7 +9,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="logo-container">
         <img src={logo} alt="logo" className="logo" />
-        <button className="nav-button" onClick={() => navigate("/")}>
+        <button className="navbar-button" onClick={() => navigate("/")}>
           Neurogen AI
         </button>
       </div>

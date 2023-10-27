@@ -1,4 +1,9 @@
-import { ArrowUpward, LiveHelp, MoreVert } from "@mui/icons-material";
+import {
+  ArrowDownward,
+  ArrowUpward,
+  LiveHelp,
+  MoreVert,
+} from "@mui/icons-material";
 import { Box, Button, Card, Stack, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import PieCharts from "./PieChart";
@@ -23,7 +28,14 @@ const Dashboard = () => {
     (state) => state.PredictionStore.outputGetStrokeRecommendations
   );
   const prediction = StrokePrediction?.predictions?.length;
-
+  const present =
+    ((StrokePrediction?.predictions?.[StrokePrediction?.predictions?.length - 1]
+      .prediction -
+      StrokePrediction?.predictions?.[StrokePrediction?.predictions?.length - 2]
+        .prediction) /
+      StrokePrediction?.predictions?.[StrokePrediction?.predictions?.length - 2]
+        .prediction) *
+    100;
   return (
     <Stack sx={{ width: "84%" }}>
       <Stack
@@ -42,8 +54,8 @@ const Dashboard = () => {
           // sx={{ height: "75dvh" }}
           gap={5}
         >
-          <Stack direction={"row"} gap={10}>
-            <Stack gap={5}>
+          <Stack direction={"row"} gap={10} alignItems={"center"}>
+            <Stack gap={5} >
               <Card
                 sx={{
                   display: "flex",
@@ -72,15 +84,20 @@ const Dashboard = () => {
                   <Box
                     sx={{
                       fontSize: "15px",
-                      background: "#0FAF5810",
-                      color: "#0FAF58",
+                      background: present >= 0 ? "#0FAF5810" : "#ff999910",
+                      color: present >= 0 ? "#0FAF58" : "red", // Change color based on the value
                       p: 0.5,
                       display: "flex",
                       alignItems: "center",
                       borderRadius: 1,
                     }}
                   >
-                    <ArrowUpward sx={{ fontSize: "15px" }} /> 20%
+                    {present >= 0 ? (
+                      <ArrowDownward sx={{ fontSize: "15px" }} /> // Display a down arrow for negative values
+                    ) : (
+                      <ArrowUpward sx={{ fontSize: "15px" }} /> // Display an up arrow for positive values
+                    )}
+                    {Math.abs(present).toFixed(1)} %
                   </Box>
                 </Box>
               </Card>
@@ -132,7 +149,11 @@ const Dashboard = () => {
                 justifyContent={"space-between"}
               >
                 <Typography>Latest Report</Typography>
-                <Button variant="outlined" size="small">
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => navigate("/risk-assessment")}
+                >
                   Retake
                 </Button>
               </Stack>
@@ -162,9 +183,6 @@ const Dashboard = () => {
               justifyContent={"space-between"}
             >
               <Typography>Report Summary</Typography>
-              <Button variant="outlined" size="small">
-                Retake
-              </Button>
             </Stack>
             <BarMixChart />
           </Stack>

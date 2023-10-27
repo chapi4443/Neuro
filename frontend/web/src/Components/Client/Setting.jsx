@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Stack,
   Typography,
@@ -15,6 +15,9 @@ import {
 } from "@mui/material";
 import Cookies from "js-cookie";
 import { AccountCircle } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, setUpdateUser } from "../../Utils/Store/UserStore";
+import jwt_decode from "jwt-decode";
 const Setting = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -25,29 +28,57 @@ const Setting = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const initialUserData = {
-    first_name: "John",
-    last_name: "Doe",
-    gender: "Male",
-    date_of_birth: "1990-01-01",
-    age: 33,
 
-    phone_number: "123-456-7890",
-    country: "USA",
-    city: "New York",
-    address: "123 Main St, Apt 4B",
-  };
+  const dispatch = useDispatch();
+  const token = Cookies.get("token");
+  const decodedToken = jwt_decode(token);
+  const userId = decodedToken.userId;
 
-  const initialPasswordData = {
-    password: "Pa$$w0rd!",
-    confirm_password: "Pa$$w0rd!",
-    email: "john@example.com",
-  };
+  useEffect(() => {
+    dispatch(getUser({ data: userId }));
+  }, [dispatch, userId]);
 
-  const [userData, setUserData] = useState({ ...initialUserData });
-  const [passwordData, setPasswordData] = useState({ ...initialPasswordData });
-  console.log(userData);
-  console.log(passwordData);
+  const user = useSelector((state) => state.UserStore.OutputUser);
+  // console.log(user?.user);
+  const [userData, setUserData] = useState({
+    first_name: user?.user?.first_name,
+    last_name: user?.user?.last_name,
+    gender: user?.user?.gender,
+    date_of_birth: user?.user?.date_of_birth,
+    age: user?.user?.age,
+
+    phone_number: user?.user?.phone_number,
+    country: user?.user?.country,
+    city: user?.user?.city,
+    address: user?.user?.address,
+  });
+  const [passwordData, setPasswordData] = useState({
+    oldPassword: null,
+    password: null,
+    confirm_password: null,
+    email: user?.user?.email,
+  });
+  useEffect(() => {
+    setUserData({
+      first_name: user?.user?.first_name,
+      last_name: user?.user?.last_name,
+      gender: user?.user?.gender,
+      date_of_birth: user?.user?.date_of_birth,
+      age: user?.user?.age,
+
+      phone_number: user?.user?.phone_number,
+      country: user?.user?.country,
+      city: user?.user?.city,
+      address: user?.user?.address,
+    });
+    setPasswordData({
+      oldPassword: null,
+      password: null,
+      confirm_password: null,
+      email: user?.user?.email,
+    });
+  }, [user]);
+  // console.log(userData);
   const [editMode, setEditMode] = useState(false);
   const [passwordEditMode, setPasswordEditMode] = useState(false);
 
@@ -64,12 +95,32 @@ const Setting = () => {
   const handleSave = () => {
     setEditMode(false);
     setPasswordEditMode(false);
+    dispatch(setUpdateUser({data: {...userData,userId}}));
+  };
+  const handleSavePassword = () => {
+    setEditMode(false);
+    setPasswordEditMode(false);
     // You can save the changes to the backend here
   };
-
   const handleCancel = () => {
-    setUserData({ ...initialUserData });
-    setPasswordData({ ...initialPasswordData });
+    setUserData({
+      first_name: user?.user?.first_name,
+      last_name: user?.user?.last_name,
+      gender: user?.user?.gender,
+      date_of_birth: user?.user?.date_of_birth,
+      age: user?.user?.age,
+
+      phone_number: user?.user?.phone_number,
+      country: user?.user?.country,
+      city: user?.user?.city,
+      address: user?.user?.address,
+    });
+    setPasswordData({
+      oldPassword: null,
+      password: null,
+      confirm_password: null,
+      email: user?.user?.email,
+    });
     setEditMode(false);
     setPasswordEditMode(false);
   };
@@ -133,7 +184,7 @@ const Setting = () => {
                 <Button
                   variant="outlined"
                   color="success"
-                  onClick={handleSave}
+                  onClick={handleSavePassword}
                   sx={{ mr: 2 }}
                 >
                   Save
@@ -170,11 +221,11 @@ const Setting = () => {
                   variant="outlined"
                   fullWidth
                   size="small"
-                  value={passwordData.password}
+                  value={passwordData.oldPassword}
                   onChange={(e) =>
                     setPasswordData({
                       ...passwordData,
-                      password: e.target.value,
+                      oldPassword: e.target.value,
                     })
                   }
                   sx={{ mb: 2 }}
@@ -220,7 +271,7 @@ const Setting = () => {
                   Email
                 </Typography>
                 <Typography variant="body1" sx={{ mt: 1 }}>
-                  {passwordData.email}
+                  {user?.user?.email}
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -228,7 +279,7 @@ const Setting = () => {
                   Password
                 </Typography>
                 <Typography variant="body1" sx={{ mt: 1 }}>
-                  {passwordData.password}
+                  {"********"}
                 </Typography>
               </Grid>
             </Grid>
@@ -270,47 +321,207 @@ const Setting = () => {
 
           {editMode ? (
             <Grid container spacing={2}>
-              {Object.keys(userData).map((field) => (
-                <Grid item xs={12} sm={6} key={field}>
-                  <Typography variant="body1">
-                    {field
-                      .split("_")
-                      .map(
-                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                      )
-                      .join(" ")}
-                  </Typography>
-                  <TextField
-                    variant="outlined"
-                    fullWidth
-                    size="small"
-                    value={userData[field]}
-                    onChange={(e) =>
-                      setUserData({ ...userData, [field]: e.target.value })
-                    }
-                    sx={{ mb: 2 }}
-                  />
-                </Grid>
-              ))}
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">First Name</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.first_name}
+                  onChange={(e) =>
+                    setUserData({ ...userData, first_name: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Last Name</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.last_name}
+                  onChange={(e) =>
+                    setUserData({ ...userData, last_name: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Gender</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.gender}
+                  onChange={(e) =>
+                    setUserData({ ...userData, gender: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Date Of Birth</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.date_of_birth}
+                  onChange={(e) =>
+                    setUserData({ ...userData, date_of_birth: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Age</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.age}
+                  onChange={(e) =>
+                    setUserData({ ...userData, age: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Phone Number</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.phone_number}
+                  onChange={(e) =>
+                    setUserData({ ...userData, phone_number: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Country</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.country}
+                  onChange={(e) =>
+                    setUserData({ ...userData, country: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">City</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.city}
+                  onChange={(e) =>
+                    setUserData({ ...userData, city: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1">Address</Typography>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  size="small"
+                  value={userData?.address}
+                  onChange={(e) =>
+                    setUserData({ ...userData, address: e.target.value })
+                  }
+                  sx={{ mb: 2 }}
+                />
+              </Grid>
             </Grid>
           ) : (
             <Grid container spacing={2}>
-              {Object.keys(userData).map((field) => (
-                <Grid item xs={12} sm={6} key={field}>
-                  <Typography variant="body1" fontWeight={"bold"}>
-                    {field
-                      .split("_")
-                      .map(
-                        (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                      )
-                      .join(" ")}
-                  </Typography>
-                  <Typography variant="body1" sx={{ mt: 1 }}>
-                    {userData[field]}
-                  </Typography>
-                  <Divider sx={{ mt: 1 }} />
-                </Grid>
-              ))}
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  First Name
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.first_name}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  Last Name
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.last_name}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  Gender
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.gender}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  Date Of Birth
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.date_of_birth}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  Age
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.age}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  Phone Number
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.phone_number}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  Country
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.country}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  City
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.city}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Typography variant="body1" fontWeight={"bold"}>
+                  Address
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                  {user?.user?.address}
+                </Typography>
+                <Divider sx={{ mt: 1 }} />
+              </Grid>
             </Grid>
           )}
         </Paper>

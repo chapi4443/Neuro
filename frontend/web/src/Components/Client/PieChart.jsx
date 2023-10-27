@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PieChart, Pie, Cell, Label } from "recharts";
+import { PieChart, Pie, Cell, Label, Tooltip } from "recharts";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { getStrokeRecommendations } from "../../Utils/Store/PredictionStore";
@@ -23,7 +23,9 @@ const PieCharts = () => {
     StrokePrediction?.predictions?.[StrokePrediction?.predictions?.length - 1]
       ?.prediction * 100
   ).toFixed(1);
-  console.log(prediction);
+  const Advice =
+    StrokePrediction?.predictions?.[StrokePrediction?.predictions?.length - 1]
+      .advice;
   const data = [
     { name: "Group A", value: parseFloat(prediction) },
     { name: "Group B", value: parseFloat(100 - prediction) },
@@ -62,6 +64,14 @@ const PieCharts = () => {
           fontSize={22}
           fontWeight="bold"
         />
+        {/* <Tooltip /> */}
+        {/* <Label
+          value={`${Advice} `}
+          position="center"
+          fill="black"
+          fontSize={12}
+          fontWeight="bold"
+        /> */}
       </Pie>
     </PieChart>
   );

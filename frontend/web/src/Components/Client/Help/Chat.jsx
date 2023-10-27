@@ -106,13 +106,10 @@ const Chat = () => {
             id="general-accordion-header"
           >
             <Typography
-              sx={{
-                color: "#16C2D5",
+               sx={{
                 fontFamily: "Poppins",
-                fontSize: "30px",
-                fontStyle: "normal",
+                fontSize: "20px",
                 fontWeight: "600",
-                marginBottom: "10px",
               }}
             >
               ChatBot

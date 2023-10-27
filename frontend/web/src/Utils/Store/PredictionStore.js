@@ -7,6 +7,8 @@ const initialState = {
   outputStrokepredictor: [],
   outputStrokeRecommendations: [],
   outputGetStrokeRecommendations: [],
+  InputChatHistory: [],
+  OutputChatHistory: [],
 };
 
 const PredictionStore = createSlice({
@@ -76,11 +78,22 @@ const PredictionStore = createSlice({
         ],
       });
     },
+    getChatHistoryData(state, action) {
+      state.OutputChatHistory = action.payload;
+    },
+    getChatHistory(state, action) {
+      const newData = action.payload;
+      state.InputChatHistory.push({
+        id: newData.userId,
+      });
+    },
   },
 });
 
 export const {
   setStrokeRecommendationsData,
+  getChatHistoryData,
+  getChatHistory,
   setStrokeRecommendations,
   setStrokepredictorData,
   setStrokepredictor,

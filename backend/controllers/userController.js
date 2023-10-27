@@ -138,20 +138,18 @@ const deleteProfilePicture = async (req, res) => {
   }
 };
 
-
 const getSingleUser = async (req, res) => {
   const user = await User.findOne({ _id: req.params.id }).select("-password");
   if (!user) {
     throw new CustomError.NotFoundError(`No user with id : ${req.params.id}`);
   }
-  checkPermissions(req.user, user._id);
+  // checkPermissions(req.user, user._id);
   res.status(StatusCodes.OK).json({ user });
 };
 
 // Update user information
 const updateUser = async (req, res) => {
   const {
-    email,
     first_name,
     last_name,
     date_of_birth,
@@ -164,7 +162,6 @@ const updateUser = async (req, res) => {
   } = req.body;
 
   if (
-    !email ||
     !first_name ||
     !last_name ||
     !date_of_birth ||
@@ -179,7 +176,7 @@ const updateUser = async (req, res) => {
   }
 
   try {
-    const userId = req.user.userId;
+    const { userId } = req.body;
 
     // Find the user by their ID
     const user = await User.findOne({ _id: userId });
@@ -189,7 +186,7 @@ const updateUser = async (req, res) => {
     }
 
     // Update user's information
-    user.email = email;
+
     user.first_name = first_name;
     user.last_name = last_name;
     user.date_of_birth = date_of_birth;
@@ -224,28 +221,41 @@ const updateUser = async (req, res) => {
   }
 };
 
-const updateUserPassword = async (req, res) => {
-  const { oldPassword, newPassword } = req.body;
+const updateUserPasswordandemail = async (req, res) => {
+  const { oldPassword, newPassword, newEmail, userId } = req.body;
   if (!oldPassword || !newPassword) {
-    throw new CustomError.BadRequestError("Please provide both values");
+    throw new CustomError.BadRequestError(
+      "Please provide both oldPassword and newPassword."
+    );
   }
-  const user = await User.findOne({ _id: req.user.userId });
+
+  const user = await User.findOne({ _id: userId });
 
   const isPasswordCorrect = await user.comparePassword(oldPassword);
   if (!isPasswordCorrect) {
     throw new CustomError.UnauthenticatedError("Invalid Credentials");
   }
+
+  // Update the password
   user.password = newPassword;
 
+  // Check if a new email is provided and update it if necessary
+  if (newEmail) {
+    // You should also validate the new email here (e.g., format validation)
+    user.email = newEmail;
+  }
+
   await user.save();
-  res.status(StatusCodes.OK).json({ msg: "Success! Password Updated." });
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "Success! Password and email updated." });
 };
 
 module.exports = {
   updateUser,
-  updateUserPassword,
+  updateUserPasswordandemail,
   editProfilePicture,
   deleteProfilePicture,
   createProfilePicture,
-  getSingleUser
+  getSingleUser,
 };

@@ -1,13 +1,27 @@
 import { FileCopy, Mic, Send } from "@mui/icons-material";
-import { Card, IconButton, Paper, Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import {
+  Card,
+  IconButton,
+  ImageListItem,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import axios from "axios";
 import parse from "html-react-parser";
-const Chat = () => {
+import { getChatHistory } from "../../../Utils/Store/PredictionStore";
+import { useDispatch, useSelector } from "react-redux";
+import logo from "../../../Image/image 14.png";
+const ChatHistory = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [question, setQuestion] = useState("");
+  const chatContainerRef = useRef(null);
+  useEffect(() => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [userMessages]);
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -37,6 +51,41 @@ const Chat = () => {
 
     recognition.start();
   };
+  const dispatch = useDispatch();
+  const token = Cookies.get("token");
+  const decodedToken = jwt_decode(token);
+  const userId = decodedToken.userId;
+
+  useEffect(() => {
+    dispatch(getChatHistory({ data: userId }));
+  }, [dispatch, userId]);
+
+  const chatHistory = useSelector(
+    (state) => state.PredictionStore.OutputChatHistory
+  );
+
+  useEffect(() => {
+    if (chatHistory?.chatMessages) {
+      const newMessages = [];
+      for (let i = 0; i <= chatHistory.chatMessages.length - 1; i++) {
+        const question = chatHistory.chatMessages[i]?.question;
+        const response = chatHistory.chatMessages[i]?.response;
+
+        if (question) {
+          newMessages.push({ message: formatText(question), isQuestion: true });
+        }
+
+        if (response) {
+          newMessages.push({
+            message: formatText(response),
+            isQuestion: false,
+          });
+        }
+      }
+      setUserMessages(newMessages);
+    }
+  }, [chatHistory]);
+
   function formatText(text) {
     // Replace **...** with <strong>...</strong>
     text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
@@ -46,16 +95,21 @@ const Chat = () => {
 
     return text;
   }
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    const newUserMessages = [...userMessages];
-    newUserMessages.push({ message: question, isQuestion: true }); // Store the question as an object with a flag
-    setUserMessages(newUserMessages);
-    const token = Cookies.get("token");
-    const decodedToken = jwt_decode(token);
-    console.log(decodedToken);
-    const userId = decodedToken.userId;
-    
+
+    if (question.trim() === "") {
+      return;
+    }
+
+    const newMessage = {
+      message: question,
+      isQuestion: true,
+    };
+
+    setUserMessages((prevMessages) => [...prevMessages, newMessage]);
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/v1/medical/medical-chat",
@@ -64,27 +118,20 @@ const Chat = () => {
           userId,
         }
       );
-     
-      const responseData = response.data.response;
 
-      newUserMessages.push({
+      const responseData = response.data.response;
+      const responseMessage = {
         message: formatText(responseData),
         isQuestion: false,
-      });
-  
-      setUserMessages(newUserMessages);
-  
-      // Scroll to the bottom of the chat after adding a new message
-      const chatContainer = document.getElementById("chat-container");
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+      };
+
+      setUserMessages((prevMessages) => [...prevMessages, responseMessage]);
     } catch (error) {
       console.error("Request Error:", error);
     }
-  
+
     setQuestion("");
   };
-  
-
   return (
     <Stack sx={{ width: "84%" }}>
       <Stack
@@ -93,10 +140,11 @@ const Chat = () => {
         justifyContent={"center"}
       >
         <Typography color={"#FFFFFF"} fontSize={"24px"} fontWeight={"bold"}>
-          Chat Bot
+          Chat History
         </Typography>
       </Stack>
       <Stack
+        ref={chatContainerRef}
         sx={{
           height: "80vh",
           overflowY: "scroll",
@@ -138,9 +186,34 @@ const Chat = () => {
                   width: "100%",
                 }}
               >
-                <Typography sx={{ width: "95%" }}>
-                  {parse(message.message)}
-                </Typography>
+                <Stack
+                  direction={"row"}
+                  alignItems={"flex-start"}
+                  justifyContent={"flex-start"}
+                  gap={2}
+                  sx={{pt:2}}
+                >
+                  {!message.isQuestion && (
+                    <ImageListItem
+                      sx={{
+                        maxWidth: "50px",
+                        minWidth: "50px",
+                        maxHeight: "50px",
+                        minHeight: "50px",
+                        borderRadius: "50%",
+                        border: "0.5px solid #16C2D5",
+                        display:"flex",
+                        alignItems:"center",
+                        justifyContent:"center"
+                      }}
+                    >
+                      <img src={logo} alt="logo" style={{borderRadius:"50%"}}/>
+                    </ImageListItem>
+                  )}
+                  <Typography sx={{ width: "95%" }}>
+                    {parse(message.message)}
+                  </Typography>
+                </Stack>
                 {!message.isQuestion && (
                   <IconButton
                     sx={{
@@ -200,4 +273,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatHistory;

@@ -22,10 +22,6 @@ router.get(
   predictionController.getPredictionsByUserId
 );
 
-
-
-
-
 router.post("/getStrokeRecommendations", async (req, res) => {
   try {
     const data = req.body;

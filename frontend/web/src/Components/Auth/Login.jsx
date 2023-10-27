@@ -34,9 +34,10 @@ const Login = () => {
       <Stack
         direction={"row"}
         alignItems={"center"}
-        gap={2}
+        gap={0}
         width={"100%"}
         justifyContent={"center"}
+        sx={{pr:7}}
       >
         <ImageListItem sx={{ maxHeight: "10dvh", maxWidth: "8%" }}>
           <img src={logo} alt="logo" style={{ width: "100%" }} />

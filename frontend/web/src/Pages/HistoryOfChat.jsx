@@ -1,13 +1,13 @@
 import React from 'react'
-import Chat from '../Components/Client/Chat'
 import ChatSidebar from '../Components/Client/ChatLayout/ChatSidebar'
+import ChatHistory from '../Components/Client/ChatLayout/ChatHistory'
 
-const ChatUser = () => {
+const HistoryOfChat = () => {
   return (
     <ChatSidebar>
-      <Chat />
+        <ChatHistory />
     </ChatSidebar>
   )
 }
 
-export default ChatUser
+export default HistoryOfChat

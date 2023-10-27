@@ -2,13 +2,11 @@ import axios from "axios";
 
 
 export const Strokepredictor = async (data) => {
-  console.log(data);
   const useData = await axios.post("http://localhost:5000/api/v1/predict/predict_stroke_risk", data, {
     headers: {
       "Content-Type": "application/json",
     },
   });
-  console.log(useData);
  return useData
 };
 
@@ -43,12 +41,10 @@ export const StrokeRecommendations = async (data) => {
       "Content-Type": "application/json",
     },
   });
-  console.log(useData);
  return useData
 };
 
 export const StrokeAssementdata = async (data) => {
-  console.log(data);
   const response = await axios.get(`http://localhost:5000/api/v1/predict/predictions/${data}`);
   if (response.status === 200) {
     return response.data;

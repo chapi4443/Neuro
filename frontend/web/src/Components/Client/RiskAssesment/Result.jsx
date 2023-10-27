@@ -1,28 +1,15 @@
 import { Box, Card, CardContent, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
+import parse from "html-react-parser";
 function formatText(text) {
-  return text.split("\n").map((paragraph, index) => (
-    <Box key={index} variant="body1" sx={{ whiteSpace: "pre-line" }}>
-      {paragraph.split(/\*([^*]+)\*/g).map((chunk, index) =>
-        index % 2 === 1 ? (
-          <Typography
-            key={index}
-            component="span"
-            variant="body1"
-            fontWeight="bold"
-          >
-            {chunk.replace(/\*([^*]+)\*/g, "")}
-          </Typography>
-        ) : (
-          //   chunk
-          <Typography key={index} component="span" sx={{ pl: 1 }}>
-            {chunk}
-          </Typography>
-        )
-      )}
-    </Box>
-  ));
+  // Replace **...** with <strong>...</strong>
+  text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+  // Replace *...* with <li>...</li>
+  text = text.replace(/\* (.*?)\n/g, `<li>$1</li>`);
+
+  return text;
 }
 const Result = () => {
   const StrokePrediction = useSelector(
@@ -60,7 +47,7 @@ const Result = () => {
             Advice
           </Typography>
           <CardContent>
-            <Typography variant="body1">{formatText(data.Advice)}</Typography>
+            <Typography variant="body1">{parse(formatText(data.Advice))}</Typography>
           </CardContent>
         </Card>
       </Paper>
