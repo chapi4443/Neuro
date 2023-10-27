@@ -1,0 +1,73 @@
+.main-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.image-text-container {
+    display: flex;
+    width:100%;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+}
+
+.text-container {
+    width: 50%;
+    margin: auto;
+    text-align: left;
+    padding: 50px 20px;
+  }
+  
+  h2 {
+    color: #192655;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  span {
+    color: #707070;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 30px;
+  }
+  
+  p {
+    color: #4a4a4a;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    color: #4a4a4a;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Optional: Add some styling to the list items, such as bullet points or icons */
+  li::before {
+    content: "•";
+    color: #192655;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  
+
+.image{
+     width: 50%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}

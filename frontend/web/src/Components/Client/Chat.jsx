@@ -8,6 +8,7 @@ import parse from "html-react-parser";
 const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [question, setQuestion] = useState("");
+  
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();

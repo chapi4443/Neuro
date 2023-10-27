@@ -19,7 +19,7 @@ function App() {
       <Route path="/risk-assessment" element={<RiskUser />} />
       <Route path="/chat-bot" element={<ChatUser />} />
       <Route path="/help-guide" element={<HelpUser />} />
-      <Route path="/faq" element={<FAQUser />} />
+      <Route path="/faq" element={<FAQUser />} target="_blank" />
       <Route path="/setting" element={<SettingUser />} />
     </Routes>
   );

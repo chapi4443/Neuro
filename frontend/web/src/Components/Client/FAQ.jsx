@@ -492,306 +492,39 @@ const healthy = [
 const FAQ = () => {
   return (
     <Stack sx={{ width: "84%" }} gap={3}>
-      <Stack
-        sx={{ background: "#192655", height: "10dvh" }}
-        alignItems={"center"}
-        justifyContent={"center"}
-      >
-        <Typography color={"#FFFFFF"} fontSize={"24px"} fontWeight={"bold"}>
-          FAQ
-        </Typography>
-      </Stack>
-      <div
-        style={{
+      
+      <Box
+        sx={{
+          width: "100%",
+          background: "#192655",
+          height: "10vh",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
-          // width: "80%",
-          margin: "0px 8%",
+          justifyContent: "center",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="general-accordion-content"
-              id="general-accordion-header"
-            >
-              <Typography
-                sx={{
-                  color: "#16C2D5",
-                  fontFamily: "Poppins",
-                  fontSize: "30px",
-                  fontStyle: "normal",
-                  fontWeight: "600",
-                  marginBottom: "10px",
-                }}
-              >
-                General <span style={{ color: "red" }}>Questions</span> and{" "}
-                <span style={{ color: "red" }}>Answers</span> on Stroke
+        <Typography color="#FFFFFF" variant="h4" fontWeight="bold">
+          FAQ
+        </Typography>
+      </Box>
+
+      <Box sx={{ width: "80%" }}>
+        {stroke.map((item, index) => (
+          <Accordion key={index}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography variant="h6" sx={{ fontFamily: "Poppins" }}>
+                {item.question}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <div>
-                {stroke.map((item, index) => (
-                  <Accordion key={index}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls={`panel${index + 1}-content`}
-                      id={`panel${index + 1}-header`}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "Poppins",
-                          fontSize: "18px",
-                        }}
-                      >
-                        {item.question}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography sx={{ fontFamily: "Poppins" }}>
-                        {item.answer}
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "10px",
-          }}
-        >
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="general-accordion-content"
-              id="general-accordion-header"
-            >
-              <Typography
-                sx={{
-                  color: "#16C2D5",
-                  fontFamily: "Poppins",
-                  fontSize: "30px",
-                  fontStyle: "normal",
-                  fontWeight: "600",
-                  marginBottom: "10px",
-                }}
-              >
-                <span style={{ color: "red" }}>Questions</span> and
-                <span style={{ color: "red" }}>Answers</span> on Pre-Stroke
+              <Typography sx={{ fontFamily: "Poppins" }}>
+                {item.answer}
               </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div>
-                {preStroke.map((item, index) => (
-                  <Accordion key={index}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls={`panel${index + 1}-content`}
-                      id={`panel${index + 1}-header`}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "Poppins",
-                          fontSize: "18px",
-                        }}
-                      >
-                        {item.question}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography sx={{ fontFamily: "Poppins" }}>
-                        {item.answer}
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </div>
             </AccordionDetails>
           </Accordion>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "10px",
-          }}
-        >
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="general-accordion-content"
-              id="general-accordion-header"
-            >
-              <Typography
-                sx={{
-                  color: "#16C2D5",
-                  fontFamily: "Poppins",
-                  fontSize: "30px",
-                  fontStyle: "normal",
-                  fontWeight: "600",
-                  marginBottom: "10px",
-                }}
-              >
-                <span style={{ color: "red" }}>Questions</span> and
-                <span style={{ color: "red" }}>Answers</span> on Post-Stroke
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div>
-                {postStroke.map((item, index) => (
-                  <Accordion key={index}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls={`panel${index + 1}-content`}
-                      id={`panel${index + 1}-header`}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "Poppins",
-                          fontSize: "18px",
-                        }}
-                      >
-                        {item.question}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography sx={{ fontFamily: "Poppins" }}>
-                        {item.answer}
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "10px",
-          }}
-        >
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="general-accordion-content"
-              id="general-accordion-header"
-            >
-              <Typography
-                sx={{
-                  color: "#16C2D5",
-                  fontFamily: "Poppins",
-                  fontSize: "30px",
-                  fontStyle: "normal",
-                  fontWeight: "600",
-                  marginBottom: "10px",
-                }}
-              >
-                Learn more about
-                <span style={{ color: "red" }}> Brain</span> and
-                <span style={{ color: "red" }}> Heart</span>
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div>
-                {heartNBrain.map((item, index) => (
-                  <Accordion key={index}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls={`panel${index + 1}-content`}
-                      id={`panel${index + 1}-header`}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "Poppins",
-                          fontSize: "18px",
-                        }}
-                      >
-                        {item.question}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography sx={{ fontFamily: "Poppins" }}>
-                        {item.answer}
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "10px",
-          }}
-        >
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="general-accordion-content"
-              id="general-accordion-header"
-            >
-              <Typography
-                sx={{
-                  color: "#16C2D5",
-                  fontFamily: "Poppins",
-                  fontSize: "30px",
-                  fontStyle: "normal",
-                  fontWeight: "600",
-                  marginBottom: "10px",
-                }}
-              >
-                Learn more about your
-                <span style={{ color: "red" }}> Health</span> and
-                <span style={{ color: "red" }}> Healthy Life style</span>
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <div>
-                {healthy.map((item, index) => (
-                  <Accordion key={index}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls={`panel${index + 1}-content`}
-                      id={`panel${index + 1}-header`}
-                    >
-                      <Typography
-                        sx={{
-                          fontFamily: "Poppins",
-                          fontSize: "18px",
-                        }}
-                      >
-                        {item.question}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography sx={{ fontFamily: "Poppins" }}>
-                        {item.answer}
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        </Box>
-      </div>
+        ))}
+      </Box>
+
     </Stack>
   );
 };
