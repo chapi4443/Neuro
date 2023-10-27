@@ -1,35 +1,27 @@
-import "./App.css";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Common from "./pages/Common";
-import SharedLayout from "./pages/SharedLayout";
-import FirstPage from "./pages/firstpage";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Unauthorized from "./components/Unauthorized";
-import cookies from "js-cookie";
-import jwt_decode from "jwt-decode";
+import { Route, Routes } from "react-router-dom";
+import Landing from "./Pages/Landing";
+import AuthLogin from "./Pages/AuthLogin";
+import AuthRegister from "./Pages/AuthRegister";
+import DashboardUser from "./Pages/DashboardUser";
+import RiskUser from "./Pages/RiskUser";
+import ChatUser from "./Pages/ChatUser";
+import HelpUser from "./Pages/HelpUser";
+import SettingUser from "./Pages/SettingUser";
+import FAQUser from "./Pages/FAQUser";
 
 function App() {
-  const token = cookies.get("token") || "guest";
-  const detoken = token === "guest" ? "guest" : jwt_decode(token);
-  const roles = detoken.role;
-
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<FirstPage />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="common" element={<Common  />} />
-          <Route path="unauthorized" element={<Unauthorized />} />
-        </Route>
-        <Route
-          path="/user"
-          element={roles === "user" ? <Common /> : <Navigate to="/login" />}
-        />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<AuthLogin />} />
+      <Route path="/register" element={<AuthRegister />} />
+      <Route path="/dashboard" element={<DashboardUser />} />
+      <Route path="/risk-assessment" element={<RiskUser />} />
+      <Route path="/chat-bot" element={<ChatUser />} />
+      <Route path="/help-guide" element={<HelpUser />} />
+      <Route path="/faq" element={<FAQUser />} target="_blank" />
+      <Route path="/setting" element={<SettingUser />} />
+    </Routes>
   );
 }
 

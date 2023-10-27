@@ -1,20 +1,34 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {
   authenticateUser,
   authorizePermissions,
-} = require('../middleware/authentication');
+} = require("../middleware/authentication");
 const {
- 
   updateUser,
   updateUserPassword,
-} = require('../controllers/userController');
+  editProfilePicture,
+  deleteProfilePicture,
+  createProfilePicture,
+  getSingleUser
+} = require("../controllers/userController");
 
+// Route for updating user information
+router.patch("/updateUser", authenticateUser, updateUser);
 
+//Route for gettinguser information 
+router.route("/:id").get(authenticateUser, getSingleUser);
 
-router.route('/updateUser').patch(authenticateUser, updateUser);
-router.route('/updateUserPassword').patch(authenticateUser, updateUserPassword);
+// Route for updating user password
+router.patch("/updateUserPassword", authenticateUser, updateUserPassword);
 
+// Route for editing profile picture
+router.patch("/editProfilePicture", authenticateUser, editProfilePicture);
 
+// Route for deleting profile picture
+router.delete("/deleteProfilePicture", authenticateUser, deleteProfilePicture);
+
+// Route for creating a profile picture
+router.post("/createProfilePicture", authenticateUser, createProfilePicture);
 
 module.exports = router;

@@ -13,8 +13,8 @@ function cleanUserId(userId) {
 
 async function medicalChat(req, res) {
   try {
-    const { question } = req.body; // Assuming the question is sent in the request body
-    const { userId } = req.body; // Assuming you have the user's ID in req.user
+    const { question ,userId} = req.body; // Assuming the question is sent in the request body
+    // const { userId } = req.user; // Assuming you have the user's ID in req.user
 
     // Forward the question to the Flask application
     const flaskUrl = "http://127.0.0.1:4000"; // Change the port if necessary
