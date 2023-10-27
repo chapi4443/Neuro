@@ -10,10 +10,14 @@ const {
   editProfilePicture,
   deleteProfilePicture,
   createProfilePicture,
+  getSingleUser
 } = require("../controllers/userController");
 
 // Route for updating user information
 router.patch("/updateUser", authenticateUser, updateUser);
+
+//Route for gettinguser information 
+router.route("/:id").get(authenticateUser, getSingleUser);
 
 // Route for updating user password
 router.patch("/updateUserPassword", authenticateUser, updateUserPassword);

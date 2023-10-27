@@ -138,6 +138,16 @@ const deleteProfilePicture = async (req, res) => {
   }
 };
 
+
+const getSingleUser = async (req, res) => {
+  const user = await User.findOne({ _id: req.params.id }).select("-password");
+  if (!user) {
+    throw new CustomError.NotFoundError(`No user with id : ${req.params.id}`);
+  }
+  checkPermissions(req.user, user._id);
+  res.status(StatusCodes.OK).json({ user });
+};
+
 // Update user information
 const updateUser = async (req, res) => {
   const {
@@ -237,4 +247,5 @@ module.exports = {
   editProfilePicture,
   deleteProfilePicture,
   createProfilePicture,
+  getSingleUser
 };
