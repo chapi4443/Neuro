@@ -1,74 +1,82 @@
 .main-container {
-    display: flex;
-    height: calc(100vh - 80px);
-
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
+  display: flex;
+  height: calc(100vh - 80px);
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-
 .image-text-container {
-    display: flex;
-    width:100%;
-    height: 100%;
-    justify-content: space-around;
-    align-items: center;
-    padding: 2rem;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem;
+  animation: fadeInOut 3s ease-in-out infinite; /* Adjusted timing for the animation */
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .text-container {
-    width: 50%;
-    margin: auto;
-    text-align: left;
-    padding: 50px 20px;
-    margin-left: 5%;
-  }
-  
-  h2 {
-    color: #192655;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-  }
-  
-  span {
-    color: #16C2D5;
-    font-size: 1.2rem;
-    display: block;
-    margin-bottom: 30px;
-  }
-  
-
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    color: #000000;
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  
-  /* Optional: Add some styling to the list items, such as bullet points or icons */
-  li::before {
-    content: "•";
-    color: #192655;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-  }
-  
-
-.image{
-     width: 50%;
-     display: flex;
-     justify-content: center;
-     align-items: center;
+  width: 50%;
+  margin: auto;
+  text-align: left;
+  padding: 50px 20px;
+  margin-left: 5%;
 }
 
+h2 {
+  color: #192655;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+span {
+  color: #16c2d5;
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 30px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  color: #000000;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Optional: Add some styling to the list items, such as bullet points or icons */
+li::before {
+  content: "•";
+  color: #192655;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.image {
+  width: 50%;
+  height: auto; /* Adjust the height as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* Navbar css */
 
