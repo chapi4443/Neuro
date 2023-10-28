@@ -121,7 +121,7 @@ const HealthMetrics = ({ onDataUpdate }) => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormLabel>Systolic Blood Pressure</FormLabel>
           <FormControl fullWidth required size="small">
             <TextField
@@ -137,7 +137,7 @@ const HealthMetrics = ({ onDataUpdate }) => {
             </Typography>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormLabel>Diastolic Blood Pressure</FormLabel>
           <FormControl fullWidth required size="small">
             <TextField
@@ -153,7 +153,7 @@ const HealthMetrics = ({ onDataUpdate }) => {
             </Typography>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required size="small">
             <TextField
               label="Average Glucose Level"
@@ -168,7 +168,7 @@ const HealthMetrics = ({ onDataUpdate }) => {
             </Typography>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required size="small">
             <InputLabel id="stress-level-label">Stress Level</InputLabel>
             <Select
@@ -185,7 +185,7 @@ const HealthMetrics = ({ onDataUpdate }) => {
         </Grid>
       </Grid>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={6} sm={6}>
           <FormControl fullWidth required>
             <FormLabel>Hypertension</FormLabel>
             <RadioGroup
@@ -198,7 +198,7 @@ const HealthMetrics = ({ onDataUpdate }) => {
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} sm={6}>
           <FormControl fullWidth required>
             <FormLabel>Heart Disease</FormLabel>
             <RadioGroup

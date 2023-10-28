@@ -41,7 +41,7 @@ function* fetchSetRegister(action) {
     yield call(SignUp, action.payload.data);
     yield setRegisterData();
   } catch (error) {
-    toast.error(error.response.data.msg);
+    toast.error(error.response.data.error[0]);
     console.error("Saga Error:", error);
   }
 }

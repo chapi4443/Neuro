@@ -69,7 +69,7 @@ const PersonalInformation = ({ onDataUpdate }) => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required size="small">
             <TextField
               label={"Age"}
@@ -84,7 +84,7 @@ const PersonalInformation = ({ onDataUpdate }) => {
             </Typography>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required size="small">
             <InputLabel id="gender-label">Gender</InputLabel>
             <Select
@@ -99,7 +99,7 @@ const PersonalInformation = ({ onDataUpdate }) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required size="small">
             <TextField
               label={"Weight"}
@@ -114,7 +114,7 @@ const PersonalInformation = ({ onDataUpdate }) => {
             </Typography>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required size="small">
             <TextField
               label={"Height"}

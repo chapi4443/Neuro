@@ -11,6 +11,7 @@ import {
   ImageListItem,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import PieCharts from "./PieChart";
@@ -48,8 +49,14 @@ const Dashboard = () => {
       100;
     // The rest of your code that uses 'prediction'
   }
+  const isSmallScreen = useMediaQuery("(max-width:770px)");
+  const isMoreSmallScreen = useMediaQuery("(max-width:430px)");
   return (
-    <Stack sx={{ width: "84%" }}>
+    <Stack
+      sx={{
+        width: isSmallScreen ? "100%" : isMoreSmallScreen ? "100%" : "84%",
+      }}
+    >
       <Stack
         sx={{ background: "#192655", height: "10dvh" }}
         alignItems={"center"}
@@ -126,8 +133,22 @@ const Dashboard = () => {
             // sx={{ height: "75dvh" }}
             gap={5}
           >
-            <Stack direction={"row"} gap={10}>
-              <Stack gap={5}>
+            <Stack
+              direction={"row"}
+              gap={10}
+              flexWrap={"wrap"}
+              justifyContent={isSmallScreen && "center"}
+            >
+              <Stack
+                gap={5}
+                direction={
+                  isMoreSmallScreen
+                    ? "column"
+                    : isSmallScreen
+                    ? "row"
+                    : "column"
+                }
+              >
                 <Card
                   sx={{
                     display: "flex",
@@ -197,7 +218,7 @@ const Dashboard = () => {
                   </Typography>
                 </Card>
               </Stack>
-              <Card sx={{ width: 360, p: 2 }}>
+              <Card sx={{ width:isMoreSmallScreen? 260: 360, p: 2 }}>
                 <Stack
                   direction={"row"}
                   alignItems={"center"}
@@ -218,7 +239,7 @@ const Dashboard = () => {
                 variant="contained"
                 sx={{
                   position: "absolute",
-                  right: "50px",
+                  right: isSmallScreen ? "10px" : "50px",
                   border: "1px solid #FFFFFF",
                   background: "#16C2D5",
                   cursor: "pointer",
@@ -231,7 +252,9 @@ const Dashboard = () => {
                 <Typography>FAQ's</Typography>
               </Button>
             </Stack>
-            <Stack sx={{ width: "60%", height: "50dvh" }}>
+            <Stack
+              sx={{ width:isMoreSmallScreen ?"100%" :isSmallScreen ? "80%" : "60%", height: "50dvh" }}
+            >
               <Stack
                 direction={"row"}
                 alignItems={"center"}

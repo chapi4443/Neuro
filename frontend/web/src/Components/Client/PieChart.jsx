@@ -4,6 +4,7 @@ import { PieChart, Pie, Cell, Label, Tooltip } from "recharts";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
 import { getStrokeRecommendations } from "../../Utils/Store/PredictionStore";
+import { useMediaQuery } from "@mui/material";
 
 const PieCharts = () => {
   const dispatch = useDispatch();
@@ -40,11 +41,12 @@ const PieCharts = () => {
       : "green",
     "#FFFFFF",
   ];
+  const isMoreSmallScreen = useMediaQuery("(max-width:430px)");
   return (
     <PieChart width={400} height={150}>
       <Pie
         data={data}
-        cx={170}
+        cx={isMoreSmallScreen ? 110 : 170}
         cy={70}
         innerRadius={40}
         outerRadius={60}

@@ -71,7 +71,7 @@ const HealthLifeStyle = ({ onDataUpdate }) => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required size="small">
             <InputLabel id="smoking-status-label">Smoking Status</InputLabel>
             <Select
@@ -86,7 +86,7 @@ const HealthLifeStyle = ({ onDataUpdate }) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required size="small">
             <InputLabel id="work-type-label">Work Type</InputLabel>
             <Select
@@ -101,7 +101,7 @@ const HealthLifeStyle = ({ onDataUpdate }) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
             <FormLabel>Residence Type</FormLabel>
             <RadioGroup
@@ -122,7 +122,7 @@ const HealthLifeStyle = ({ onDataUpdate }) => {
             </RadioGroup>
           </FormControl>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <FormControl fullWidth required>
             <FormLabel>Family History of Stroke</FormLabel>
             <RadioGroup

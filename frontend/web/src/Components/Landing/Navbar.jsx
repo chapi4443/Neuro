@@ -3,8 +3,10 @@ import logo from "../../Image/image 14.png";
 import { useNavigate } from "react-router-dom";
 import "./style.css"; // Import your custom CSS file for styling
 
+
 const Navbar = () => {
   const navigate = useNavigate();
+  
   return (
     <div className="navbar">
       <div className="logo-container">

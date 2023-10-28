@@ -53,7 +53,7 @@ const BarMixChart = () => {
       Risk: Math.round(prediction.prediction * 100),
       Not_Risk: 100 - Math.round(prediction.prediction * 100),
     };
-  });
+  }); 
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart

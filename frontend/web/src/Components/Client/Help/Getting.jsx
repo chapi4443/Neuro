@@ -6,6 +6,7 @@ import {
   AccordionSummary,
   Typography,
   AccordionDetails,
+  useMediaQuery,
 } from "@mui/material";
 
 import HelpImg from "../../../Image/Screenshot.png";
@@ -99,12 +100,16 @@ const Getting = () => {
       setExpandedAccordion(index);
     }
   };
+  const isMobile = useMediaQuery("(max-width: 770px)");
+  const isTablet = useMediaQuery("(max-width: 430px)");
   return (
     <>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
+          // width: !isTablet ? "100%" : "80%"
+          // width: isTablet && "100%"
         }}
       >
         <Accordion expanded={true}>

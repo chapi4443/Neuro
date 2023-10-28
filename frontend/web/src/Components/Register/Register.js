@@ -18,6 +18,8 @@ import logo from "../../Image/image 14.png";
 import { ImageListItem, Stack } from "@mui/material";
 import { setRegister } from "../../Utils/Store/AuthStore";
 import { useDispatch } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 const steps = [
   "Personal Info",
   "Contact Info",
@@ -52,7 +54,7 @@ export default function Register() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setRegister({data:{formData}}));
+    dispatch(setRegister({ data: { formData } }));
   };
 
   function getStepContent(step) {
@@ -78,6 +80,7 @@ export default function Register() {
         height={"100dvh"}
         gap={1}
       >
+        <ToastContainer />
         <Stack
           direction={"row"}
           alignItems={"center"}

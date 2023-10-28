@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Landing from "./Pages/Landing";
 import AuthLogin from "./Pages/AuthLogin";
 import AuthRegister from "./Pages/AuthRegister";
@@ -21,13 +21,49 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<AuthLogin />} />
       <Route path="/register" element={<AuthRegister />} />
-      <Route path="/dashboard" element={<DashboardUser />} />
-      <Route path="/risk-assessment" element={<RiskUser />} />
-      <Route path="/chat-bot" element={<ChatUser />} />
-      <Route path="/help-guide" element={<HelpUser />} />
-      <Route path="/faq" element={<FAQUser />} />
-      <Route path="/setting" element={<SettingUser />} />
-      <Route path="/chat-history" element={<HistoryOfChat />} />
+
+      <Route
+        path="/dashboard"
+        element={
+          role === "user" ? <DashboardUser /> : <Navigate to={"/login"} />
+        }
+      />
+      <Route
+        path="/risk-assessment"
+        element={role === "user" ? <RiskUser /> : <Navigate to={"/login"} />}
+      />
+      <Route
+        path="/chat-bot"
+        element={role === "user" ? <ChatUser /> : <Navigate to={"/login"} />}
+      />
+      <Route
+        path="/help-guide"
+        element={role === "user" ? <HelpUser /> : <Navigate to={"/login"} />}
+      />
+      <Route
+        path="/faq"
+        element={role === "user" ? <FAQUser /> : <Navigate to={"/login"} />}
+      />
+      <Route
+        path="/setting"
+        element={role === "user" ? <SettingUser /> : <Navigate to={"/login"} />}
+      />
+      <Route
+        path="/chat-history"
+        element={
+          role === "user" ? <HistoryOfChat /> : <Navigate to={"/login"} />
+        }
+      />
+      <Route
+        path="/*"
+        element={
+          role === "user" ? (
+            <Navigate to={"/dashboard"} />
+          ) : (
+            <Navigate to={"/login"} />
+          )
+        }
+      />
     </Routes>
   );
 }

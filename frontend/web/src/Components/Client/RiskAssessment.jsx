@@ -5,6 +5,7 @@ import {
   Paper,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
@@ -21,11 +22,12 @@ import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import Result from "./RiskAssesment/Result";
 import SecondResult from "./RiskAssesment/SecondResult";
+import { useNavigate } from "react-router-dom";
 const RiskAssessment = () => {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [collectedData, setCollectedData] = useState({});
-
+  const navigate = useNavigate();
   const handlePersonalInformation = (data) => {
     if (data.height !== null && data.weight !== null) {
       const heightInMeters = data.height / 100;
@@ -131,9 +133,14 @@ const RiskAssessment = () => {
       })
     );
   };
-
+  const isSmallScreen = useMediaQuery("(max-width:770px)");
+  const isMoreSmallScreen = useMediaQuery("(max-width:430px)");
   return (
-    <Stack sx={{ width: "84%" }}>
+    <Stack
+      sx={{
+        width: isMoreSmallScreen ? "100%" : isSmallScreen ? "100%" : "84%",
+      }}
+    >
       <Stack
         sx={{ background: "#192655", height: "10dvh" }}
         alignItems={"center"}
@@ -151,11 +158,12 @@ const RiskAssessment = () => {
           alignItems: "center",
           flexDirection: "column",
           justifyContent: "center",
+          // height: isMoreSmallScreen ? "100dvh" : isSmallScreen && "100dvh",
         }}
       >
         <Box
           sx={{
-            width: "60%",
+            width: isMoreSmallScreen ? "100%" : isSmallScreen ? "70%" : "50%",
           }}
         >
           <Paper
@@ -182,7 +190,7 @@ const RiskAssessment = () => {
             position="static"
             activeStep={activeStep}
             nextButton={
-              activeStep !== maxSteps - 3 ? (
+              activeStep !== maxSteps - 3 && activeStep !== maxSteps - 1 ? (
                 <Button
                   size="small"
                   onClick={handleNext}
@@ -195,17 +203,25 @@ const RiskAssessment = () => {
                     <KeyboardArrowRight />
                   )}
                 </Button>
+              ) : activeStep === maxSteps - 3 && activeStep !== maxSteps - 1 ? (
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    SubmitHandler();
+                    handleNext();
+                  }}
+                >
+                  Submit
+                </Button>
               ) : (
-                activeStep === maxSteps - 3 && (
+                activeStep === maxSteps - 1 && (
                   <Button
                     size="small"
                     variant="outlined"
-                    onClick={() => {
-                      SubmitHandler();
-                      handleNext();
-                    }}
+                    onClick={() => navigate("/dashboard")}
                   >
-                    Submit
+                    Dashboard
                   </Button>
                 )
               )

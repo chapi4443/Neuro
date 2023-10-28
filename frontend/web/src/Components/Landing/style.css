@@ -110,6 +110,7 @@
   background-color: #192655;
 }
 .navbar-button {
+  display: inline-flex;
   padding: 10px 20px;
   margin-left: 10px;
   border: none;
@@ -122,4 +123,38 @@
 .button-container {
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 526px) {
+  .navbar-button{
+    display: none;
+   };
+  .image {
+    display: none;
+  };
+  .text-container{
+    width:100%
+  };
+ 
+}
+@media (max-width: 526px) {
+  
+  .image {
+    display: none;
+  };
+
+}
+@media (max-width: 526px) {
+
+  .text-container{
+    width:100%
+  };
+ 
+}
+@media (max-width: 526px) {
+
+  .text-container{
+    text-align: center
+  };
+ 
 }

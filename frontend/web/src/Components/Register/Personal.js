@@ -76,7 +76,6 @@ export default function Personal({ onDataChange }) {
               row
               aria-label="gender"
               name="gender"
-              defaultValue="male"
               onChange={(e) => handleDataChange("gender", e.target.value)}
             >
               <FormControlLabel

@@ -1,10 +1,19 @@
 import { FileCopy, Mic, Send } from "@mui/icons-material";
-import { Card, IconButton, Paper, Stack, Typography } from "@mui/material";
+import {
+  Card,
+  IconButton,
+  ImageListItem,
+  Paper,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useState } from "react";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
 import axios from "axios";
 import parse from "html-react-parser";
+import logo from "../../Image/image 14.png";
 const Chat = () => {
   const [userMessages, setUserMessages] = useState([]);
   const [question, setQuestion] = useState("");
@@ -55,7 +64,7 @@ const Chat = () => {
     const decodedToken = jwt_decode(token);
     console.log(decodedToken);
     const userId = decodedToken.userId;
-    
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/v1/medical/medical-chat",
@@ -64,29 +73,32 @@ const Chat = () => {
           userId,
         }
       );
-     
+
       const responseData = response.data.response;
 
       newUserMessages.push({
         message: formatText(responseData),
         isQuestion: false,
       });
-  
+
       setUserMessages(newUserMessages);
-  
+
       // Scroll to the bottom of the chat after adding a new message
       const chatContainer = document.getElementById("chat-container");
       chatContainer.scrollTop = chatContainer.scrollHeight;
     } catch (error) {
       console.error("Request Error:", error);
     }
-  
+
     setQuestion("");
   };
-  
 
+  const isMobile = useMediaQuery("(max-width: 770px)");
+  const isTablet = useMediaQuery("(max-width: 430px)");
   return (
-    <Stack sx={{ width: "84%" }}>
+    <Stack
+      sx={{ width: isTablet ? "100%" : isMobile ? "100%" : "84%" }}
+    >
       <Stack
         sx={{ background: "#192655", height: "10dvh" }}
         alignItems={"center"}
@@ -124,7 +136,7 @@ const Chat = () => {
               alignItems={"flex-start"}
               justifyContent="flex-start"
               sx={{
-                width: "80%",
+                width: isMobile ? "100%": "80%",
               }}
             >
               <Card
@@ -138,9 +150,38 @@ const Chat = () => {
                   width: "100%",
                 }}
               >
-                <Typography sx={{ width: "95%" }}>
-                  {parse(message.message)}
-                </Typography>
+                <Stack
+                  direction={"row"}
+                  alignItems={"flex-start"}
+                  justifyContent={"flex-start"}
+                  gap={2}
+                  sx={{ pt: 2 }}
+                >
+                  {!message.isQuestion && (
+                    <ImageListItem
+                      sx={{
+                        maxWidth: isMobile ? "25px" : "50px",
+                        minWidth: isMobile ? "25px" : "50px",
+                        maxHeight: isMobile ? "25px" : "50px",
+                        minHeight: isMobile ? "25px" : "50px",
+                        borderRadius: "50%",
+                        border: "0.5px solid #16C2D5",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img
+                        src={logo}
+                        alt="logo"
+                        style={{ borderRadius: "50%" }}
+                      />
+                    </ImageListItem>
+                  )}
+                  <Typography sx={{ width: "95%" }}>
+                    {parse(message.message)}
+                  </Typography>
+                </Stack>
                 {!message.isQuestion && (
                   <IconButton
                     sx={{
@@ -164,7 +205,7 @@ const Chat = () => {
           position: "fixed",
           display: "flex",
           flexDirection: "row",
-          width: "50%",
+          width: isMobile ? "100%" : "50%",
           bottom: "10px",
           left: "60%",
           transform: "translateX(-50%)",

@@ -6,6 +6,7 @@ import {
   Paper,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import jwt_decode from "jwt-decode";
@@ -132,8 +133,10 @@ const ChatHistory = () => {
 
     setQuestion("");
   };
+  const isMobile = useMediaQuery("(max-width: 770px)");
+  const isTablet = useMediaQuery("(max-width: 430px)");
   return (
-    <Stack sx={{ width: "84%" }}>
+    <Stack sx={{ width: isTablet ? "100%" : isMobile ? "100%" : "84%", }}>
       <Stack
         sx={{ background: "#192655", height: "10dvh" }}
         alignItems={"center"}
@@ -172,7 +175,7 @@ const ChatHistory = () => {
               alignItems={"flex-start"}
               justifyContent="flex-start"
               sx={{
-                width: "80%",
+                width: isMobile ? "100%": "80%",
               }}
             >
               <Card
@@ -196,10 +199,10 @@ const ChatHistory = () => {
                   {!message.isQuestion && (
                     <ImageListItem
                       sx={{
-                        maxWidth: "50px",
-                        minWidth: "50px",
-                        maxHeight: "50px",
-                        minHeight: "50px",
+                        maxWidth:isMobile ? "25px" : "50px",
+                        minWidth:isMobile ? "25px" : "50px",
+                        maxHeight:isMobile ? "25px" : "50px",
+                        minHeight:isMobile ? "25px" : "50px",
                         borderRadius: "50%",
                         border: "0.5px solid #16C2D5",
                         display:"flex",
@@ -237,7 +240,7 @@ const ChatHistory = () => {
           position: "fixed",
           display: "flex",
           flexDirection: "row",
-          width: "50%",
+          width: isMobile?"100%" : "50%",
           bottom: "10px",
           left: "60%",
           transform: "translateX(-50%)",
