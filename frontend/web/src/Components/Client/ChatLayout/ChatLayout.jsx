@@ -43,7 +43,6 @@ const ChatLayout = () => {
     backgroundColor: "#16C2D5",
   };
   const isMobile = useMediaQuery("(max-width: 770px)");
-  const isTablet = useMediaQuery("(max-width: 425px)");
   const [openSidebar, setOpenSidebar] = useState(isMobile);
   return (
     <>

@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   InputRegister: [],
   InputLogin: [],
+  InputForgotPassword: [],
+  InputRestPassword: [],
 };
 
 const AuthStore = createSlice({
@@ -34,10 +36,33 @@ const AuthStore = createSlice({
         password: newData.password,
       });
     },
+    setForgotPasswordData(state) {},
+    setForgotPassword(state, action) {
+      const newData = action.payload;
+      state.InputForgotPassword.push({
+        email: newData.email,
+      });
+    },
+    setRestPasswordData(state) {},
+    setRestPassword(state, action) {
+      const newData = action.payload;
+      state.InputRestPassword.push({
+        email: newData.email,
+        password: newData.password,
+      });
+    },
   },
 });
 
-export const { setRegister, setRegisterData, setLoginData, setLogin } =
-  AuthStore.actions;
+export const {
+  setRegister,
+  setRegisterData,
+  setLoginData,
+  setLogin,
+  setForgotPasswordData,
+  setForgotPassword,
+  setRestPasswordData,
+  setRestPassword,
+} = AuthStore.actions;
 
 export default AuthStore.reducer;

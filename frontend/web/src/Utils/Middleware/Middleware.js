@@ -1,7 +1,12 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { toast } from "react-toastify";
-import { setLoginData, setRegisterData } from "../Store/AuthStore";
-import { Login, SignUp } from "../API/AuthAPI";
+import {
+  setForgotPasswordData,
+  setLoginData,
+  setRegisterData,
+  setRestPasswordData,
+} from "../Store/AuthStore";
+import { ForgotPassword, Login, RestPassword, SignUp } from "../API/AuthAPI";
 import {
   StrokeAssementdata,
   StrokeRecommendations,
@@ -20,6 +25,8 @@ import { getMedicalchathistory } from "../API/MedicalApi";
 export function* watchFetchNeuro() {
   yield takeLatest("auth/setRegister", fetchSetRegister);
   yield takeLatest("auth/setLogin", fetchSetLogin);
+  yield takeLatest("auth/setRestPassword", fetchSetRestPassword);
+  yield takeLatest("auth/setForgotPassword", fetchSetForgotPassword);
   yield takeLatest("user/getUser", fetchGetUser);
   yield takeLatest("user/setUpdateUser", fetchSetUserUpdate);
   yield takeLatest("prediction/setStrokepredictor", fetchSetStrokepredictor);
@@ -112,6 +119,26 @@ function* fetchGetChatHistory(action) {
     yield put(getChatHistoryData(Data));
   } catch (error) {
     toast.error(error.response.data.msg);
+    console.error("Saga Error:", error);
+  }
+}
+
+function* fetchSetForgotPassword(action) {
+  try {
+    yield call(ForgotPassword, action.payload.data);
+    yield setForgotPasswordData();
+  } catch (error) {
+    toast.error(error.response.data.error);
+    console.error("Saga Error:", error);
+  }
+}
+
+function* fetchSetRestPassword(action) {
+  try {
+    yield call(RestPassword, action.payload.data);
+    yield setRestPasswordData();
+  } catch (error) {
+    toast.error(error.response.data.error);
     console.error("Saga Error:", error);
   }
 }

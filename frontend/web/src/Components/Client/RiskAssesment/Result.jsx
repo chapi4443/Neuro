@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Paper, Stack, Typography } from "@mui/material";
+import { Card, CardContent, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
@@ -47,7 +47,9 @@ const Result = () => {
             Advice
           </Typography>
           <CardContent>
-            <Typography variant="body1">{parse(formatText(data.Advice))}</Typography>
+            <Typography variant="body1">
+              {parse(formatText(data.Advice))}
+            </Typography>
           </CardContent>
         </Card>
       </Paper>

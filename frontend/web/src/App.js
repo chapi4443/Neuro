@@ -11,6 +11,9 @@ import FAQUser from "./Pages/FAQUser";
 import HistoryOfChat from "./Pages/HistoryOfChat";
 import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode";
+import Forget from "./Components/Auth/Forget";
+import Verify from "./Components/Auth/Verify";
+import Reset from "./Components/Auth/Reset";
 function App() {
   const token = Cookies.get("token") || "guest";
   const decodedToken = token === "guest" ? "guest" : jwt_decode(token);
@@ -21,6 +24,9 @@ function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<AuthLogin />} />
       <Route path="/register" element={<AuthRegister />} />
+      <Route path="/forget" element={<Forget />} />
+      <Route path="/verify" element={<Verify />} />
+      <Route path="/reset-password" element={<Reset />} />
 
       <Route
         path="/dashboard"

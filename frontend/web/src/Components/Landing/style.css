@@ -14,12 +14,12 @@
   justify-content: space-around;
   align-items: center;
   padding: 2rem;
-  animation: fadeInOut 5s ease-in-out infinite; /* Adjusted timing for the animation */
+  animation: fadeInOut 10s ease-in-out infinite; /* Adjusted timing for the animation */
 }
 
 @keyframes fadeInOut {
   0% {
-    opacity: 0;
+    opacity: 0.5;
   }
   /* 50% {
     opacity: 1;

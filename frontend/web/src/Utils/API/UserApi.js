@@ -37,3 +37,21 @@ export const getUser = async (data) => {
   );
   return useData.data;
 };
+
+export const UpdateUserpasswordandEmail = async (data) => {
+  //     email,
+  // password,
+  // console.log(data);
+  const useData = await axios.patch(
+    "http://localhost:5000/api/v1/users/updateUserPassword",
+    data,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  console.log(useData);
+  window.location.reload(true);
+};
+

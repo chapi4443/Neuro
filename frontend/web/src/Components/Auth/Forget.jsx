@@ -9,19 +9,19 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../Image/image 14.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../../Utils/Store/AuthStore";
+import { setForgotPassword } from "../../Utils/Store/AuthStore";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-const Login = () => {
+
+const Forget = () => {
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setLogin({ data: { email, password } }));
+    dispatch(setForgotPassword({ data: { email } }));
   };
   return (
     <Stack
@@ -66,7 +66,7 @@ const Login = () => {
           textAlign={"center"}
           fontWeight={"bold"}
         >
-          Login here
+          Forget here
         </Typography>
         <Typography variant="h6">Welcome back you’ve been missed!</Typography>
       </Stack>
@@ -92,25 +92,6 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
-        <FormControl sx={{ width: "100%" }} size="small" required>
-          <TextField
-            id="password-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </FormControl>
-        <Link
-          style={{
-            textAlign: "right",
-            textDecoration: "none",
-            color: "#16C2D5",
-          }}
-          to={"/forget"}
-        >
-          Forget password
-        </Link>
         <Stack direction={"row"} width={"100%"} gap={1}>
           <Button
             variant="contained"
@@ -121,22 +102,12 @@ const Login = () => {
               "&:hover": { background: "#16C2D590" },
             }}
           >
-            Sign in
+            Forget
           </Button>
         </Stack>
       </Paper>
-      <Link
-        to={"/register"}
-        style={{
-          textAlign: "right",
-          textDecoration: "none",
-          color: "#272727",
-        }}
-      >
-        Create new account
-      </Link>
     </Stack>
   );
 };
 
-export default Login;
+export default Forget;

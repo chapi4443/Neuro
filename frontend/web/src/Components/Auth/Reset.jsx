@@ -9,19 +9,26 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../Image/image 14.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLogin } from "../../Utils/Store/AuthStore";
+import { setRestPassword } from "../../Utils/Store/AuthStore";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
-const Login = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+import { ToastContainer, toast } from "react-toastify";
+const Reset = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const email = urlParams.get("token");
+  console.log(email);
+  const [NewPassword, setNewPassword] = useState();
+  const [ConfirmNewPassword, setConfirmNewPassword] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(setLogin({ data: { email, password } }));
+    if (NewPassword === ConfirmNewPassword) {
+      dispatch(setRestPassword({ data: { NewPassword, email } }));
+    } else {
+      toast.error("The password does not match");
+    }
   };
   return (
     <Stack
@@ -66,7 +73,7 @@ const Login = () => {
           textAlign={"center"}
           fontWeight={"bold"}
         >
-          Login here
+          Reset here
         </Typography>
         <Typography variant="h6">Welcome back you’ve been missed!</Typography>
       </Stack>
@@ -85,32 +92,22 @@ const Login = () => {
       >
         <FormControl sx={{ width: "100%" }} size="small" required>
           <TextField
-            id="email-basic"
-            label="Email"
+            id="password-basic"
+            label="New Password"
             variant="outlined"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
+            type="password"
+            onChange={(e) => setNewPassword(e.target.value)}
           />
         </FormControl>
         <FormControl sx={{ width: "100%" }} size="small" required>
           <TextField
-            id="password-basic"
-            label="Password"
+            id="CPassword-basic"
+            label="Confirm Password"
             variant="outlined"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
         </FormControl>
-        <Link
-          style={{
-            textAlign: "right",
-            textDecoration: "none",
-            color: "#16C2D5",
-          }}
-          to={"/forget"}
-        >
-          Forget password
-        </Link>
         <Stack direction={"row"} width={"100%"} gap={1}>
           <Button
             variant="contained"
@@ -121,22 +118,12 @@ const Login = () => {
               "&:hover": { background: "#16C2D590" },
             }}
           >
-            Sign in
+            Reset Password
           </Button>
         </Stack>
       </Paper>
-      <Link
-        to={"/register"}
-        style={{
-          textAlign: "right",
-          textDecoration: "none",
-          color: "#272727",
-        }}
-      >
-        Create new account
-      </Link>
     </Stack>
   );
 };
 
-export default Login;
+export default Reset;

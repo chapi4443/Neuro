@@ -6,7 +6,6 @@ import {
   AccordionSummary,
   Typography,
   AccordionDetails,
-  useMediaQuery,
 } from "@mui/material";
 
 import HelpImg from "../../../Image/Screenshot.png";
@@ -120,7 +119,6 @@ const Risk = () => {
       setExpandedAccordion(index);
     }
   };
-  const isTablet = useMediaQuery("(max-width: 430px)");
   return (
     <>
       <Box
