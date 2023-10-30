@@ -166,8 +166,28 @@ Average Glucose Level: {avg_glucose_level} mg/dL
 Gender: {gender}
 Stress Levels: {stress_levels}
 
-"""
+Analysis of Metrics:
+Valuable for Risk Assessment:
+1. History of Stroke (history_of_stroke): This is a crucial indicator of stroke risk.
+2. Family History of Stroke (family_history_of_stroke): A family history of stroke can be a risk factor.
+3. Physical Activity Level (physical_activity_level): Physical inactivity is a risk factor for stroke.
+4. Systolic and Diastolic Blood Pressure (systolic_blood_pressure, diastolic_blood_pressure): High blood pressure is a significant risk factor for stroke.
+5. Age (from the data): Age is a critical factor in stroke risk; older individuals are at higher risk.
+6. Hypertension (from the data): High blood pressure is a risk factor.
+7. Heart Disease (from the data): Existing heart disease is a risk factor.
+8. Avg Glucose Level (from the data): High glucose levels can increase stroke risk, especially for diabetics.
+9. BMI (from the data): High BMI can be associated with stroke risk.
+10. Smoking Status (from the data): Smoking is a significant risk factor for stroke.
+11. Gender (from the data): Gender can play a role in stroke risk; males often have a higher risk.
 
+Not Valuable for Risk Assessment:
+1. Weight and Height: While these can be factors in overall health, they are not as directly linked to stroke risk as some of the other factors listed above.
+2. Diet: Diet is important for overall health but might not be as directly related to stroke risk as factors like blood pressure or smoking.
+3. Marital Status, Work Type, and Residence Type (from the data): These factors are less directly related to stroke risk. They may influence lifestyle choices that contribute to risk, but they are not primary risk factors.
+
+
+
+"""
         response = palm.generate_text(
             model=model,
             prompt=medical_prompt,
@@ -204,14 +224,13 @@ def medical_question():
                 response = related_chat
             else:
                 medical_prompt = f"""
-         You are  NuroGen a health assistant for patients, especially on stroke.
-         You will be given a question below, and you are not allowed to answer a question that is not related to health and medicine
-         if the question is greeting you are alowed to answer 
-         if you are asked who you are or what you say that you are  NuroGen a health assistant
-         just tell the user that you cannot answer a question not related to health . 
-         If the question is related to health, give a response.
-         The question:{question}
-        """
+Hello, I am Neurogen AI, your health assistant specialized in providing guidance on stroke-related concerns. Please feel free to ask me any health-related questions, and I'll do my best to assist you.
+
+Remember, I'm here to help with health and medical queries only. If you have any questions unrelated to health, I may not be able to provide a response. However, for greetings or queries about my identity, feel free to ask, and I'll provide you with the necessary information.
+
+Please go ahead and ask your health-related question below:
+"{question}"
+"""
                 response = palm.generate_text(
                     model=model,
                     prompt=medical_prompt,
