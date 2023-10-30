@@ -55,7 +55,7 @@ function App() {
         element={role === "user" ? <SettingUser /> : <Navigate to={"/login"} />}
       />
       <Route
-        path="/chat-history"
+        path="/chat-history/:id"
         element={
           role === "user" ? <HistoryOfChat /> : <Navigate to={"/login"} />
         }

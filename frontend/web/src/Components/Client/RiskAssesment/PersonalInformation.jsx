@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import {
   FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
   Paper,
-  Radio,
-  RadioGroup,
   Select,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -41,7 +38,13 @@ const PersonalInformation = ({ onDataUpdate }) => {
   const handleever_marriedChange = (e) => {
     const newever_married = e.target.value;
     setever_married(newever_married);
-    onDataUpdate({ age, gender, ever_married: newever_married, height, weight });
+    onDataUpdate({
+      age,
+      gender,
+      ever_married: newever_married,
+      height,
+      weight,
+    });
   };
 
   const handleWeightChange = (e) => {
@@ -59,91 +62,103 @@ const PersonalInformation = ({ onDataUpdate }) => {
   };
 
   return (
-    <Paper
-      component="form"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        p: 2,
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required size="small">
-            <TextField
-              label={"Age"}
-              value={age}
-              onChange={handleAgeChange}
-              type="number"
-              variant="outlined"
-              size="small"
-            />
-            <Typography variant="caption" color="error">
-              {ageError}
-            </Typography>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required size="small">
+    <Stack>
+      <Typography variant="h5" fontWeight={"bold"} color={"#16C2D5"}>
+        Personal information
+      </Typography>
+      <Paper
+        component="form"
+        elevation={0}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          p: 2,
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
             <InputLabel id="gender-label">Gender</InputLabel>
-            <Select
-              labelId="gender-label"
-              label="Gender"
-              value={gender}
-              onChange={handleGenderChange}
-            >
-              <MenuItem value="Male">Male</MenuItem>
-              <MenuItem value="Female">Female</MenuItem>
-              <MenuItem value="Other">Other</MenuItem>
-            </Select>
-          </FormControl>
+            <FormControl fullWidth required size="small">
+              <Select
+                // labelId="gender-label"
+                // label="Gender"
+                value={gender}
+                onChange={handleGenderChange}
+              >
+                <MenuItem value="Male">Male</MenuItem>
+                <MenuItem value="Female">Female</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel id="Age-label">Age</InputLabel>
+            <FormControl fullWidth required size="small">
+              <TextField
+                // label={"Age"}
+                value={age}
+                onChange={handleAgeChange}
+                type="number"
+                variant="outlined"
+                size="small"
+              />
+              <Typography variant="caption" color="error">
+                {ageError}
+              </Typography>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel id="Height-label">Height</InputLabel>
+
+            <FormControl fullWidth required size="small">
+              <TextField
+                // label={"Height"}
+                value={height}
+                onChange={handleHeightChange}
+                type="number"
+                variant="outlined"
+                size="small"
+              />
+              <Typography variant="caption" color="error">
+                {heightError}
+              </Typography>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel id="Weight-label">Weight</InputLabel>
+
+            <FormControl fullWidth required size="small">
+              <TextField
+                // label={"Weight"}
+                value={weight}
+                onChange={handleWeightChange}
+                type="number"
+                variant="outlined"
+                size="small"
+              />
+              <Typography variant="caption" color="error">
+                {weightError}
+              </Typography>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel id="married-label">Ever Married</InputLabel>
+            <FormControl fullWidth required size="small">
+              <Select
+                labelId="married-label"
+                // label="married"
+                value={ever_married}
+                onChange={handleever_marriedChange}
+              >
+                <MenuItem value="1">Yes</MenuItem>
+                <MenuItem value="0">No</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required size="small">
-            <TextField
-              label={"Weight"}
-              value={weight}
-              onChange={handleWeightChange}
-              type="number"
-              variant="outlined"
-              size="small"
-            />
-            <Typography variant="caption" color="error">
-              {weightError}
-            </Typography>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required size="small">
-            <TextField
-              label={"Height"}
-              value={height}
-              onChange={handleHeightChange}
-              type="number"
-              variant="outlined"
-              size="small"
-            />
-            <Typography variant="caption" color="error">
-              {heightError}
-            </Typography>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <FormControl fullWidth required>
-            <FormLabel>Ever ever_married</FormLabel>
-            <RadioGroup
-              name="controlled-radio-buttons-group"
-              value={ever_married}
-              onChange={handleever_marriedChange}
-            >
-              <FormControlLabel value="1" control={<Radio />} label="Yes" />
-              <FormControlLabel value="0" control={<Radio />} label="No" />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </Stack>
   );
 };
 

@@ -1,5 +1,6 @@
 import { FileCopy, Mic, Send } from "@mui/icons-material";
 import {
+  Button,
   Card,
   IconButton,
   ImageListItem,
@@ -74,8 +75,7 @@ const Chat = () => {
         }
       );
 
-      const responseData = response.data.response;
-
+      const responseData = response.data.response.response;
       newUserMessages.push({
         message: formatText(responseData),
         isQuestion: false,
@@ -96,9 +96,7 @@ const Chat = () => {
   const isMobile = useMediaQuery("(max-width: 770px)");
   const isTablet = useMediaQuery("(max-width: 430px)");
   return (
-    <Stack
-      sx={{ width: isTablet ? "100%" : isMobile ? "100%" : "84%" }}
-    >
+    <Stack sx={{ width: isTablet ? "100%" : isMobile ? "100%" : "84%" }}>
       <Stack
         sx={{ background: "#192655", height: "10dvh" }}
         alignItems={"center"}
@@ -119,85 +117,106 @@ const Chat = () => {
         }}
         gap={2}
         alignItems={"center"}
+        justifyContent={userMessages.length === 0 && "center"}
       >
-        {userMessages.map((message, index) => (
-          <Stack
-            sx={{
-              width: "100%",
-              p: 1,
-              backgroundColor: message.isQuestion ? "#FFFFFF" : "#DFF2F4", // Conditionally set the background color
-            }}
-            alignItems={"center"}
-            key={index}
-          >
+        {userMessages.length === 0 ? (
+          <Card sx={{ display: "flex", flexDirection: "column", gap: 3, p: 2 }}>
+            <Stack alignItems={"center"}>
+              <ImageListItem sx={{ maxWidth: 150 }}>
+                <img src={logo} alt="logo" />
+              </ImageListItem>
+              <Typography fontWeight={"bold"} fontSize={"20px"}>
+                Welcome to <b style={{ color: "#16C2D5" }}> NeuroGenAI</b>
+              </Typography>
+              <Typography>Your ultimate health care companion</Typography>
+            </Stack>
+            <Stack alignItems={"center"} gap={1}>
+              <Typography>
+                You get a response after you{" "}
+                <b style={{ fontWeight: "bold",fontSize:"18px" }}> Chat </b>
+              </Typography>
+            </Stack>
+          </Card>
+        ) : (
+          userMessages.map((message, index) => (
             <Stack
-              direction={"row"}
-              gap={2}
-              alignItems={"flex-start"}
-              justifyContent="flex-start"
               sx={{
-                width: isMobile ? "100%": "80%",
+                width: "100%",
+                p: 1,
+                backgroundColor: message.isQuestion ? "#FFFFFF" : "#DFF2F4", // Conditionally set the background color
               }}
+              alignItems={"center"}
+              key={index}
             >
-              <Card
+              <Stack
+                direction={"row"}
+                gap={2}
+                alignItems={"flex-start"}
+                justifyContent="flex-start"
                 sx={{
-                  p: 1,
-                  borderRadius: 2,
-                  backgroundColor: message.isQuestion ? "#FFFFFF" : "#DFF2F4",
-                  color: "#272727",
-                  boxShadow: 0,
-                  position: "relative",
-                  width: "100%",
+                  width: isMobile ? "100%" : "80%",
                 }}
               >
-                <Stack
-                  direction={"row"}
-                  alignItems={"flex-start"}
-                  justifyContent={"flex-start"}
-                  gap={2}
-                  sx={{ pt: 2 }}
+                <Card
+                  sx={{
+                    p: 1,
+                    borderRadius: 2,
+                    backgroundColor: message.isQuestion ? "#FFFFFF" : "#DFF2F4",
+                    color: "#272727",
+                    boxShadow: 0,
+                    position: "relative",
+                    width: "100%",
+                  }}
                 >
-                  {!message.isQuestion && (
-                    <ImageListItem
-                      sx={{
-                        maxWidth: isMobile ? "25px" : "50px",
-                        minWidth: isMobile ? "25px" : "50px",
-                        maxHeight: isMobile ? "25px" : "50px",
-                        minHeight: isMobile ? "25px" : "50px",
-                        borderRadius: "50%",
-                        border: "0.5px solid #16C2D5",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <img
-                        src={logo}
-                        alt="logo"
-                        style={{ borderRadius: "50%" }}
-                      />
-                    </ImageListItem>
-                  )}
-                  <Typography sx={{ width: "95%" }}>
-                    {parse(message.message)}
-                  </Typography>
-                </Stack>
-                {!message.isQuestion && (
-                  <IconButton
-                    sx={{
-                      position: "absolute",
-                      top: "0",
-                      right: "0",
-                    }}
-                    onClick={() => handleCopyMessage(message.message)}
+                  <Stack
+                    direction={"row"}
+                    alignItems={"flex-start"}
+                    justifyContent={"flex-start"}
+                    gap={2}
+                    sx={{ pt: 2 }}
                   >
-                    <FileCopy />
-                  </IconButton>
-                )}
-              </Card>
+                    {!message.isQuestion && (
+                      <ImageListItem
+                        sx={{
+                          maxWidth: isMobile ? "25px" : "50px",
+                          minWidth: isMobile ? "25px" : "50px",
+                          maxHeight: isMobile ? "25px" : "50px",
+                          minHeight: isMobile ? "25px" : "50px",
+                          borderRadius: "50%",
+                          border: "0.5px solid #16C2D5",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <img
+                          src={logo}
+                          alt="logo"
+                          style={{ borderRadius: "50%" }}
+                        />
+                      </ImageListItem>
+                    )}
+                    <Typography sx={{ width: "95%" }}>
+                      {parse(message.message)}
+                    </Typography>
+                  </Stack>
+                  {!message.isQuestion && (
+                    <IconButton
+                      sx={{
+                        position: "absolute",
+                        top: "0",
+                        right: "0",
+                      }}
+                      onClick={() => handleCopyMessage(message.message)}
+                    >
+                      <FileCopy />
+                    </IconButton>
+                  )}
+                </Card>
+              </Stack>
             </Stack>
-          </Stack>
-        ))}
+          ))
+        )}
       </Stack>
       <Paper
         component="form"
@@ -230,10 +249,10 @@ const Chat = () => {
           onKeyPress={handleKeyPress}
           placeholder="Type Something..."
         />
-        <IconButton onClick={handleMicClick}>
+        <IconButton onClick={handleMicClick} sx={{color:"#212121"}}>
           <Mic />
         </IconButton>
-        <IconButton type="submit">
+        <IconButton type="submit" sx={{color:"#16C2D5"}}>
           <Send />
         </IconButton>
       </Paper>

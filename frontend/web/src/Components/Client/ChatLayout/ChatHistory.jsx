@@ -16,7 +16,11 @@ import parse from "html-react-parser";
 import { getChatHistory } from "../../../Utils/Store/PredictionStore";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../../../Image/image 14.png";
+import { useParams } from "react-router-dom";
 const ChatHistory = () => {
+  const { id } = useParams();
+  console.log(id);
+
   const [userMessages, setUserMessages] = useState([]);
   const [question, setQuestion] = useState("");
   const chatContainerRef = useRef(null);
@@ -65,27 +69,42 @@ const ChatHistory = () => {
     (state) => state.PredictionStore.OutputChatHistory
   );
 
+
   useEffect(() => {
+    // Filter chat history based on the `id` parameter and set it to userMessages state
     if (chatHistory?.chatMessages) {
+      const HistoryOfChat = chatHistory?.chatMessages?.map(
+        (item) => item.conversationArrays
+      );
+      const HistoryOfChat0 = HistoryOfChat?.[0];
+
+      const firstArrayHistory = HistoryOfChat0?.filter(
+        (conversation, index) => {
+          if (conversation.length > 0) {
+            const firstMessage = conversation[0];
+            return firstMessage._id === id;
+          }
+          return null;
+        }
+      );
+
+      console.log(firstArrayHistory[0]);
       const newMessages = [];
-      for (let i = 0; i <= chatHistory.chatMessages.length - 1; i++) {
-        const question = chatHistory.chatMessages[i]?.question;
-        const response = chatHistory.chatMessages[i]?.response;
+      for (const message of firstArrayHistory[0]) {
+        const question = message.text;
+        const role = message.role;
 
         if (question) {
-          newMessages.push({ message: formatText(question), isQuestion: true });
-        }
-
-        if (response) {
           newMessages.push({
-            message: formatText(response),
-            isQuestion: false,
+            message: formatText(question),
+            isQuestion: role === "user" ? true : false,
           });
         }
+
       }
       setUserMessages(newMessages);
     }
-  }, [chatHistory]);
+  }, [chatHistory, id]);
 
   function formatText(text) {
     // Replace **...** with <strong>...</strong>
@@ -120,7 +139,7 @@ const ChatHistory = () => {
         }
       );
 
-      const responseData = response.data.response;
+      const responseData = response.data.response.response;
       const responseMessage = {
         message: formatText(responseData),
         isQuestion: false,
@@ -136,7 +155,7 @@ const ChatHistory = () => {
   const isMobile = useMediaQuery("(max-width: 770px)");
   const isTablet = useMediaQuery("(max-width: 430px)");
   return (
-    <Stack sx={{ width: isTablet ? "100%" : isMobile ? "100%" : "84%", }}>
+    <Stack sx={{ width: isTablet ? "100%" : isMobile ? "100%" : "84%" }}>
       <Stack
         sx={{ background: "#192655", height: "10dvh" }}
         alignItems={"center"}
@@ -175,7 +194,7 @@ const ChatHistory = () => {
               alignItems={"flex-start"}
               justifyContent="flex-start"
               sx={{
-                width: isMobile ? "100%": "80%",
+                width: isMobile ? "100%" : "80%",
               }}
             >
               <Card
@@ -194,23 +213,27 @@ const ChatHistory = () => {
                   alignItems={"flex-start"}
                   justifyContent={"flex-start"}
                   gap={2}
-                  sx={{pt:2}}
+                  sx={{ pt: 2 }}
                 >
                   {!message.isQuestion && (
                     <ImageListItem
                       sx={{
-                        maxWidth:isMobile ? "25px" : "50px",
-                        minWidth:isMobile ? "25px" : "50px",
-                        maxHeight:isMobile ? "25px" : "50px",
-                        minHeight:isMobile ? "25px" : "50px",
+                        maxWidth: isMobile ? "25px" : "50px",
+                        minWidth: isMobile ? "25px" : "50px",
+                        maxHeight: isMobile ? "25px" : "50px",
+                        minHeight: isMobile ? "25px" : "50px",
                         borderRadius: "50%",
                         border: "0.5px solid #16C2D5",
-                        display:"flex",
-                        alignItems:"center",
-                        justifyContent:"center"
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
-                      <img src={logo} alt="logo" style={{borderRadius:"50%"}}/>
+                      <img
+                        src={logo}
+                        alt="logo"
+                        style={{ borderRadius: "50%" }}
+                      />
                     </ImageListItem>
                   )}
                   <Typography sx={{ width: "95%" }}>
@@ -240,7 +263,7 @@ const ChatHistory = () => {
           position: "fixed",
           display: "flex",
           flexDirection: "row",
-          width: isMobile?"100%" : "50%",
+          width: isMobile ? "100%" : "50%",
           bottom: "10px",
           left: "60%",
           transform: "translateX(-50%)",

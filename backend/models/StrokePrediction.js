@@ -1,25 +1,26 @@
+// models/StrokePrediction.js
 const mongoose = require("mongoose");
 
 const StrokePredictionSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // Reference to the User model (if you have one)
+      ref: "User",
       required: true,
     },
-    advice: {
-      type: String, // Store the advice text
-    },
-    interpretation: {
-      type: String, // Store the interpretation text
+    advice: { 
+      type: String, // Store the advice text 
+    }, 
+    interpretation: { 
+      type: String, // Store the interpretation text 
     },
     prediction: {
       type: Number,
-      required: true, // Store the Logistic Regression Probability
+      required: true,
     },
     data: {
       type: Object,
-      required: true, // Store the input data used for the prediction
+      required: true,
     },
   },
   {

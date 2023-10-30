@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import {
   FormControl,
-  FormControlLabel,
   FormLabel,
   Grid,
   InputLabel,
   MenuItem,
   Paper,
-  Radio,
-  RadioGroup,
   Select,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -111,108 +109,116 @@ const HealthMetrics = ({ onDataUpdate }) => {
   };
 
   return (
-    <Paper
-      component="form"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 2,
-        p: 2,
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <FormLabel>Systolic Blood Pressure</FormLabel>
-          <FormControl fullWidth required size="small">
-            <TextField
-              label="90 - 120"
-              value={systolic_blood_pressure}
-              onChange={handlesystolic_blood_pressureChange}
-              type="number"
-              variant="outlined"
-              size="small"
-            />
-            <Typography variant="caption" color="error">
-              {systolic_blood_pressureError}
-            </Typography>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormLabel>Diastolic Blood Pressure</FormLabel>
-          <FormControl fullWidth required size="small">
-            <TextField
-              label="90 - 120"
-              value={diastolic_blood_pressure}
-              onChange={handlediastolic_blood_pressureChange}
-              type="number"
-              variant="outlined"
-              size="small"
-            />
-            <Typography variant="caption" color="error">
-              {diastolic_blood_pressureError}
-            </Typography>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required size="small">
-            <TextField
-              label="Average Glucose Level"
-              value={avg_glucose_level}
-              onChange={handleavg_glucose_levelChange}
-              type="number"
-              variant="outlined"
-              size="small"
-            />
-            <Typography variant="caption" color="error">
-              {avg_glucose_levelError}
-            </Typography>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth required size="small">
+    <Stack>
+      <Typography variant="h5" fontWeight={"bold"} color={"#16C2D5"}>
+        Health Metrics
+      </Typography>
+      <Paper
+        component="form"
+        elevation={0}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          p: 2,
+        }}
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <FormLabel>Systolic Blood Pressure</FormLabel>
+            <FormControl fullWidth required size="small">
+              <TextField
+                placeholder="60 - 140 mmHg"
+                value={systolic_blood_pressure}
+                onChange={handlesystolic_blood_pressureChange}
+                type="number"
+                variant="outlined"
+                size="small"
+              />
+              <Typography variant="caption" color="error">
+                {systolic_blood_pressureError}
+              </Typography>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormLabel>Diastolic Blood Pressure</FormLabel>
+            <FormControl fullWidth required size="small">
+              <TextField
+                placeholder="90 - 160 mmHg"
+                value={diastolic_blood_pressure}
+                onChange={handlediastolic_blood_pressureChange}
+                type="number"
+                variant="outlined"
+                size="small"
+              />
+              <Typography variant="caption" color="error">
+                {diastolic_blood_pressureError}
+              </Typography>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel id="Average-label">Average Glucose Level</InputLabel>
+            <FormControl fullWidth required size="small">
+              <TextField
+                placeholder="50 - 160 mg/dl"
+                // label="50 - 160 "
+                value={avg_glucose_level}
+                onChange={handleavg_glucose_levelChange}
+                type="number"
+                variant="outlined"
+                size="small"
+              />
+              <Typography variant="caption" color="error">
+                {avg_glucose_levelError}
+              </Typography>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <InputLabel id="stress-level-label">Stress Level</InputLabel>
-            <Select
-              labelId="stress-level-label"
-              label="Stress Level"
-              value={stressLevel}
-              onChange={handleStressLevelChange}
-            >
-              <MenuItem value="low">Low</MenuItem>
-              <MenuItem value="moderate">Moderate</MenuItem>
-              <MenuItem value="high">High</MenuItem>
-            </Select>
-          </FormControl>
+            <FormControl fullWidth required size="small">
+              <Select
+                labelId="stress-level-label"
+                // label="Stress Level"
+                value={stressLevel}
+                onChange={handleStressLevelChange}
+              >
+                <MenuItem value="low">Low</MenuItem>
+                <MenuItem value="moderate">Moderate</MenuItem>
+                <MenuItem value="high">High</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel id="Hypertension-label">Hypertension</InputLabel>
+            <FormControl fullWidth required size="small">
+              <Select
+                labelId="Hypertension-label"
+                // label="Hypertension"
+                value={hypertension}
+                onChange={handleHypertensionChange}
+              >
+                <MenuItem value="1">Yes</MenuItem>
+                <MenuItem value="0">No</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel id="Heart Disease-label">Heart Disease</InputLabel>
+            <FormControl fullWidth required size="small">
+              <Select
+                labelId="Heart Disease-label"
+                // label="Heart Disease"
+                value={heart_disease}
+                onChange={handleheart_diseaseChange}
+              >
+                <MenuItem value="1">Yes</MenuItem>
+                <MenuItem value="0">No</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={6} sm={6}>
-          <FormControl fullWidth required>
-            <FormLabel>Hypertension</FormLabel>
-            <RadioGroup
-              name="hypertension-group"
-              value={hypertension}
-              onChange={handleHypertensionChange}
-            >
-              <FormControlLabel value="1" control={<Radio />} label="Yes" />
-              <FormControlLabel value="0" control={<Radio />} label="No" />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6} sm={6}>
-          <FormControl fullWidth required>
-            <FormLabel>Heart Disease</FormLabel>
-            <RadioGroup
-              name="heart-disease-group"
-              value={heart_disease}
-              onChange={handleheart_diseaseChange}
-            >
-              <FormControlLabel value="1" control={<Radio />} label="Yes" />
-              <FormControlLabel value="0" control={<Radio />} label="No" />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </Stack>
   );
 };
 

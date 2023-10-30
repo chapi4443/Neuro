@@ -1,4 +1,4 @@
-import { Card, CardContent, Paper, Stack, Typography } from "@mui/material";
+import { Card, CardContent, Paper, Stack, Typography,Skeleton } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import parse from "html-react-parser";
@@ -20,7 +20,25 @@ const Result = () => {
   if (!StrokePrediction || !StrokePrediction.data) {
     return (
       <Stack>
-        <Typography>Loading ...</Typography>
+        <Paper elevation={0} sx={{ marginBottom: 2 }}>
+        <Card sx={{ p: 1 }}>
+        <Skeleton  animation="wave" width={210}  />
+        <CardContent>
+        <Skeleton animation="wave" />
+        </CardContent>
+        </Card>
+      </Paper>
+      <Paper elevation={0} sx={{ marginBottom: 2 }}>
+        <Card sx={{ p: 1 }}>
+        <Skeleton  animation="wave" width={210}  />
+        <CardContent>
+        <Skeleton animation="wave" />
+        <Skeleton animation="wave" />
+        <Skeleton animation="wave" />
+        <Skeleton  animation="wave" width={500}  />
+        </CardContent>
+        </Card>
+      </Paper>
       </Stack>
     );
   }
@@ -29,7 +47,7 @@ const Result = () => {
 
   return (
     <Stack>
-      <Paper elevation={3} sx={{ marginBottom: 2 }}>
+      <Paper elevation={0} sx={{ marginBottom: 2 }}>
         <Card sx={{ p: 1 }}>
           <Typography variant="h6" fontWeight={"bold"}>
             Prediction
@@ -41,7 +59,7 @@ const Result = () => {
           </CardContent>
         </Card>
       </Paper>
-      <Paper elevation={3} sx={{ marginBottom: 2 }}>
+      <Paper elevation={0} sx={{ marginBottom: 2 }}>
         <Card sx={{ p: 1 }}>
           <Typography variant="h6" fontWeight={"bold"}>
             Advice

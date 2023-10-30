@@ -60,9 +60,12 @@ const Sidebar = () => {
               height: "62px",
             }}
           >
-            <Menu sx={{
-              color:"#fff"
-            }} onClick={() => setOpenSidebar(!isMobile)} />
+            <Menu
+              sx={{
+                color: "#fff",
+              }}
+              onClick={() => setOpenSidebar(!isMobile)}
+            />
           </Box>
         </>
       ) : (
@@ -112,7 +115,7 @@ const Sidebar = () => {
                   </Button>
                 </>
               ) : (
-                <IconButton sx={{color:"#FFFFFF"}}> 
+                <IconButton sx={{ color: "#FFFFFF" }}>
                   <Close onClick={() => setOpenSidebar(isMobile)} />
                 </IconButton>
               )}
@@ -180,7 +183,7 @@ const Sidebar = () => {
                         <Chat sx={{ color: "#FFFFFF" }} />
                       </ListItemIcon>
                       <ListItemText
-                        primary="Chat Bot"
+                        primary="New Chat"
                         sx={{ color: "#FFFFFF" }}
                       />
                     </ListItemButton>
@@ -236,26 +239,23 @@ const Sidebar = () => {
               </List>
             </Stack>
             <Tooltip title="For Emergency call to Tebita Ambulance">
-
-           
-
-            <IconButton
-        sx={{
-          position: "fixed",
-          bottom: "30px",
-          right: "30px",
-          zIndex: 5,
-          background: "#16C2D5",
-          color: "white",
-          "&:hover": { color: "#192655" },
-        }}
-        onClick={() => {
-          window.location.href = "tel:8035";
-        }}
-      >
-        <Phone />
-      </IconButton>
-      </Tooltip>
+              <IconButton
+                sx={{
+                  position: "fixed",
+                  bottom: "30px",
+                  right: "30px",
+                  zIndex: 5,
+                  background: "#16C2D5",
+                  color: "white",
+                  "&:hover": { color: "#192655" },
+                }}
+                onClick={() => {
+                  window.location.href = "tel:8035";
+                }}
+              >
+                <Phone />
+              </IconButton>
+            </Tooltip>
           </Stack>
         </>
       )}

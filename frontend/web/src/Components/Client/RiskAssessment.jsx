@@ -1,33 +1,61 @@
-import {
-  Box,
-  Button,
-  MobileStepper,
-  Paper,
-  Stack,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import React, { useState } from "react";
-import { useTheme } from "@mui/material/styles";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import React , {useState} from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import PersonalInformation from "./RiskAssesment/PersonalInformation";
 import HealthLifeStyle from "./RiskAssesment/HealthLifeStyle";
 import HealthMetrics from "./RiskAssesment/HealthMetrics";
+import Result from "./RiskAssesment/Result";
+import SecondResult from "./RiskAssesment/SecondResult";
+import { Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 import {
   setStrokeRecommendations,
   setStrokepredictor,
 } from "../../Utils/Store/PredictionStore";
-import jwt_decode from "jwt-decode";
-import Cookies from "js-cookie";
-import Result from "./RiskAssesment/Result";
-import SecondResult from "./RiskAssesment/SecondResult";
-import { useNavigate } from "react-router-dom";
-const RiskAssessment = () => {
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = useState(0);
-  const [collectedData, setCollectedData] = useState({});
+const steps = [
+  "Personal Information",
+  "Health Life Style",
+  "Health metrics",
+  "result",
+];
+
+function RiskAssessment() {
   const navigate = useNavigate();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set());
+  const [collectedData, setCollectedData] = useState({});
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
   const handlePersonalInformation = (data) => {
     if (data.height !== null && data.weight !== null) {
       const heightInMeters = data.height / 100;
@@ -45,40 +73,7 @@ const RiskAssessment = () => {
     setCollectedData((prevData) => ({ ...prevData, ...data }));
   };
 
-  const steps = [
-    {
-      label: "Personal information",
-      description: (
-        <PersonalInformation onDataUpdate={handlePersonalInformation} />
-      ),
-    },
-    {
-      label: "Health and Life Style",
-      description: <HealthLifeStyle onDataUpdate={handleHealthLifeStyle} />,
-    },
-    {
-      label: "Health Metrics",
-      description: <HealthMetrics onDataUpdate={handleHealthMetrics} />,
-    },
-    {
-      label: "Result",
-      description: <Result />,
-    },
-    {
-      label: "Result",
-      description: <SecondResult />,
-    },
-  ];
 
-  const maxSteps = steps.length;
-  const handleNext = () => {
-    if (activeStep < steps.length - 1) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    }
-  };
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
   const dispatch = useDispatch();
   const token = Cookies.get("token");
   const decodedToken = jwt_decode(token);
@@ -133,14 +128,14 @@ const RiskAssessment = () => {
       })
     );
   };
-  const isSmallScreen = useMediaQuery("(max-width:770px)");
-  const isMoreSmallScreen = useMediaQuery("(max-width:430px)");
+
   return (
     <Stack
       sx={{
-        width: isMoreSmallScreen ? "100%" : isSmallScreen ? "100%" : "84%",
+        width: "84%",
       }}
     >
+       <ToastContainer />
       <Stack
         sx={{ background: "#192655", height: "10dvh" }}
         alignItems={"center"}
@@ -153,100 +148,105 @@ const RiskAssessment = () => {
       <Box
         sx={{
           flexGrow: 1,
+        p:2,
           width: "100%",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
           justifyContent: "center",
-          // height: isMoreSmallScreen ? "100dvh" : isSmallScreen && "100dvh",
+          
         }}
       >
         <Box
           sx={{
-            width: isMoreSmallScreen ? "100%" : isSmallScreen ? "70%" : "50%",
+            width: "60%",
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
           }}
         >
-          <Paper
-            square
-            elevation={0}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              height: 50,
-              pl: 2,
-              bgcolor: "background.default",
-            }}
-          >
-            <Typography variant="h5" color={"#16C2D5"} fontWeight={"bold"}>
-              {steps[activeStep].label}
-            </Typography>
-          </Paper>
-          <Box sx={{ width: "100%", p: 2 }}>
-            {steps[activeStep].description}
-          </Box>
-          <MobileStepper
-            variant="text"
-            steps={maxSteps}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-              activeStep !== maxSteps - 3 && activeStep !== maxSteps - 1 ? (
+          <Stepper activeStep={activeStep}>
+            {steps.map((label, index) => {
+              const stepProps = {};
+              const labelProps = {};
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step key={label} {...stepProps}>
+                  <StepLabel {...labelProps}></StepLabel>
+                </Step>
+              );
+            })}
+          </Stepper>
+          {activeStep === steps.length ? (
+            <React.Fragment>
+              <SecondResult />
+              <Box sx={{ display: "flex", flexDirection: "column", pt: 2 }}>
                 <Button
-                  size="small"
-                  onClick={handleNext}
-                  disabled={activeStep === maxSteps - 1}
-                >
-                  Next
-                  {theme.direction === "rtl" ? (
-                    <KeyboardArrowLeft />
-                  ) : (
-                    <KeyboardArrowRight />
-                  )}
-                </Button>
-              ) : activeStep === maxSteps - 3 && activeStep !== maxSteps - 1 ? (
-                <Button
-                  size="small"
-                  variant="outlined"
-                  onClick={() => {
-                    SubmitHandler();
-                    handleNext();
+                  onClick={() => navigate("/dashboard")}
+                  sx={{
+                    background: "#16C2D5",
+                    color: "#FFFFFF",
+                    "&:hover": { background: "#16C2D5b0" },
                   }}
                 >
-                  Submit
+                  Go to Dashboard
                 </Button>
+                <Button onClick={handleReset} color="inherit">
+                  Retake
+                </Button>
+              </Box>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {activeStep === steps.length - 4 ? (
+                <PersonalInformation onDataUpdate={handlePersonalInformation}/>
+              ) : activeStep === steps.length - 3 ? (
+                <HealthLifeStyle onDataUpdate={handleHealthLifeStyle}/>
+              ) : activeStep === steps.length - 2 ? (
+                <HealthMetrics onDataUpdate={handleHealthMetrics}/>
               ) : (
-                activeStep === maxSteps - 1 && (
+                activeStep === steps.length - 1 && <Result />
+              )}
+              <Box sx={{ display: "flex", flexDirection: "column", pt: 2 }}>
+              <Button
+  onClick={() => {
+    handleNext();
+    if (activeStep === steps.length - 2) {
+      SubmitHandler();
+    }
+  }}
+  sx={{
+    background: "#16C2D5",
+    color: "#FFFFFF",
+    "&:hover": { background: "#16C2D5b0" },
+  }}
+>
+  {activeStep === steps.length - 1
+    ? "Get more recommendations"
+    : activeStep === steps.length - 2
+    ? "Submit"
+    : `Continue${String.fromCharCode(8594)}`}
+</Button>
+                {activeStep !== steps.length - 1 && (
                   <Button
-                    size="small"
-                    variant="outlined"
-                    onClick={() => navigate("/dashboard")}
+                    color="inherit"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                    sx={{ mr: 1 }}
                   >
-                    Dashboard
+                    {String.fromCharCode(8592)}
+                    Back
                   </Button>
-                )
-              )
-            }
-            backButton={
-              activeStep !== maxSteps - 2 && (
-                <Button
-                  size="small"
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                >
-                  {theme.direction === "rtl" ? (
-                    <KeyboardArrowRight />
-                  ) : (
-                    <KeyboardArrowLeft />
-                  )}
-                  Back
-                </Button>
-              )
-            }
-          />
+                )}
+              </Box>
+            </React.Fragment>
+          )}
         </Box>
       </Box>
     </Stack>
   );
-};
+}
 
 export default RiskAssessment;

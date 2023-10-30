@@ -68,7 +68,7 @@ function* fetchSetStrokeRecommendations(action) {
     const Data = yield call(StrokeRecommendations, action.payload);
     yield put(setStrokeRecommendationsData(Data));
   } catch (error) {
-    toast.error(error.response.data.msg);
+    toast.error(error.response.data.error);
     console.error("Saga Error:", error);
   }
 }
@@ -78,7 +78,7 @@ function* fetchSetStrokepredictor(action) {
     const Data = yield call(Strokepredictor, action.payload);
     yield put(setStrokepredictorData(Data));
   } catch (error) {
-    toast.error(error.response.data.msg);
+    toast.error(error.response.data.error);
     console.error("Saga Error:", error);
   }
 }
